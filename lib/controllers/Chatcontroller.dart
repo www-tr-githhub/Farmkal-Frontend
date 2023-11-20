@@ -2,11 +2,15 @@ import 'dart:io';
 
 import 'package:farmkal/data/response/status.dart';
 import 'package:farmkal/models/MessageModel.dart';
+import 'package:farmkal/models/chatdata-model.dart';
+import 'package:farmkal/models/chatlist-model.dart';
 import 'package:farmkal/services/chat_service.dart';
 import 'package:farmkal/view_models/ChatPreference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+import '../utils/utils.dart';
 
 class ChatController extends GetxController {
   final _api = ChatService();
@@ -18,6 +22,13 @@ class ChatController extends GetxController {
   RxList<MessageModel> mes = <MessageModel>[].obs;
   final ChatPreferences _chatPreferences = ChatPreferences();
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
+  Rx<ChatList> chatlist = ChatList().obs;
+  void setChatList(ChatList value) => chatlist.value = value;
+
+  Rx<ChatData> chatingdata = ChatData().obs;
+  void setChatdata(ChatData value) => chatingdata.value = value;
+
   ScrollController scrollController = ScrollController();
   void connect() {
     // MessageModel messageModel = MessageModel(sourceId: widget.sourceChat.id.toString(),targetId: );
@@ -96,4 +107,46 @@ class ChatController extends GetxController {
   //     print("Message Saved");
   //   }
   // }
+
+  Future<void> getchatlist() async {
+    rxRequestStatus.value = Status.LOADING;
+    loading.value = true;
+
+    var data = {
+      "myEmail": "him1@g.com",
+    };
+    print(data);
+    try {
+      final response = await _api.chatlistdata(data);
+      setChatList(response);
+      setRxRequestStatus(Status.COMPLETED);
+      loading.value = false;
+    } catch (error) {
+      setRxRequestStatus(Status.ERROR);
+      print(error);
+      Get.snackbar(
+          'Your work has not been completed', "please try after sometime");
+      loading.value = false;
+    }
+  }
+
+  Future<void> getchatdata() async {
+    rxRequestStatus.value = Status.LOADING;
+    loading.value = true;
+
+    var data = {"myEmail": "him1@g.com", "friendEmail": "harshit@g.com"};
+    print(data);
+    try {
+      final response = await _api.chatingdata(data);
+      setChatdata(response);
+      setRxRequestStatus(Status.COMPLETED);
+      loading.value = false;
+    } catch (error) {
+      setRxRequestStatus(Status.ERROR);
+      print(error);
+      Get.snackbar(
+          'Your work has not been completed', "please try after sometime");
+      loading.value = false;
+    }
+  }
 }
