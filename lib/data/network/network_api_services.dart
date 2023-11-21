@@ -20,6 +20,10 @@ class NetworkApiServices extends BaseApiServices {
     if (kDebugMode) {
       print(url);
     }
+       Map<String, String> requestHeaders = {
+      // 'Authorization': 'Bearer $token',
+      'content-Type': 'application/json',
+    };
     //Json can have any model
     dynamic responseJson;
     //we use try because we know error may occur to handl the exception we use it
@@ -44,6 +48,10 @@ class NetworkApiServices extends BaseApiServices {
       print(data);
       print(url);
     }
+       Map<String, String> requestHeaders = {
+      // 'Authorization': 'Bearer $token',
+      'content-Type': 'application/json',
+    };
     dynamic responseJson;
     try {
       final response = await http
