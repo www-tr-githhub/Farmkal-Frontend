@@ -4,6 +4,7 @@ import 'package:farmkal/data/response/status.dart';
 import 'package:farmkal/models/MessageModel.dart';
 import 'package:farmkal/models/chatdata-model.dart';
 import 'package:farmkal/models/chatlist-model.dart';
+import 'package:farmkal/resources/resources/app_url.dart';
 import 'package:farmkal/services/chat_service.dart';
 import 'package:farmkal/view_models/ChatPreference.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,11 @@ class ChatController extends GetxController {
   final _api = ChatService();
   RxBool loading = false.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
-  late IO.Socket socket;
+  IO.Socket socket = IO.io("${AppUrl.BaseUrl}", <String, dynamic>{
+    "transports": ["websocket"],
+    "autoConnect": false,
+    "path": "/chatSocket",
+  });
   RxInt roomIndex = 0.obs;
   final messageController = TextEditingController().obs;
   RxList<MessageModel> mes = <MessageModel>[].obs;
@@ -32,23 +37,20 @@ class ChatController extends GetxController {
   ScrollController scrollController = ScrollController();
   void connect() {
     // MessageModel messageModel = MessageModel(sourceId: widget.sourceChat.id.toString(),targetId: );
-    socket = IO.io("http://4.246.192.231", <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": false,
-      "path": "/chatSocket",
-    });
+    // socket =
     socket.connect();
     // _userPreferences.getUserId().then((value) {
     //   socket.emit("signin", value.toString());
     // });
     socket.onConnect((data) {
       print("Connected");
-      socket.on("message", (msg) {
-        print(msg);
-        setMessage("destination", msg["message"], roomIndex.value);
-        scrollController.animateTo(scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
-      });
+    });
+
+    socket.on("message", (msg) {
+      print(msg);
+      setMessage("destination", msg["message"], roomIndex.value);
+      scrollController.animateTo(scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
     });
     print(socket.connected);
   }
@@ -76,7 +78,13 @@ class ChatController extends GetxController {
 
     mes.add(message0);
     // _chatPreferences.saveChat(mes, chatDetail.value.rooms?[roomIndex].id);
-    _chatPreferences.saveChat(mes, "messageid");
+    // _chatPreferences.saveChat(mes, "messageid");
+  }
+
+  void disconnect() {
+    if (socket != null && socket.connected == true) {
+      socket.disconnect();
+    }
   }
   // Future<void> saveChats() async {
   //   final userId = await _userPreferences.getUserId();
@@ -130,15 +138,24 @@ class ChatController extends GetxController {
     }
   }
 
-  Future<void> getchatdata() async {
+  Future<void> getchatdata(String sourceId, String targetId) async {
     rxRequestStatus.value = Status.LOADING;
     loading.value = true;
 
+    // var data = {"myEmail": sourceId, "friendEmail": targetId};
     var data = {"myEmail": "him1@g.com", "friendEmail": "harshit@g.com"};
+
     print(data);
     try {
       final response = await _api.chatingdata(data);
       setChatdata(response);
+      for (int i = 0; i < chatingdata.value.chatData!.length; i++) {
+        if (chatingdata.value.chatData![i].type == "post") {
+          setMessage("source", chatingdata.value.chatData![i].message!, 0);
+        } else {
+          setMessage("destination", chatingdata.value.chatData![i].message!, 0);
+        }
+      }
       setRxRequestStatus(Status.COMPLETED);
       loading.value = false;
     } catch (error) {

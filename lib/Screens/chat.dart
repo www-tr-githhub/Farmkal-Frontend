@@ -47,11 +47,14 @@ class _ChatPageState extends State<ChatPage> {
                                 color: Colors.grey,
                               ))),
                     ),
-                    if (_chatController.chatlist.value.emailList == null)
+                    if (_chatController.chatlist.value.emailList != null)
                       for (var i = 0;
                           i < _chatController.chatlist.value.emailList!.length;
                           i++)
-                        UserChat(),
+                        UserChat(
+                            _chatController.chatlist.value.emailList![i].name!,
+                            _chatController
+                                .chatlist.value.emailList![i].email!),
                   ]),
                 ),
               );
@@ -60,13 +63,13 @@ class _ChatPageState extends State<ChatPage> {
   }
 }
 
-Widget UserChat() {
+Widget UserChat(String name, String email) {
   return ListTile(
     onTap: () {
       Get.to(ChatScreen(
-        targetId: '1234',
-        sourceId: '5678',
-        targetname: 'Name',
+        targetId: email,
+        sourceId: 'tanisha',
+        targetname: name,
         roomindex: 0,
         userimage:
             'https://cdn.pixabay.com/photo/2019/11/19/07/18/network-4636686_640.jpg',
@@ -75,7 +78,7 @@ Widget UserChat() {
     leading: CircleAvatar(
       backgroundImage: AssetImage('assets/gif/images.jpeg'),
     ),
-    title: Text("Name"),
+    title: Text(name),
     subtitle: Text("Last Message"),
     trailing: Text("Time"),
   );

@@ -1,4 +1,5 @@
 import 'package:farmkal/Screens/chat.dart';
+import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/view/onboarding.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class Home_Screen extends StatefulWidget {
 }
 
 class _Home_ScreenState extends State<Home_Screen> {
+  ChatController _chatController = Get.find<ChatController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +40,7 @@ class _Home_ScreenState extends State<Home_Screen> {
             ),
             IconButton(
                 onPressed: () {
+                  _chatController.connect();
                   Get.to(() => ChatPage());
                 },
                 icon: Icon(

@@ -20,7 +20,7 @@ class NetworkApiServices extends BaseApiServices {
     if (kDebugMode) {
       print(url);
     }
-       Map<String, String> requestHeaders = {
+    Map<String, String> requestHeaders = {
       // 'Authorization': 'Bearer $token',
       'content-Type': 'application/json',
     };
@@ -29,8 +29,9 @@ class NetworkApiServices extends BaseApiServices {
     //we use try because we know error may occur to handl the exception we use it
     try {
       //response of the api will be stored & converting string url to uri using uri.parse
-      final response =
-          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      final response = await http
+          .get(Uri.parse(url), headers: requestHeaders)
+          .timeout(const Duration(seconds: 10));
       //store the valuse
       responseJson = returnResponse(response);
     } on SocketException {
@@ -48,14 +49,14 @@ class NetworkApiServices extends BaseApiServices {
       print(data);
       print(url);
     }
-       Map<String, String> requestHeaders = {
+    Map<String, String> requestHeaders = {
       // 'Authorization': 'Bearer $token',
       'content-Type': 'application/json',
     };
     dynamic responseJson;
     try {
       final response = await http
-          .post(Uri.parse(url), body: jsonEncode(data))
+          .post(Uri.parse(url), body: jsonEncode(data), headers: requestHeaders)
           .timeout(const Duration(seconds: 10));
       responseJson = returnResponse(response);
     } on SocketException {
