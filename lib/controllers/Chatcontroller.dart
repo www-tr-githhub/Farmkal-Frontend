@@ -39,7 +39,7 @@ class ChatController extends GetxController {
   void connect() {
     socket.connect();
     // _userPreferences.getUserId().then((value) {
-    socket.emit("signin", "tanisha@g.com");
+    socket.emit('signin', {"emailId": "him1@g.com"});
     // });
 
     socket.on("chat", (msg) {
