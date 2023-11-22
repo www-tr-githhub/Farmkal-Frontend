@@ -17,7 +17,7 @@ class ChatController extends GetxController {
   final _api = ChatService();
   RxBool loading = false.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
-  IO.Socket socket = IO.io("${AppUrl.BaseUrl}", <String, dynamic>{
+  IO.Socket socket = IO.io("https://v9tzvk-4000.csb.app", <String, dynamic>{
     "transports": ["websocket"],
     "autoConnect": false,
     "path": "/chatSocket",
@@ -35,25 +35,27 @@ class ChatController extends GetxController {
   void setChatdata(ChatData value) => chatingdata.value = value;
 
   ScrollController scrollController = ScrollController();
+
   void connect() {
-    // MessageModel messageModel = MessageModel(sourceId: widget.sourceChat.id.toString(),targetId: );
-    // socket =
-    print("inside connection");
     socket.connect();
     // _userPreferences.getUserId().then((value) {
-    //   socket.emit("signin", value.toString());
+    socket.emit("signin", "tanisha@g.com");
     // });
-    socket.onConnect((data) {
-      print("Connected");
-    });
 
-    socket.on("message", (msg) {
+    socket.on("chat", (msg) {
       print(msg);
       setMessage("destination", msg["message"], roomIndex.value);
       scrollController.animateTo(scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
     });
-    print("${socket.connected} not connected backend issue");
+
+    socket.onConnect((data) {
+      print("socket connected");
+
+      print("Connected");
+    });
+
+    print(socket.connected);
   }
 
   void sendMessage(
@@ -65,7 +67,7 @@ class ChatController extends GetxController {
     messageText = messageText.trim();
     if (messageText.isNotEmpty) {
       setMessage("source", messageText, roomIndex);
-      socket.emit("message", {
+      socket.emit("chat", {
         "message": messageText,
         "sourceId": sourceId,
         "targetId": targetId,

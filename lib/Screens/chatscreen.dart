@@ -134,22 +134,25 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: [
                     _chatController.mes.isNotEmpty
                         ? Expanded(
-                            child: ListView.builder(
-                              reverse: true,
-                              controller: _chatController.scrollController,
-                              itemCount: _chatController.mes.length,
-                              itemBuilder: (context, index) {
-                                index = _chatController.mes.length - index - 1;
-                                return MessageBubble(
-                                  text: _chatController.mes[index].message!,
-                                  isMe: _chatController.mes[index].type!,
-                                  imagelink: (_chatController.chatingdata.value
-                                              .chatData![index].type) !=
-                                          "post"
-                                      ? userimage
-                                      : widget.userimage,
-                                );
-                              },
+                            child: Obx(
+                              () => ListView.builder(
+                                reverse: true,
+                                controller: _chatController.scrollController,
+                                itemCount: _chatController.mes.length,
+                                itemBuilder: (context, index) {
+                                  index =
+                                      _chatController.mes.length - index - 1;
+                                  return MessageBubble(
+                                    text: _chatController.mes[index].message!,
+                                    isMe: _chatController.mes[index].type!,
+                                    imagelink: (_chatController.chatingdata
+                                                .value.chatData![index].type) !=
+                                            "post"
+                                        ? userimage
+                                        : widget.userimage,
+                                  );
+                                },
+                              ),
                             ),
                           )
                         : Expanded(child: Center(child: Text("No text yet"))),
