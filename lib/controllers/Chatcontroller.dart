@@ -38,6 +38,7 @@ class ChatController extends GetxController {
   void connect() {
     // MessageModel messageModel = MessageModel(sourceId: widget.sourceChat.id.toString(),targetId: );
     // socket =
+    print("inside connection");
     socket.connect();
     // _userPreferences.getUserId().then((value) {
     //   socket.emit("signin", value.toString());
@@ -52,7 +53,7 @@ class ChatController extends GetxController {
       scrollController.animateTo(scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
     });
-    print(socket.connected);
+    print("${socket.connected} not connected backend issue");
   }
 
   void sendMessage(
@@ -83,7 +84,10 @@ class ChatController extends GetxController {
 
   void disconnect() {
     if (socket != null && socket.connected == true) {
+      print("disconnected");
       socket.disconnect();
+    } else {
+      print("The socket was not connected");
     }
   }
   // Future<void> saveChats() async {
@@ -151,7 +155,9 @@ class ChatController extends GetxController {
       setChatdata(response);
       for (int i = 0; i < chatingdata.value.chatData!.length; i++) {
         if (chatingdata.value.chatData![i].type == "post") {
+          print("${chatingdata.value.chatData![i].message!}");
           setMessage("source", chatingdata.value.chatData![i].message!, 0);
+          print("message got set");
         } else {
           setMessage("destination", chatingdata.value.chatData![i].message!, 0);
         }
