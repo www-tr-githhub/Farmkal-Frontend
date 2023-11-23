@@ -17,7 +17,7 @@ class ChatController extends GetxController {
   final _api = ChatService();
   RxBool loading = false.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
-  IO.Socket socket = IO.io('https://v9tzvk-4003.csb.app', <String, dynamic>{
+  IO.Socket socket = IO.io('https://v9tzvk-4000.csb.app', <String, dynamic>{
     "transports": ["websocket"],
     "autoConnect": false,
     "headers": {
