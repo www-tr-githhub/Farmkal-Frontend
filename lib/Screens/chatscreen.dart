@@ -44,7 +44,6 @@ class _ChatScreenState extends State<ChatScreen> {
     RxBool emojiShowing = false.obs;
     return WillPopScope(
       onWillPop: () async {
-        _chatController.disconnect();
         _chatController.mes.clear();
         return Future.value(true);
       },
@@ -130,6 +129,7 @@ class _ChatScreenState extends State<ChatScreen> {
               case Status.ERROR:
                 return Utils.SnackBar('No Internet', 'No Internet');
               case Status.COMPLETED:
+                print(_chatController.mes.length);
                 return Column(
                   children: [
                     _chatController.mes.isNotEmpty
@@ -140,8 +140,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                 controller: _chatController.scrollController,
                                 itemCount: _chatController.mes.length,
                                 itemBuilder: (context, index) {
-                                  index =
-                                      _chatController.mes.length - index - 1;
+                                  // index =
+                                  //     _chatController.mes.length - index - 1;
                                   return MessageBubble(
                                     text: _chatController.mes[index].message!,
                                     isMe: _chatController.mes[index].type!,

@@ -24,42 +24,52 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     print(_chatController.rxRequestStatus.value);
-    return Scaffold(
-        appBar: AppBar(title: Text("Chats")),
-        body: Obx(() {
-          switch (_chatController.rxRequestStatus.value) {
-            case Status.LOADING:
-              return Center(child: CircularProgressIndicator());
-            case Status.ERROR:
-              return Utils.SnackBar('No Internet', 'No Internet');
-            case Status.COMPLETED:
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: Column(children: [
-                    TextField(
-                      decoration: InputDecoration(
-                          hintText: "Search......",
-                          hintStyle: TextStyle(color: Colors.grey),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                              ))),
-                    ),
-                    if (_chatController.chatlist.value.emailList != null)
-                      for (var i = 0;
-                          i < _chatController.chatlist.value.emailList!.length;
-                          i++)
-                        UserChat(
-                            _chatController.chatlist.value.emailList![i].name!,
-                            _chatController
-                                .chatlist.value.emailList![i].email!),
-                  ]),
-                ),
-              );
-          }
-        }));
+    return WillPopScope(
+      onWillPop: () async {
+        _chatController.disconnect();
+
+        return Future.value(true);
+      },
+      child: Scaffold(
+          appBar: AppBar(title: Text("Chats")),
+          body: Obx(() {
+            switch (_chatController.rxRequestStatus.value) {
+              case Status.LOADING:
+                return Center(child: CircularProgressIndicator());
+              case Status.ERROR:
+                return Utils.SnackBar('No Internet', 'No Internet');
+              case Status.COMPLETED:
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Column(children: [
+                      TextField(
+                        decoration: InputDecoration(
+                            hintText: "Search......",
+                            hintStyle: TextStyle(color: Colors.grey),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ))),
+                      ),
+                      if (_chatController.chatlist.value.emailList != null)
+                        for (var i = 0;
+                            i <
+                                _chatController
+                                    .chatlist.value.emailList!.length;
+                            i++)
+                          UserChat(
+                              _chatController
+                                  .chatlist.value.emailList![i].name!,
+                              _chatController
+                                  .chatlist.value.emailList![i].email!),
+                    ]),
+                  ),
+                );
+            }
+          })),
+    );
   }
 }
 

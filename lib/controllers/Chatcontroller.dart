@@ -17,10 +17,13 @@ class ChatController extends GetxController {
   final _api = ChatService();
   RxBool loading = false.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
-  IO.Socket socket = IO.io("https://v9tzvk-4000.csb.app", <String, dynamic>{
+  IO.Socket socket = IO.io('https://v9tzvk-4003.csb.app', <String, dynamic>{
     "transports": ["websocket"],
     "autoConnect": false,
-    "path": "/chatSocket",
+    "headers": {
+      "Access-Control-Allow-Origin":
+          "*", // Adjust this based on your server's CORS policy
+    },
   });
   RxInt roomIndex = 0.obs;
   final messageController = TextEditingController().obs;
@@ -36,26 +39,24 @@ class ChatController extends GetxController {
 
   ScrollController scrollController = ScrollController();
 
-  void connect() {
+  void connect(String emailId) {
+    print("socket connected");
     socket.connect();
-    // _userPreferences.getUserId().then((value) {
-    socket.emit("signin", "tanisha@g.com");
-    // });
-
-    socket.on("chat", (msg) {
-      print(msg);
-      setMessage("destination", msg["message"], roomIndex.value);
-      scrollController.animateTo(scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
-    });
+    socket.emit('signin', {"emailId": emailId});
 
     socket.onConnect((data) {
-      print("socket connected");
-
       print("Connected");
     });
-
     print(socket.connected);
+
+    if (socket.connected) {
+      socket.on("message", (msg) {
+        print(msg);
+        setMessage("destination", msg["message"], roomIndex.value);
+        scrollController.animateTo(scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+      });
+    }
   }
 
   void sendMessage(

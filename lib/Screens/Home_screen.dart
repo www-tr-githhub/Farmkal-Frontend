@@ -40,7 +40,7 @@ class _Home_ScreenState extends State<Home_Screen> {
             ),
             IconButton(
                 onPressed: () {
-                  _chatController.connect();
+                  _chatController.connect("him1@g.com");
                   Get.to(() => ChatPage());
                 },
                 icon: Icon(
