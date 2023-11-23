@@ -40,23 +40,23 @@ class ChatController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   void connect(String emailId) {
-    print("socket connected");
     socket.connect();
     socket.emit('signin', {"emailId": emailId});
 
     socket.onConnect((data) {
+      print("socket connected");
+
       print("Connected");
     });
-    print(socket.connected);
 
-    if (socket.connected) {
-      socket.on("message", (msg) {
-        print(msg);
-        setMessage("destination", msg["message"], roomIndex.value);
-        scrollController.animateTo(scrollController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
-      });
-    }
+    // if (socket.connected) {
+    //   socket.on("message", (msg) {
+    //     print(msg);
+    //     setMessage("destination", msg["message"], roomIndex.value);
+    //     scrollController.animateTo(scrollController.position.maxScrollExtent,
+    //         duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+    //   });
+    // }
   }
 
   void sendMessage(

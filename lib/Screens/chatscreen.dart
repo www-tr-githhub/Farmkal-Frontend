@@ -34,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _chatController.mes.clear();
-      _chatController.getchatdata("tanisha", widget.targetId);
+      _chatController.getchatdata("him@1.gmail.com", widget.targetId);
     });
   }
 
@@ -140,16 +140,16 @@ class _ChatScreenState extends State<ChatScreen> {
                                 controller: _chatController.scrollController,
                                 itemCount: _chatController.mes.length,
                                 itemBuilder: (context, index) {
-                                  // index =
-                                  //     _chatController.mes.length - index - 1;
+                                  index =
+                                      _chatController.mes.length - index - 1;
                                   return MessageBubble(
                                     text: _chatController.mes[index].message!,
                                     isMe: _chatController.mes[index].type!,
-                                    imagelink: (_chatController.chatingdata
-                                                .value.chatData![index].type) !=
-                                            "post"
-                                        ? userimage
-                                        : widget.userimage,
+                                    imagelink:
+                                        (_chatController.mes[index].type) ==
+                                                "source"
+                                            ? userimage
+                                            : widget.userimage,
                                   );
                                 },
                               ),
@@ -319,6 +319,8 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(text);
+    print(isMe);
     BorderRadius borderRadius = BorderRadius.only(
       topLeft: Radius.circular(14),
       topRight: const Radius.circular(14),
@@ -327,7 +329,7 @@ class MessageBubble extends StatelessWidget {
     );
 
     Color messageColor =
-        isMe != "destination" ? Appcolor.blueColor : const Color(0xFFEFD5FF);
+        isMe != "destination" ? Colors.green : Appcolor.blueColor;
     Color textColor =
         isMe != "destination" ? Colors.white : Appcolor.blackcolor;
 
@@ -365,7 +367,7 @@ class MessageBubble extends StatelessWidget {
             decoration: BoxDecoration(
               // borderRadius: BorderRadius.only(),
               borderRadius: borderRadius,
-              color: messageColor == Colors.pink ? messageColor : Colors.white,
+              color: isMe == "source" ? Colors.green : Colors.white,
               // : AppColor.greyColor.withOpacity(0.10),
               // gradient: messageGradient,
             ),
@@ -380,7 +382,7 @@ class MessageBubble extends StatelessWidget {
               children: [
                 Text(
                   text,
-                  style: GoogleFonts.poppins(color: textColor),
+                  style: GoogleFonts.poppins(color: Colors.white),
                 ),
               ],
             ),
