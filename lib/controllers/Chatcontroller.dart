@@ -70,9 +70,9 @@ class ChatController extends GetxController {
       setMessage("source", messageText, roomIndex);
       socket.emit("chat", {
         "message": messageText,
-        "sourceId": sourceId,
-        "targetId": targetId,
-        "roomIndex": roomIndex
+        // "sourceId": sourceId,
+        "receiverEmailId": "harshit@g.com",
+        // "roomIndex": roomIndex
       });
     }
   }
