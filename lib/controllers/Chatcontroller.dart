@@ -69,10 +69,10 @@ class ChatController extends GetxController {
     if (messageText.isNotEmpty) {
       setMessage("source", messageText, roomIndex);
       socket.emit("chat", {
+        "receiverEmailId": targetId,
         "message": messageText,
-        "sourceId": sourceId,
-        "targetId": targetId,
-        "roomIndex": roomIndex
+        // "receiver": sourceId,
+        // "roomIndex": roomIndex
       });
     }
   }
