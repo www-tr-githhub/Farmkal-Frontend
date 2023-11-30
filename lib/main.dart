@@ -2,6 +2,7 @@ import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/resources/resources/routes/routes.dart';
 import 'package:farmkal/resources/resources/routes/routes_name.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);

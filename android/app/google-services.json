@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "325031696972",
+    "project_id": "phoneauth-239a3",
+    "storage_bucket": "phoneauth-239a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325031696972:android:2eac4c61a9543ceedfb2e9",
+        "android_client_info": {
+          "package_name": "com.example.farmkal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCus8KPeQ3CrVyPLEAj6UEId3_7ZDUejt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
