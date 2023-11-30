@@ -237,27 +237,32 @@ class _OtpScreenState extends State<OtpScreen> {
                         SizedBox(
                           width: 50,
                           height: 50,
-                          child: TextButton(
-                            onPressed: otp.length == 4
-                                ? () {
-                                    loginController
-                                        .verifyOtp(widget.verificationId);
-                                    // Get.toNamed(RouteName.location);
-                                  }
-                                : null,
-                            style: TextButton.styleFrom(
-                              backgroundColor: Appcolor.greencolor,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.width * 0.1),
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                            ),
-                          ),
+                          child: loginController.loading.value == true
+                              ? const Center(child: CircularProgressIndicator())
+                              : TextButton(
+                                  onPressed: otp.length == 6
+                                      ? () {
+                                          print("otp");
+
+                                          loginController
+                                              .verifyOtp(widget.verificationId);
+                                          // Get.toNamed(RouteName.location);
+                                        }
+                                      : null,
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Appcolor.greencolor,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          MediaQuery.of(context).size.width *
+                                              0.1),
+                                    ),
+                                  ),
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  ),
+                                ),
                         ),
                         //
                         //
@@ -272,7 +277,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   Widget otpField(LoginController otpController) {
     return OTPTextField(
-      length: 4,
+      length: 6,
       keyboardType: TextInputType.number,
       width: MediaQuery.of(context).size.width - 34,
       fieldWidth: 50,
@@ -289,8 +294,9 @@ class _OtpScreenState extends State<OtpScreen> {
       onCompleted: (pin) {
         setState(() {
           otp = pin;
+          print("${otp}");
         });
-        //otpController.updateOtp(pin);
+        otpController.updateOtp(pin);
       },
     );
   }

@@ -10,7 +10,13 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+    apiKey: "AIzaSyCus8KPeQ3CrVyPLEAj6UEId3_7ZDUejt8",
+    appId: "1:325031696972:android:2eac4c61a9543ceedfb2e9",
+    messagingSenderId: "325031696972",
+    projectId: "phoneauth-239a3",
+  ));
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);

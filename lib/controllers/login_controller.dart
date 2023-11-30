@@ -18,21 +18,33 @@ class LoginController extends GetxController {
     phoneNo.value = phone;
   }
 
+  updateOtp(phone) {
+    otpController.value = phone;
+  }
+
   // void sendOtp() {
   //   //Get.to(RouteName.verifyOtp); ---> make the verify-otp.dart page then it will navigate
   //   Get.to(OtpScreen());
   // }
 
   void verifyOtp(String verificationId) {
+    print("${otpController.value}");
+    print("verify otp");
+    loading.value = true;
+    setRxRequestStatus(Status.LOADING);
     String smscode = otpController.value;
     PhoneAuthCredential _credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: smscode);
     auth.signInWithCredential(_credential).then((result) {
       if (result != null) {
         Get.to(Home_Screen());
+        loading.value = false;
+        setRxRequestStatus(Status.COMPLETED);
       }
     }).catchError((e) {
-      print(e);
+      print("${e}, error occured");
+      loading.value = false;
+      setRxRequestStatus(Status.COMPLETED);
     });
   }
 
@@ -51,6 +63,8 @@ class LoginController extends GetxController {
           },
           verificationFailed: ((error) {
             print(error);
+            loading.value = false;
+            setRxRequestStatus(Status.COMPLETED);
           }),
           codeSent: (String verificationId, [int? forceResendingToken]) {
             Get.to(OtpScreen(
@@ -65,6 +79,8 @@ class LoginController extends GetxController {
           timeout: Duration(seconds: 45));
     } catch (e) {
       print(" error ---> ${e.toString()}");
+      loading.value = false;
+      setRxRequestStatus(Status.COMPLETED);
     }
   }
 }
