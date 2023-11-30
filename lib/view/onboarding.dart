@@ -183,7 +183,8 @@ class _PageControllerAppState extends State<PageControllerApp> {
                                         ? () {
                                             if (loginController
                                                 .phoneNo.value.isNotEmpty) {
-                                              loginController.sendOtp();
+                                              loginController
+                                                  .signInWithMobileNumber();
                                             } else {
                                               Get.snackbar(
                                                   "Please Enter your phone number",

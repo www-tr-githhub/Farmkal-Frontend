@@ -14,7 +14,8 @@ import 'package:otp_text_field/otp_field_style.dart';
 import 'package:otp_text_field/style.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+  final String verificationId;
+  const OtpScreen({super.key, required this.verificationId});
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
@@ -55,7 +56,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   void resendOtp() {
-    loginController.sendOtp();
+    loginController.verifyOtp(widget.verificationId);
 
     timerDuration = 180;
     startTimer();
@@ -239,7 +240,8 @@ class _OtpScreenState extends State<OtpScreen> {
                           child: TextButton(
                             onPressed: otp.length == 4
                                 ? () {
-                                    loginController.verifyOtp();
+                                    loginController
+                                        .verifyOtp(widget.verificationId);
                                     // Get.toNamed(RouteName.location);
                                   }
                                 : null,
