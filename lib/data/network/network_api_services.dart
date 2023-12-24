@@ -42,6 +42,38 @@ class NetworkApiServices extends BaseApiServices {
     return responseJson;
   }
 
+  @override
+  Future<dynamic> getApiwithtoken(
+      String url, String token, String roomId) async {
+    //using await so async
+    //while debuging we want to see thye url
+    //to check the url is corrctv we print it
+    if (kDebugMode) {
+      print(url);
+    }
+    Map<String, String> requestHeaders = {
+      'Authorization': 'Bearer $token',
+      'content-Type': 'application/json',
+    };
+    //Json can have any model
+    dynamic responseJson;
+    //we use try because we know error may occur to handl the exception we use it
+    try {
+      //response of the api will be stored & converting string url to uri using uri.parse
+      final response = await http
+          .get(Uri.parse(roomId.isEmpty ? url : url + roomId),
+              headers: requestHeaders)
+          .timeout(const Duration(seconds: 10));
+      //store the valuse
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOut {
+      throw RequestTimeOut('');
+    }
+    return responseJson;
+  }
+
 //datas are matched
   @override
   Future<dynamic> postApi(var data, String url) async {
