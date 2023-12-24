@@ -7,6 +7,7 @@ import 'package:farmkal/models/chatlist-model.dart';
 import 'package:farmkal/resources/resources/app_url.dart';
 import 'package:farmkal/services/chat_service.dart';
 import 'package:farmkal/view_models/ChatPreference.dart';
+import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -15,6 +16,7 @@ import '../utils/utils.dart';
 
 class ChatController extends GetxController {
   final _api = ChatService();
+  UserPreference _userPreference = new UserPreference();
   RxBool loading = false.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
   String? token;
@@ -41,15 +43,16 @@ class ChatController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   void connect(String emailId) {
-    socket.connect();
-    socket.emit('signin', {"emailId": emailId});
-
     socket.onConnect((data) {
       print("socket connected");
 
       print("Connected");
     });
+    socket.emit('signin', {"emailId": emailId});
 
+    if (!socket.connected) {
+      socket.connect();
+    }
     // if (socket.connected) {
     //   socket.on("message", (msg) {
     //     print(msg);
@@ -127,13 +130,9 @@ class ChatController extends GetxController {
   Future<void> getchatlist() async {
     rxRequestStatus.value = Status.LOADING;
     loading.value = true;
-
-    var data = {
-      "myEmail": "him1@g.com",
-    };
-    print(data);
     try {
-      final response = await _api.chatlistdata(data, token!);
+      final token = _userPreference.getToken();
+      final response = await _api.chatlistdata(token.toString());
       setChatList(response);
       setRxRequestStatus(Status.COMPLETED);
       loading.value = false;
@@ -155,9 +154,9 @@ class ChatController extends GetxController {
 
     print(data);
     try {
-      final response = await _api.chatlistdata(data ?? '', token ?? '');
-
-      setChatdata(response as ChatData);
+      final response = await _api.chatingdata(
+          _userPreference.getToken().toString(), "1234@tanishagmail.com");
+      setChatdata(response);
       for (int i = 0; i < chatingdata.value.chatData!.length; i++) {
         if (chatingdata.value.chatData![i].type == "post") {
           print("${chatingdata.value.chatData![i].message!}");

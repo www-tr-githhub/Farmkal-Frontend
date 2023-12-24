@@ -8,17 +8,17 @@ import '../models/chatlist-model.dart';
 class ChatService {
   final _chatService = NetworkApiServices();
 
-  Future<ChatList> chatlistdata(var data, String token) async {
+  Future<ChatList> chatlistdata(String token) async {
     dynamic response =
-        await _chatService.postDataWithToken(data, token, AppUrl.chatList);
+        await _chatService.getApiwithtoken(AppUrl.chatList, token, '');
 
     print(response);
     return ChatList.fromJson(response);
   }
 
-  Future<ChatData> chatingdata(var data, String token) async {
+  Future<ChatData> chatingdata(String token, String roomId) async {
     dynamic response =
-        await _chatService.postDataWithToken(data, token, AppUrl.chatData);
+        await _chatService.getApiwithtoken(AppUrl.chatData, token, roomId);
 
     print(response);
     return ChatData.fromJson(response);

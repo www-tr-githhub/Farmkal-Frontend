@@ -136,6 +136,35 @@ class _PageControllerAppState extends State<PageControllerApp> {
                   },
                 ),
               ),
+
+              InkWell(
+                onTap: () {
+                  loginController.postRegisterUser();
+                },
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.brown,
+                  ),
+                  child: Center(
+                      child: Text("Register User",
+                          style: TextStyle(color: Colors.white))),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  loginController.postloginUser();
+                },
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.brown,
+                  ),
+                  child: Center(
+                      child: Text("Login User",
+                          style: TextStyle(color: Colors.white))),
+                ),
+              ),
             ],
           ),
         ),
