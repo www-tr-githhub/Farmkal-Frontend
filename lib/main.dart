@@ -1,3 +1,4 @@
+import 'package:farmkal/app_localizations.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/resources/resources/routes/routes.dart';
@@ -5,6 +6,7 @@ import 'package:farmkal/resources/resources/routes/routes_name.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get.dart';
 
@@ -47,6 +49,17 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      locale: Locale('hi'),
+      supportedLocales: [
+        const Locale('en', ''), // English
+        const Locale('hi', ''), // Hindi
+        // Add more languages here
+      ],
       getPages: ApplicationRoutes.appRoutes().toList(),
     );
   }

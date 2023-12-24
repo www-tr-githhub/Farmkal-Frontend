@@ -49,75 +49,78 @@ class _ChatScreenState extends State<ChatScreen> {
       },
       child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Appcolor.browncolor,
+            shadowColor: const Color.fromARGB(255, 144, 59, 28),
             automaticallyImplyLeading: true,
-            leading: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/gif/images.jpeg'),
+            leading: CircleAvatar(
+              backgroundImage: AssetImage('assets/gif/images.jpeg'),
+              radius: 15,
+            ),
+            title: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Expanded(
+                child: Row(
+                  children: [
+                    Text(widget.targetname),
+                    Spacer(),
+                    PopupMenuButton<String>(
+                      // iconColor: Colors.black,
+                      icon: const Icon(Icons.more_vert, color: Colors.black),
+                      offset: Offset(0, 60.0),
+                      color: Color.fromRGBO(239, 213, 255, 2),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      onSelected: (value) {},
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<String>>[
+                        PopupMenuItem<String>(
+                          value: 'Police',
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.thumb_down,
+                                size: 18,
+                              ),
+                              Padding(padding: EdgeInsets.all(5)),
+                              Text('Unmatch',
+                                  style: GoogleFonts.poppins(fontSize: 13)),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'Report Profile',
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.report,
+                                size: 18,
+                              ),
+                              Padding(padding: EdgeInsets.all(5)),
+                              Text('Report Profile',
+                                  style: GoogleFonts.poppins(fontSize: 13)),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'Block',
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.block,
+                                size: 18,
+                              ),
+                              Padding(padding: EdgeInsets.all(5)),
+                              Text('Block',
+                                  style: GoogleFonts.poppins(fontSize: 13)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-            title: Row(
-              children: [
-                Text(widget.targetname),
-                Spacer(),
-                PopupMenuButton<String>(
-                  // iconColor: Colors.black,
-                  icon: const Icon(Icons.more_vert, color: Colors.black),
-                  offset: Offset(0, 60.0),
-                  color: Color.fromRGBO(239, 213, 255, 2),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  onSelected: (value) {},
-                  itemBuilder: (BuildContext context) =>
-                      <PopupMenuEntry<String>>[
-                    PopupMenuItem<String>(
-                      value: 'Police',
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.thumb_down,
-                            size: 18,
-                          ),
-                          Padding(padding: EdgeInsets.all(5)),
-                          Text('Unmatch',
-                              style: GoogleFonts.poppins(fontSize: 13)),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'Report Profile',
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.report,
-                            size: 18,
-                          ),
-                          Padding(padding: EdgeInsets.all(5)),
-                          Text('Report Profile',
-                              style: GoogleFonts.poppins(fontSize: 13)),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'Block',
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.block,
-                            size: 18,
-                          ),
-                          Padding(padding: EdgeInsets.all(5)),
-                          Text('Block',
-                              style: GoogleFonts.poppins(fontSize: 13)),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            backgroundColor: const Color.fromARGB(255, 188, 237, 189),
-            shadowColor: Colors.green,
           ),
           body: Obx(() {
             switch (_chatController.rxRequestStatus.value) {
@@ -168,7 +171,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 height: 54,
                                 // width: 300,
                                 decoration: BoxDecoration(
-                                  color: Appcolor.greencolor,
+                                  color: Appcolor.browncolor,
                                   borderRadius: BorderRadius.circular(40),
                                 ),
                                 alignment: Alignment.centerLeft,

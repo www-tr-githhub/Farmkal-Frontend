@@ -11,62 +11,64 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  ChatController _chatController = Get.find<ChatController>();
+  final ChatController _chatController = Get.find<ChatController>();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _chatController.getchatlist();
+      await _chatController.getchatlist();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(_chatController.rxRequestStatus.value);
     return WillPopScope(
       onWillPop: () async {
         _chatController.disconnect();
-
         return Future.value(true);
       },
       child: Scaffold(
           appBar: AppBar(title: Text("Chats")),
           body: Obx(() {
-            switch (_chatController.rxRequestStatus.value) {
-              case Status.LOADING:
-                return Center(child: CircularProgressIndicator());
-              case Status.ERROR:
-                return Utils.SnackBar('No Internet', 'No Internet');
-              case Status.COMPLETED:
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SingleChildScrollView(
-                    child: Column(children: [
-                      TextField(
-                        decoration: InputDecoration(
-                            hintText: "Search......",
-                            hintStyle: TextStyle(color: Colors.grey),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                  color: Colors.grey,
-                                ))),
-                      ),
-                      if (_chatController.chatlist.value.emailList != null)
-                        for (var i = 0;
-                            i <
-                                _chatController
-                                    .chatlist.value.emailList!.length;
-                            i++)
-                          UserChat(
-                              _chatController
-                                  .chatlist.value.emailList![i].name!,
-                              _chatController
-                                  .chatlist.value.emailList![i].email!),
-                    ]),
-                  ),
+            if (_chatController.rxRequestStatus.value == Status.LOADING) {
+              return Center(child: CircularProgressIndicator());
+            } else if (_chatController.rxRequestStatus.value == Status.ERROR) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('No Internet')),
                 );
+              });
+              return Container();
+            } else if (_chatController.rxRequestStatus.value ==
+                Status.COMPLETED) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    TextField(
+                      decoration: InputDecoration(
+                          hintText: "Search......",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ))),
+                    ),
+                    if (_chatController.chatlist.value.emailList != null)
+                      for (var i = 0;
+                          i < _chatController.chatlist.value.emailList!.length;
+                          i++)
+                        UserChat(
+                            _chatController.chatlist.value.emailList![i].name!,
+                            _chatController
+                                .chatlist.value.emailList![i].email!),
+                  ]),
+                ),
+              );
+            } else {
+              return Container();
             }
           })),
     );

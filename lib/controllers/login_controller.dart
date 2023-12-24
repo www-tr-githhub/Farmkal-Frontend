@@ -101,8 +101,10 @@ class LoginController extends GetxController {
 
     try {
       await _auth.signInWithCredential(credential);
+      print('Signed in with Google');
       Get.offAll(Home_Screen());
     } catch (e) {
+      print('Error signing in with Google: $e');
       Get.snackbar("Error signing in with Google", e.toString(),
           snackPosition: SnackPosition.BOTTOM);
     }

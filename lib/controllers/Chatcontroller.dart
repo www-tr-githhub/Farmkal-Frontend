@@ -17,7 +17,8 @@ class ChatController extends GetxController {
   final _api = ChatService();
   RxBool loading = false.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
-  IO.Socket socket = IO.io('https://v9tzvk-4000.csb.app', <String, dynamic>{
+  String? token;
+  IO.Socket socket = IO.io('https://cr5pww-4000.csb.app', <String, dynamic>{
     "transports": ["websocket"],
     "autoConnect": false,
     "headers": {
@@ -132,7 +133,7 @@ class ChatController extends GetxController {
     };
     print(data);
     try {
-      final response = await _api.chatlistdata(data);
+      final response = await _api.chatlistdata(data, token!);
       setChatList(response);
       setRxRequestStatus(Status.COMPLETED);
       loading.value = false;
@@ -154,8 +155,9 @@ class ChatController extends GetxController {
 
     print(data);
     try {
-      final response = await _api.chatingdata(data);
-      setChatdata(response);
+      final response = await _api.chatlistdata(data ?? '', token ?? '');
+
+      setChatdata(response as ChatData);
       for (int i = 0; i < chatingdata.value.chatData!.length; i++) {
         if (chatingdata.value.chatData![i].type == "post") {
           print("${chatingdata.value.chatData![i].message!}");
