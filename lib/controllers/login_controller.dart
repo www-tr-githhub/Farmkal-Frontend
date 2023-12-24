@@ -1,17 +1,24 @@
 import 'package:farmkal/Screens/Home_screen.dart';
 import 'package:farmkal/data/response/status.dart';
+import 'package:farmkal/models/userdata-model.dart';
+import 'package:farmkal/services/login_services.dart';
 import 'package:farmkal/view/auth/otp_screen.dart';
+import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
+  final _api = LoginServices();
+
+  UserPreference _userPreference = new UserPreference();
   FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   RxString phoneNo = ''.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
   RxBool loading = false.obs;
   final phoneNoController = TextEditingController().obs;
   RxString otpController = "".obs;
@@ -23,10 +30,87 @@ class LoginController extends GetxController {
     otpController.value = phone;
   }
 
+  Rx<String> tan = "".obs;
+  String tanisha = "";
+
+  Rx<Userdata> userDetails = Userdata().obs;
+  void setUserdata(Userdata value) => userDetails.value = value;
+
   // void sendOtp() {
   //   //Get.to(RouteName.verifyOtp); ---> make the verify-otp.dart page then it will navigate
   //   Get.to(OtpScreen());
   // }
+
+  Rx<String> username = "".obs;
+  Rx<String> phone = "".obs;
+  Rx<String> userbio = "".obs;
+  Rx<String> userstate = "".obs;
+  Rx<String> usercity = "".obs;
+
+  void postRegisterUser() async {
+    loading.value = true;
+    setRxRequestStatus(Status.LOADING);
+    var data = {
+      "name": "Himanshu",
+      "phone": phoneNo.value.split('+91')[1],
+      "bio": "This is my bio",
+      "state": "Rajasthan",
+      "city": "churu",
+      "latitude": "26.0045",
+      "longitude": "75.5432"
+    };
+
+    print(data);
+
+    try {
+      final response = await _api.postRegister(data);
+      setUserdata(response);
+      _userPreference.saveToken(userDetails.value.token!);
+      Get.to(Home_Screen());
+      setRxRequestStatus(Status.COMPLETED);
+      loading.value = false;
+      Get.snackbar("Congratulations", "You are successfully registered");
+    } catch (error) {
+      setRxRequestStatus(Status.ERROR);
+      print(error);
+      Get.snackbar(
+          'Your work has not been completed', "please try after sometime");
+      loading.value = false;
+    }
+  }
+
+  void postloginUser() async {
+    loading.value = true;
+    setRxRequestStatus(Status.LOADING);
+    var data = {
+      "name": "Himanshu",
+      "phone": phoneNo.value.split('+91')[1],
+      "bio": "This is my bio",
+      "state": "Rajasthan",
+      "city": "churu",
+      "latitude": "26.0045",
+      "longitude": "75.5432"
+    };
+
+    print(data);
+
+    try {
+      final response = await _api.postLogin(data);
+      setUserdata(response);
+      print(userDetails.value.token!);
+      _userPreference.saveToken(userDetails.value.token!);
+      Get.to(Home_Screen());
+      setRxRequestStatus(Status.COMPLETED);
+      loading.value = false;
+      Get.snackbar("Congratulations", "You are successfully registered");
+    } catch (error) {
+      setRxRequestStatus(Status.ERROR);
+      print(error);
+      Get.snackbar(
+          'Your work has not been completed', "please try after sometime");
+      loading.value = false;
+    }
+  }
 
   void verifyOtp(String verificationId) {
     print("${otpController.value}");
