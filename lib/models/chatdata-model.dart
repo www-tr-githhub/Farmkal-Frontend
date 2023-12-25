@@ -35,20 +35,24 @@ class ChatData {
 
 class ChatDatum {
   String? message;
+  int? time;
   String? type;
 
   ChatDatum({
     this.message,
+    this.time,
     this.type,
   });
 
   factory ChatDatum.fromJson(Map<String, dynamic> json) => ChatDatum(
         message: json["message"],
+        time: json["time"],
         type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
         "message": message,
+        "time": time,
         "type": type,
       };
 }

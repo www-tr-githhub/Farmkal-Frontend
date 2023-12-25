@@ -34,21 +34,25 @@ class ChatList {
 }
 
 class EmailList {
-  String? email;
+  String? objId;
   String? name;
+  String? phone;
 
   EmailList({
-    this.email,
+    this.objId,
     this.name,
+    this.phone,
   });
 
   factory EmailList.fromJson(Map<String, dynamic> json) => EmailList(
-        email: json["email"],
+        objId: json["ObjId"],
         name: json["name"],
+        phone: json["phone"],
       );
 
   Map<String, dynamic> toJson() => {
-        "email": email,
+        "ObjId": objId,
         "name": name,
+        "phone": phone,
       };
 }

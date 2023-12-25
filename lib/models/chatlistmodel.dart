@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final chatlist = chatlistFromJson(jsonString);
+//     final chatList = chatListFromJson(jsonString);
 
 import 'dart:convert';
 
-Chatlist chatlistFromJson(String str) => Chatlist.fromJson(json.decode(str));
+ChatList chatListFromJson(String str) => ChatList.fromJson(json.decode(str));
 
-String chatlistToJson(Chatlist data) => json.encode(data.toJson());
+String chatListToJson(ChatList data) => json.encode(data.toJson());
 
-class Chatlist {
+class ChatList {
   bool? success;
   List<EmailList>? emailList;
 
-  Chatlist({
+  ChatList({
     this.success,
     this.emailList,
   });
 
-  factory Chatlist.fromJson(Map<String, dynamic> json) => Chatlist(
+  factory ChatList.fromJson(Map<String, dynamic> json) => ChatList(
         success: json["success"],
         emailList: json["emailList"] == null
             ? []
@@ -34,21 +34,25 @@ class Chatlist {
 }
 
 class EmailList {
-  String? email;
+  String? objId;
   String? name;
+  String? phone;
 
   EmailList({
-    this.email,
+    this.objId,
     this.name,
+    this.phone,
   });
 
   factory EmailList.fromJson(Map<String, dynamic> json) => EmailList(
-        email: json["email"],
+        objId: json["ObjId"],
         name: json["name"],
+        phone: json["phone"],
       );
 
   Map<String, dynamic> toJson() => {
-        "email": email,
+        "ObjId": objId,
         "name": name,
+        "phone": phone,
       };
 }
