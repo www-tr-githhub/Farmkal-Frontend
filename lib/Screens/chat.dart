@@ -39,37 +39,32 @@ class _ChatPageState extends State<ChatPage> {
               case Status.ERROR:
                 return Utils.SnackBar('No Internet', 'No Internet');
               case Status.COMPLETED:
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: SingleChildScrollView(
-      child: Column(children: [
-        TextField(
-          decoration: InputDecoration(
-              hintText: "Search......",
-              hintStyle: TextStyle(color: Colors.grey),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
-                    color: Colors.grey,
-                  ))),
-        ),
-        _chatController.chatlist.value.emailList != null 
-        ? Column(
-            children: List<Widget>.generate(
-              _chatController.chatlist.value.emailList!.length, 
-              (i) => UserChat(
-                _chatController.chatlist.value.emailList![i].name!,
-                _chatController.chatlist.value.emailList![i].email!
-              )
-            )
-          )
-        : Container(), // Placeholder widget
-      ]),
-
-
-
-
-                    
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Column(children: [
+                      TextField(
+                        decoration: InputDecoration(
+                            hintText: "Search......",
+                            hintStyle: TextStyle(color: Colors.grey),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ))),
+                      ),
+                      _chatController.chatlist.value.emailList != null
+                          ? Column(
+                              children: List<Widget>.generate(
+                                  _chatController
+                                      .chatlist.value.emailList!.length,
+                                  (i) => UserChat(
+                                      _chatController
+                                          .chatlist.value.emailList![i].name!,
+                                      _chatController.chatlist.value
+                                          .emailList![i].objId!)))
+                          : Container(), // Placeholder widget
+                    ]),
                   ),
                 );
             }

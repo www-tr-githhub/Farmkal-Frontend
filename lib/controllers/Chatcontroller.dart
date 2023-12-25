@@ -53,14 +53,6 @@ class ChatController extends GetxController {
     if (!socket.connected) {
       socket.connect();
     }
-    // if (socket.connected) {
-    //   socket.on("message", (msg) {
-    //     print(msg);
-    //     setMessage("destination", msg["message"], roomIndex.value);
-    //     scrollController.animateTo(scrollController.position.maxScrollExtent,
-    //         duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
-    //   });
-    // }
   }
 
   void sendMessage(
@@ -131,7 +123,8 @@ class ChatController extends GetxController {
     rxRequestStatus.value = Status.LOADING;
     loading.value = true;
     try {
-      final token = _userPreference.getToken();
+      final token = await _userPreference.getToken();
+      print(token.toString());
       final response = await _api.chatlistdata(token.toString());
       setChatList(response);
       setRxRequestStatus(Status.COMPLETED);

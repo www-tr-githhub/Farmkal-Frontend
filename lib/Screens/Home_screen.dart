@@ -4,6 +4,7 @@ import 'package:farmkal/controllers/Chatcontroller.dart';
 
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/view/onboarding.dart';
+import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -106,9 +107,15 @@ class _Home_ScreenState extends State<Home_Screen> {
               Icon(Icons.account_circle_sharp,
                   color: Appcolor.whitecolor, size: 35),
               IconButton(
-                onPressed: () {
-                  _chatController.connect("him1@g.com");
-                  Get.to(() => ChatPage());
+                onPressed: () async {
+                  String token = await UserPreference().getToken().toString();
+                  if (token.isEmpty) {
+                    Get.snackbar(
+                        "Login First", "You have to login before chatting");
+                  } else {
+                    // _chatController.connect("him1@g.com");
+                    Get.to(() => ChatPage());
+                  }
                 },
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
               ),
