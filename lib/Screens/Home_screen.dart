@@ -3,6 +3,7 @@ import 'package:farmkal/app_localizations.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 
 import 'package:farmkal/resources/resources/colors/app_color.dart';
+import 'package:farmkal/utils/utils.dart';
 import 'package:farmkal/view/onboarding.dart';
 import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:flutter/material.dart';
@@ -108,10 +109,39 @@ class _Home_ScreenState extends State<Home_Screen> {
                   color: Appcolor.whitecolor, size: 35),
               IconButton(
                 onPressed: () async {
-                  String token = await UserPreference().getToken().toString();
-                  if (token.isEmpty) {
-                    Get.snackbar(
-                        "Login First", "You have to login before chatting");
+                  String? token = await UserPreference().getToken();
+                  print(token);
+                  if (token == null) {
+                    print("hello tanisha");
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Login'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(
+                                  "You have to login or Register first to start chatting")
+                            ],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Cancel'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Login'),
+                              onPressed: () {
+                                Get.to(() => PageControllerApp());
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   } else {
                     // _chatController.connect("him1@g.com");
                     Get.to(() => ChatPage());

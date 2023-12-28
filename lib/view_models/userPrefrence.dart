@@ -7,9 +7,9 @@ class UserPreference {
     return true;
   }
 
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    String tokenVal = sp.getString("token")!;
+    String? tokenVal = sp.getString("token");
     return tokenVal;
   }
 }
