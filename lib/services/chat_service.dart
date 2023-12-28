@@ -8,6 +8,7 @@ class ChatService {
   final _chatService = NetworkApiServices();
 
   Future<ChatList> chatlistdata(String token) async {
+    print("${token} token ye hai ");
     dynamic response =
         await _chatService.getApiwithtoken(AppUrl.chatList, token, '');
 

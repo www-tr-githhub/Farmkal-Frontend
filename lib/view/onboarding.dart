@@ -139,7 +139,12 @@ class _PageControllerAppState extends State<PageControllerApp> {
 
               InkWell(
                 onTap: () {
-                  loginController.postRegisterUser();
+                  if (loginController.phoneNo.value.isEmpty) {
+                    Get.snackbar(
+                        "Enter your phone number", "Phone number is important");
+                  } else {
+                    loginController.postRegisterUser();
+                  }
                 },
                 child: Container(
                   height: 50,
@@ -153,7 +158,13 @@ class _PageControllerAppState extends State<PageControllerApp> {
               ),
               InkWell(
                 onTap: () {
-                  loginController.postloginUser();
+                     if (loginController.phoneNo.value.isEmpty) {
+                    Get.snackbar(
+                        "Enter your phone number", "Phone number is important");
+                  } else {
+                        loginController.postloginUser();
+                  }
+              
                 },
                 child: Container(
                   height: 50,
