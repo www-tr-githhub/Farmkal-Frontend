@@ -10,6 +10,8 @@ class AppStrings {
       'Things available': 'उपकरण श्रेणी',
       'Recently added items': 'हाल ही मे जोड़े गए उपकरण ',
       'Tractor': 'ट्रैक्टर ',
+      'Trolly': 'ट्राली ',
+      'Cultivator': 'कल्टीवेटर',
       // Add more Hindi translations as needed
     },
     'fr': {
