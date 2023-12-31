@@ -53,16 +53,17 @@ class _ChatPageState extends State<ChatPage> {
                                   color: Colors.grey,
                                 ))),
                       ),
-                      _chatController.chatlist.value.emailList != null
+                      _chatController.chatlist.value.users != null
                           ? Column(
                               children: List<Widget>.generate(
-                                  _chatController
-                                      .chatlist.value.emailList!.length,
+                                  _chatController.chatlist.value.users!.length,
                                   (i) => UserChat(
                                       _chatController
-                                          .chatlist.value.emailList![i].name!,
-                                      _chatController.chatlist.value
-                                          .emailList![i].objId!)))
+                                              .chatlist.value.users![i].name ??
+                                          "hello",
+                                      _chatController
+                                              .chatlist.value.users![i].id ??
+                                          "id")))
                           : Container(), // Placeholder widget
                     ]),
                   ),
@@ -76,6 +77,7 @@ class _ChatPageState extends State<ChatPage> {
 Widget UserChat(String name, String email) {
   return ListTile(
     onTap: () {
+      print(email);
       Get.to(ChatScreen(
         targetId: email,
         sourceId: 'him1@g.com',

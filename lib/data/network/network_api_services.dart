@@ -49,7 +49,8 @@ class NetworkApiServices extends BaseApiServices {
     //while debuging we want to see thye url
     //to check the url is corrctv we print it
     if (kDebugMode) {
-      print(url);
+      print(url + '/' + roomId);
+      print(token);
     }
     Map<String, String> requestHeaders = {
       'Authorization': 'Bearer $token',
@@ -61,7 +62,7 @@ class NetworkApiServices extends BaseApiServices {
     try {
       //response of the api will be stored & converting string url to uri using uri.parse
       final response = await http
-          .get(Uri.parse(roomId.isEmpty ? url : url + roomId),
+          .get(Uri.parse(roomId.isEmpty ? url : url + '/' + roomId),
               headers: requestHeaders)
           .timeout(const Duration(seconds: 10));
       //store the valuse
