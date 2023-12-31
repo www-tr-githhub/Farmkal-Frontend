@@ -36,7 +36,7 @@ class _ChatScreenState extends State<ChatScreen> {
       _chatController.mes.clear();
 
       _chatController.connect(widget.sourceId);
-      _chatController.getchatdata("him@1.gmail.com", widget.targetId);
+      _chatController.getchatdata(widget.targetId);
     });
   }
 
