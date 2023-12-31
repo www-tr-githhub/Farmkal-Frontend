@@ -48,6 +48,7 @@ dependencies:
   firebase_core: ^2.24.0
   firebase_auth: ^4.15.0
   google_sign_in: ^6.1.6
+  url_launcher: ^6.0.10
   
   flutter_localizations:
     sdk: flutter

@@ -27,6 +27,7 @@ class Productpage extends StatefulWidget {
 
 class _ProductpageState extends State<Productpage> {
   ChatController _chatController = Get.find<ChatController>();
+
   //final controller = Get.put(TableController());
 
   Widget buttonbox(String title) {
@@ -108,7 +109,12 @@ class _ProductpageState extends State<Productpage> {
               children: [
                 SizedBox(width: 100),
                 buttonbox("कॉल करे"),
-                buttonbox(" चैट करे "),
+                InkWell(
+                  child: buttonbox(" चैट करे "),
+                  onTap: () {
+                    Get.to(ChatPage());
+                  },
+                ),
               ],
             ),
             Text("SELLER - राम कुमार \nADDRESS - नई पुलिया के पास, उदयपुर "),
