@@ -9,6 +9,8 @@ import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/mandiController.dart';
+
 class Home_Screen extends StatefulWidget {
   @override
   _Home_ScreenState createState() => _Home_ScreenState();
@@ -16,6 +18,7 @@ class Home_Screen extends StatefulWidget {
 
 class _Home_ScreenState extends State<Home_Screen> {
   ChatController _chatController = Get.find<ChatController>();
+  MandiController _mandiController = Get.put(MandiController());
 
   Widget rowview(String title) {
     return Padding(
@@ -150,7 +153,13 @@ class _Home_ScreenState extends State<Home_Screen> {
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
               ),
               Icon(Icons.add, color: Colors.white, size: 35),
-              Icon(Icons.favorite, color: Colors.white, size: 35),
+              GestureDetector(
+                  onTap: () {
+                    _mandiController.getCityData();
+                    _mandiController.getMarketDatamethod();
+                    _mandiController.getCommidityData();
+                  },
+                  child: Icon(Icons.favorite, color: Colors.white, size: 35)),
               FloatingActionButton(
                 backgroundColor: Appcolor.greencolor,
                 child: Icon(Icons.arrow_forward, color: Colors.white),

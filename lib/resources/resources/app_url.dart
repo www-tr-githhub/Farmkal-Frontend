@@ -5,4 +5,8 @@ class AppUrl {
   static var chatList = "https://cr5pww-4000.csb.app/api/v1/chat";
   static var chatData = 'https://cr5pww-4000.csb.app/api/v1/chat';
   static var userList = 'https://cr5pww-4000.csb.app/api/v1/users';
+  static var commodity = 'https://cr5pww-4000.csb.app/api/v1/commodity';
+  static var city = 'https://cr5pww-4000.csb.app/api/v1/city/Rajasthan';
+  static var market =
+      'https://cr5pww-4000.csb.app/api/v1/market/Rajasthan/Kota';
 }
