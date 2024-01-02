@@ -39,17 +39,51 @@ class _Home_ScreenState extends State<Home_Screen> {
     );
   }
 
-  Widget mandi(String title) {
-    return Column(
+  Widget mandiUp(String title) {
+    return Row(
       children: [
         Icon(
           Icons.arrow_upward,
-          color: Colors.white,
-          size: 8,
+          color: Colors.green,
+          size: 30,
         ),
-        Text(
-          title,
-          style: TextStyle(fontSize: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(fontSize: 14),
+            ),
+            Text(
+              "1500 / Kg",
+              style: TextStyle(fontSize: 14),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget mandidown(String title) {
+    return Row(
+      children: [
+        Icon(
+          Icons.arrow_downward,
+          color: Colors.red,
+          size: 30,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(fontSize: 14),
+            ),
+            Text(
+              "1500 / Kg",
+              style: TextStyle(fontSize: 14),
+            ),
+          ],
         ),
       ],
     );
@@ -62,9 +96,14 @@ class _Home_ScreenState extends State<Home_Screen> {
         children: [
           Container(
               color: Appcolor.browncolor,
-              child: Text(
-                title,
-                style: TextStyle(fontSize: 12),
+              child: Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Center(
+                  child: Text(
+                    title,
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ),
               )),
         ],
       ),
@@ -88,22 +127,25 @@ class _Home_ScreenState extends State<Home_Screen> {
                 Radius.circular(10.0) // Set rounded corner radius
                 ),
           ),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/gif/bluetractor.jpeg',
-                width: 180,
-                height: 120,
-              ),
-              Text(title),
-              Text(name),
-              Row(
-                children: [
-                  Text(info),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.phone))
-                ],
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/gif/bluetractor.jpeg',
+                  // width: 180,
+                  // height: 120,
+                ),
+                Text(title, style: TextStyle(fontSize: 10)),
+                Text(name),
+                Row(
+                  children: [
+                    Text(info),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.phone))
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -113,72 +155,104 @@ class _Home_ScreenState extends State<Home_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80),
-        child: AppBar(
-          backgroundColor: Appcolor.browncolor,
-          leading: OverflowBox(
-            minWidth: 0,
-            maxWidth: double.infinity,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage('https://via.placeholder.com/150'),
-                        radius: 20,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                  ],
-                ),
-              ],
-            ),
+        preferredSize:
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Appcolor.browncolor,
           ),
-          title: Text("RAM KUMAR"),
-          actions: [
-            Column(
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.search), // This is the search icon
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.menu), // This is the menu icon
-                      onPressed: () {},
-                    )
-                  ],
+          child: Column(
+            children: [
+              AppBar(
+                backgroundColor: Appcolor.browncolor,
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: CircleAvatar(
+                    backgroundImage:
+                        NetworkImage('https://via.placeholder.com/150'),
+                    radius: 20,
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
+                title: Text("RAM KUMAR"),
+                actions: [
+                  // Row(
+                  //   children: [
+                  IconButton(
+                    icon: Icon(Icons.search), // This is the search icon
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.menu), // This is the menu icon
+                    onPressed: () {},
+                    //   )
+                    // ],
+                  ),
+                  /*IconButton(
+                    icon: Icon(Icons.menu), // This is the menu icon
+                    onPressed: () {},
+                  ),
+                  Row(
                     children: [
                       mandi("गेहू "),
                     ],
+                  )*/
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(child: mandiUp("गेहू ")),
+                  Expanded(
+                    child: mandidown("गेहू"),
                   ),
-                )
-              ],
-            ),
-            /*IconButton(
-              icon: Icon(Icons.menu), // This is the menu icon
-              onPressed: () {},
-            ),
-            Row(
-              children: [
-                mandi("गेहू "),
-              ],
-            )*/
-          ],
+                  Expanded(child: mandiUp("गेहू ")),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.all(8),
+                      height: 45,
+                      decoration: BoxDecoration(color: Appcolor.blueColor),
+                      child: Center(
+                        child: Text("Chat"),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // ListTile(
+            //   leading: CircleAvatar(
+            //     backgroundImage:
+            //         NetworkImage('https://via.placeholder.com/150'),
+            //     radius: 20,
+            //   ),
+            //   title: Text("RAM KUMAR"),
+            //   subtitle: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: Row(
+            //       children: [
+            //         mandi("गेहू "),
+            //       ],
+            //     ),
+            //   ),
+            //   trailing: Row(
+            //     children: [
+            //       IconButton(
+            //         icon: Icon(Icons.search), // This is the search icon
+            //         onPressed: () {},
+            //       ),
+            //       IconButton(
+            //         icon: Icon(Icons.menu), // This is the menu icon
+            //         onPressed: () {},
+            //       )
+            //     ],
+            //   ),
+            // ),
+
             Text(
               AppLocalizations.of(context)!.translate('Things available'),
               style: TextStyle(fontSize: 18),
@@ -203,29 +277,35 @@ class _Home_ScreenState extends State<Home_Screen> {
             ),
             Row(
               children: [
-                filter('CHITTORGARH'),
-                filter('MODEL 2015-2020'),
-                filter('RANGE40-45HP'),
-                Container(
-                  child: Row(
-                    children: [
-                      Text(
-                        "More Filter",
-                        style: TextStyle(fontSize: 12.0),
-                      ),
-                      Icon(Icons.filter_alt_outlined)
-                      /*IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.filter_alt_outlined)),*/
-                    ],
+                Expanded(child: filter('CHITTORGARH')),
+                Expanded(child: filter('MODEL 2015-2020')),
+                Expanded(child: filter('RANGE40-45HP')),
+                Expanded(
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Text(
+                          "More Filter",
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                        Icon(Icons.filter_alt_outlined)
+                        /*IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.filter_alt_outlined)),*/
+                      ],
+                    ),
                   ),
                 )
               ],
             ),
             Row(
               children: [
-                recentimage('2,50,000/ चित्तोडगढ़ ', 'MAHINDRA ', '475 2015'),
-                recentimage('3,50,000/उदयपुर ', 'SONALIKA ', '735DI 2019'),
+                Expanded(
+                    child: recentimage(
+                        '2,50,000/ चित्तोडगढ़ ', 'MAHINDRA ', '475 2015')),
+                Expanded(
+                    child: recentimage(
+                        '3,50,000/उदयपुर ', 'SONALIKA ', '735DI 2019')),
               ],
             ),
           ],
@@ -292,9 +372,9 @@ class _Home_ScreenState extends State<Home_Screen> {
               Icon(Icons.add, color: Colors.white, size: 35),
               GestureDetector(
                   onTap: () {
-                    _mandiController.getCityData();
-                    _mandiController.getMarketDatamethod();
-                    _mandiController.getCommidityData();
+                    // _mandiController.getCityData();
+                    // _mandiController.getMarketDatamethod();
+                    // _mandiController.getCommidityData();
                   },
                   child: Icon(Icons.favorite, color: Colors.white, size: 35)),
               FloatingActionButton(
