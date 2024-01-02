@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:farmkal/Screens/chat.dart';
+import 'package:farmkal/Screens/mandi.dart';
 import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
@@ -174,8 +175,6 @@ class _ProductpageState extends State<Productpage> {
           ],
         ),
       ),
-
-      
       bottomNavigationBar: Container(
         color: Appcolor.darkbrowncolor,
         child: Padding(
@@ -205,7 +204,7 @@ class _ProductpageState extends State<Productpage> {
               Icon(Icons.favorite, color: Colors.white, size: 35),
               IconButton(
                   onPressed: () {
-                    Get.to(Sellerview());
+                    Get.to(mandipage());
                   },
                   icon: Icon(Icons.bar_chart,
                       color: Appcolor.greencolor, size: 35)),

@@ -113,7 +113,7 @@ class _Home_ScreenState extends State<Home_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(80),
         child: AppBar(
           backgroundColor: Appcolor.browncolor,
           leading: OverflowBox(
@@ -140,11 +140,31 @@ class _Home_ScreenState extends State<Home_Screen> {
           ),
           title: Text("RAM KUMAR"),
           actions: [
-            IconButton(
-              icon: Icon(Icons.search), // This is the search icon
-              onPressed: () {},
+            Column(
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.search), // This is the search icon
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.menu), // This is the menu icon
+                      onPressed: () {},
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      mandi("गेहू "),
+                    ],
+                  ),
+                )
+              ],
             ),
-            IconButton(
+            /*IconButton(
               icon: Icon(Icons.menu), // This is the menu icon
               onPressed: () {},
             ),
@@ -152,7 +172,7 @@ class _Home_ScreenState extends State<Home_Screen> {
               children: [
                 mandi("गेहू "),
               ],
-            )
+            )*/
           ],
         ),
       ),

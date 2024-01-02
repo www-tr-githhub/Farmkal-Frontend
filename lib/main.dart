@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
     final ChatController _chatController = Get.put(ChatController());
     return GetMaterialApp(
       initialRoute: RouteName.splashscreen,
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
