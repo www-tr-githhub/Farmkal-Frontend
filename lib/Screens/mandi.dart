@@ -1,4 +1,5 @@
 import 'package:farmkal/Screens/chat.dart';
+import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/view/onboarding.dart';
@@ -6,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class Sellerview extends StatefulWidget {
+class mandipage extends StatefulWidget {
   @override
-  _SellerviewState createState() => _SellerviewState();
+  _mandipageState createState() => _mandipageState();
 }
 
-class _SellerviewState extends State<Sellerview> {
+class _mandipageState extends State<mandipage> {
   ChatController _chatController = Get.find<ChatController>();
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -50,9 +52,33 @@ class _SellerviewState extends State<Sellerview> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              child: Image.asset('assets/gif/bluetractor.jpeg'),
-            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                buttonbox("मंडी के हिसाब से"),
+                SizedBox(
+                  width: 24,
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.filter_alt_outlined,
+                      size: 30,
+                      color: Colors.black,
+                    )),
+                SizedBox(
+                  width: 12,
+                ),
+                InkWell(
+                  child: buttonbox(" चैट करेफसल के हिसाब से "),
+                  onTap: () {
+                    Get.to(ChatPage());
+                  },
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -91,5 +117,18 @@ class _SellerviewState extends State<Sellerview> {
         ),
       ),
     );
+  }
+
+  Widget buttonbox(String title) {
+    return Container(
+        height: 50,
+        width: 150,
+        color: Colors.brown,
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 15, color: Appcolor.whitecolor),
+          ),
+        ));
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:farmkal/Screens/chat.dart';
+import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/view/onboarding.dart';
@@ -173,6 +174,8 @@ class _ProductpageState extends State<Productpage> {
           ],
         ),
       ),
+
+      
       bottomNavigationBar: Container(
         color: Appcolor.darkbrowncolor,
         child: Padding(
@@ -180,8 +183,12 @@ class _ProductpageState extends State<Productpage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Icon(Icons.account_circle_sharp,
-                  color: Appcolor.whitecolor, size: 35),
+              IconButton(
+                  onPressed: () {
+                    Get.to(() => PageControllerApp());
+                  },
+                  icon: Icon(Icons.account_circle_sharp,
+                      color: Appcolor.whitecolor, size: 32)),
               IconButton(
                 onPressed: () {
                   _chatController.connect("him1@g.com");
@@ -189,16 +196,19 @@ class _ProductpageState extends State<Productpage> {
                 },
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
               ),
-              Icon(Icons.add, color: Colors.white, size: 35),
+              IconButton(
+                  onPressed: () {
+                    Get.to(Sellerview());
+                  },
+                  icon: Icon(Icons.add, color: Colors.white, size: 35)),
+              //Icon(Icons.add, color: Colors.white, size: 35),
               Icon(Icons.favorite, color: Colors.white, size: 35),
-              FloatingActionButton(
-                backgroundColor: Appcolor.greencolor,
-                child: Icon(Icons.arrow_forward, color: Colors.white),
-                shape: CircleBorder(),
-                onPressed: () {
-                  Get.to(() => PageControllerApp());
-                },
-              )
+              IconButton(
+                  onPressed: () {
+                    Get.to(Sellerview());
+                  },
+                  icon: Icon(Icons.bar_chart,
+                      color: Appcolor.greencolor, size: 35)),
             ],
           ),
         ),

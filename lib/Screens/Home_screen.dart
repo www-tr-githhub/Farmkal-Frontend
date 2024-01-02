@@ -1,5 +1,7 @@
 import 'package:farmkal/Screens/chat.dart';
+import 'package:farmkal/Screens/mandi.dart';
 import 'package:farmkal/Screens/productpage.dart';
+import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/app_localizations.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 
@@ -132,7 +134,6 @@ class _Home_ScreenState extends State<Home_Screen> {
               ],
             ),
           ),
-          
           title: Text("RAM KUMAR"),
           actions: [
             IconButton(
@@ -207,15 +208,21 @@ class _Home_ScreenState extends State<Home_Screen> {
         ),
       ),
       bottomNavigationBar: Container(
-        
         color: Appcolor.darkbrowncolor,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Icon(Icons.account_circle_sharp,
-                  color: Appcolor.whitecolor, size: 35),
+              /*Icon(Icons.account_circle_sharp,
+                  color: Appcolor.whitecolor, size: 35),*/
+
+              IconButton(
+                  onPressed: () {
+                    Get.to(() => PageControllerApp());
+                  },
+                  icon: Icon(Icons.account_circle_sharp,
+                      color: Appcolor.whitecolor, size: 32)),
               IconButton(
                 onPressed: () async {
                   String? token = await UserPreference().getToken();
@@ -258,16 +265,18 @@ class _Home_ScreenState extends State<Home_Screen> {
                 },
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
               ),
-              Icon(Icons.add, color: Colors.white, size: 35),
+              IconButton(
+                  onPressed: () {
+                    Get.to(Sellerview());
+                  },
+                  icon: Icon(Icons.add, color: Colors.white, size: 35)),
               Icon(Icons.favorite, color: Colors.white, size: 35),
-              FloatingActionButton(
-                backgroundColor: Appcolor.greencolor,
-                child: Icon(Icons.arrow_forward, color: Colors.white),
-                shape: CircleBorder(),
-                onPressed: () {
-                  Get.to(() => PageControllerApp());
-                },
-              )
+              IconButton(
+                  onPressed: () {
+                    Get.to(mandipage());
+                  },
+                  icon: Icon(Icons.bar_chart,
+                      color: Appcolor.greencolor, size: 35)),
             ],
           ),
         ),
