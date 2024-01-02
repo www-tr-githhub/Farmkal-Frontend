@@ -12,6 +12,8 @@ import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/mandiController.dart';
+
 class Home_Screen extends StatefulWidget {
   @override
   _Home_ScreenState createState() => _Home_ScreenState();
@@ -19,6 +21,7 @@ class Home_Screen extends StatefulWidget {
 
 class _Home_ScreenState extends State<Home_Screen> {
   ChatController _chatController = Get.find<ChatController>();
+  MandiController _mandiController = Get.put(MandiController());
 
   Widget rowview(String title) {
     return Padding(
@@ -41,6 +44,7 @@ class _Home_ScreenState extends State<Home_Screen> {
       children: [
         Icon(
           Icons.arrow_upward,
+          color: Colors.white,
           size: 8,
         ),
         Text(
@@ -109,7 +113,7 @@ class _Home_ScreenState extends State<Home_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
+        preferredSize: Size.fromHeight(100),
         child: AppBar(
           backgroundColor: Appcolor.browncolor,
           leading: OverflowBox(
@@ -265,18 +269,22 @@ class _Home_ScreenState extends State<Home_Screen> {
                 },
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
               ),
-              IconButton(
-                  onPressed: () {
-                    Get.to(Sellerview());
+              Icon(Icons.add, color: Colors.white, size: 35),
+              GestureDetector(
+                  onTap: () {
+                    _mandiController.getCityData();
+                    _mandiController.getMarketDatamethod();
+                    _mandiController.getCommidityData();
                   },
-                  icon: Icon(Icons.add, color: Colors.white, size: 35)),
-              Icon(Icons.favorite, color: Colors.white, size: 35),
-              IconButton(
-                  onPressed: () {
-                    Get.to(mandipage());
-                  },
-                  icon: Icon(Icons.bar_chart,
-                      color: Appcolor.greencolor, size: 35)),
+                  child: Icon(Icons.favorite, color: Colors.white, size: 35)),
+              FloatingActionButton(
+                backgroundColor: Appcolor.greencolor,
+                child: Icon(Icons.arrow_forward, color: Colors.white),
+                shape: CircleBorder(),
+                onPressed: () {
+                  Get.to(() => PageControllerApp());
+                },
+              )
             ],
           ),
         ),
