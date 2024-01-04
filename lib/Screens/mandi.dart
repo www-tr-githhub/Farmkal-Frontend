@@ -14,11 +14,105 @@ class mandipage extends StatefulWidget {
 
 class _mandipageState extends State<mandipage> {
   ChatController _chatController = Get.find<ChatController>();
+  Widget mandibox(String title, String imagePath, String title2) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, bottom: 10),
+      child: Container(
+        color: Appcolor.browncolor,
+        width: 390.0,
+        height: 150.0,
+        child: Column(
+          children: [
+            Container(
+              /*  child: Stack(
+                children: [
+                  Positioned(
+                    left: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Container(
+                        width: 50.0,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(imagePath),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 90,
+                    child: Column(
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 40, color: Colors.black),
+                        ),
+                        Text(title2),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    right: 40,
+                    child: IconButton(
+                        onPressed: () {}, icon: Icon(Icons.location_pin)),
+                  ),
+                ],
+              ),
+
+*/
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 50.0,
+                    height: 50.0,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(imagePath),
+                      ),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(fontSize: 40, color: Colors.black),
+                      ),
+                      Text(title2),
+                    ],
+                  ),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.location_pin)),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  rowline("अधिकतम", "18000/Q"),
+                  rowline("अधिकतम", "18000/Q"),
+                  rowline("अधिकतम", "18000/Q"),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Appcolor.browncolor,
+        backgroundColor: Color(0xFFEDDACF),
         leading: OverflowBox(
           minWidth: 0,
           maxWidth: double.infinity,
@@ -59,7 +153,7 @@ class _mandipageState extends State<mandipage> {
                 ),
                 buttonbox("मंडी के हिसाब से"),
                 SizedBox(
-                  width: 24,
+                  width: 10,
                 ),
                 IconButton(
                     onPressed: () {},
@@ -78,7 +172,42 @@ class _mandipageState extends State<mandipage> {
                   },
                 ),
               ],
-            )
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    mandibox(
+                        "लहसुन ", "assets/gif/garlic.jpeg", "(आवक - 250  टन) "),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                mandibox(
+                    "प्याज  ", "assets/gif/garlic.jpeg", "(आवक - 300  टन)  "),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                mandibox(
+                    "गेहू   ", "assets/gif/garlic.jpeg", "(आवक - 150  टन)  "),
+              ],
+            ),
           ],
         ),
       ),
@@ -120,15 +249,33 @@ class _mandipageState extends State<mandipage> {
   }
 
   Widget buttonbox(String title) {
-    return Container(
-        height: 50,
-        width: 150,
-        color: Colors.brown,
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 15, color: Appcolor.whitecolor),
-          ),
-        ));
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Container(
+          height: 50,
+          width: 160,
+          color: Colors.brown,
+          child: Center(
+            child: Text(
+              title,
+              style: TextStyle(fontSize: 15, color: Appcolor.whitecolor),
+            ),
+          )),
+    );
+  }
+
+  Widget rowline(String title, String title2) {
+    return Row(
+      children: [
+        Column(
+          children: [
+            Text(title),
+            Container(
+              child: Text(title2),
+            ),
+          ],
+        )
+      ],
+    );
   }
 }

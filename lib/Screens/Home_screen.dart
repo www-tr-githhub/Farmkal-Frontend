@@ -2,6 +2,7 @@ import 'package:farmkal/Screens/chat.dart';
 import 'package:farmkal/Screens/mandi.dart';
 import 'package:farmkal/Screens/productpage.dart';
 import 'package:farmkal/Screens/seller.dart';
+import 'package:farmkal/Screens/tractor_screen.dart';
 import 'package:farmkal/app_localizations.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 
@@ -28,11 +29,15 @@ class _Home_ScreenState extends State<Home_Screen> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          Image.asset(
-            'assets/gif/Tractor.jpeg',
-            width: 110,
-            height: 80,
-          ),
+          GestureDetector(
+              onTap: () {
+                Get.to(tractor_Screen());
+              },
+              child: Image.asset(
+                'assets/gif/Tractor.jpeg',
+                width: 110,
+                height: 80,
+              )),
           Text(title),
         ],
       ),
@@ -156,7 +161,7 @@ class _Home_ScreenState extends State<Home_Screen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.15),
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.20),
         child: Container(
           decoration: BoxDecoration(
             color: Appcolor.browncolor,
@@ -209,9 +214,12 @@ class _Home_ScreenState extends State<Home_Screen> {
                     child: Container(
                       margin: EdgeInsets.all(8),
                       height: 45,
-                      decoration: BoxDecoration(color: Appcolor.blueColor),
+                      decoration: BoxDecoration(color: Appcolor.darkbrowncolor),
                       child: Center(
-                        child: Text("Chat"),
+                        child: Text(
+                          "और देखे",
+                          style: TextStyle(color: Appcolor.whitecolor),
+                        ),
                       ),
                     ),
                   ),
@@ -369,7 +377,11 @@ class _Home_ScreenState extends State<Home_Screen> {
                 },
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
               ),
-              Icon(Icons.add, color: Colors.white, size: 35),
+              IconButton(
+                  onPressed: () {
+                    Get.to(Sellerview());
+                  },
+                  icon: Icon(Icons.add, color: Colors.white, size: 35)),
               GestureDetector(
                   onTap: () {
                     // _mandiController.getCityData();
@@ -377,14 +389,12 @@ class _Home_ScreenState extends State<Home_Screen> {
                     // _mandiController.getCommidityData();
                   },
                   child: Icon(Icons.favorite, color: Colors.white, size: 35)),
-              FloatingActionButton(
-                backgroundColor: Appcolor.greencolor,
-                child: Icon(Icons.arrow_forward, color: Colors.white),
-                shape: CircleBorder(),
-                onPressed: () {
-                  Get.to(() => PageControllerApp());
-                },
-              )
+              IconButton(
+                  onPressed: () {
+                    Get.to(mandipage());
+                  },
+                  icon: Icon(Icons.bar_chart,
+                      color: Appcolor.greencolor, size: 35)),
             ],
           ),
         ),

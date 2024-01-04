@@ -83,6 +83,7 @@ flutter:
     - assets/gif/images.jpeg
     - assets/gif/Tractor.jpeg
     - assets/gif/bluetractor.jpeg
+    - assets/gif/garlic.jpeg
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
