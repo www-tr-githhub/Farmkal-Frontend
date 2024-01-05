@@ -15,71 +15,36 @@ class mandipage extends StatefulWidget {
 class _mandipageState extends State<mandipage> {
   ChatController _chatController = Get.find<ChatController>();
   Widget mandibox(String title, String imagePath, String title2) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10, bottom: 10),
-      child: Container(
-        color: Appcolor.browncolor,
-        width: 390.0,
-        height: 150.0,
-        child: Column(
-          children: [
-            Container(
-              /*  child: Stack(
-                children: [
-                  Positioned(
-                    left: 10,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        width: 50.0,
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(imagePath),
-                          ),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      color: Appcolor.browncolor,
+      width: 390.0,
+      height: 150.0,
+      child: Column(
+        children: [
+          Container(
+            /*  child: Stack(
+              children: [
+                Positioned(
+                  left: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(imagePath),
                         ),
                       ),
                     ),
                   ),
-                  Positioned(
-                    left: 90,
-                    child: Column(
-                      children: [
-                        Text(
-                          title,
-                          style: TextStyle(fontSize: 40, color: Colors.black),
-                        ),
-                        Text(title2),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    right: 40,
-                    child: IconButton(
-                        onPressed: () {}, icon: Icon(Icons.location_pin)),
-                  ),
-                ],
-              ),
-
-*/
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage(imagePath),
-                      ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                ),
+                Positioned(
+                  left: 90,
+                  child: Column(
                     children: [
                       Text(
                         title,
@@ -88,23 +53,56 @@ class _mandipageState extends State<mandipage> {
                       Text(title2),
                     ],
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.location_pin)),
-                ],
-              ),
+                ),
+                Positioned(
+                  right: 40,
+                  child: IconButton(
+                      onPressed: () {}, icon: Icon(Icons.location_pin)),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  rowline("अधिकतम", "18000/Q"),
-                  rowline("अधिकतम", "18000/Q"),
-                  rowline("अधिकतम", "18000/Q"),
-                ],
-              ),
+
+*/
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 50.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(imagePath),
+                    ),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(fontSize: 40, color: Colors.black),
+                    ),
+                    Text(title2),
+                  ],
+                ),
+                IconButton(onPressed: () {}, icon: Icon(Icons.location_pin)),
+              ],
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                rowline("अधिकतम", "18000/Q"),
+                rowline("अधिकतम", "18000/Q"),
+                rowline("अधिकतम", "18000/Q"),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -145,16 +143,12 @@ class _mandipageState extends State<mandipage> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
-                  width: 10,
-                ),
                 buttonbox("मंडी के हिसाब से"),
-                SizedBox(
-                  width: 10,
-                ),
                 IconButton(
                     onPressed: () {},
                     icon: Icon(
@@ -162,9 +156,6 @@ class _mandipageState extends State<mandipage> {
                       size: 30,
                       color: Colors.black,
                     )),
-                SizedBox(
-                  width: 12,
-                ),
                 InkWell(
                   child: buttonbox(" चैट करेफसल के हिसाब से "),
                   onTap: () {
@@ -173,40 +164,40 @@ class _mandipageState extends State<mandipage> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    mandibox(
-                        "लहसुन ", "assets/gif/garlic.jpeg", "(आवक - 250  टन) "),
-                  ],
-                ),
-              ],
-            ),
+            // Row(
+            //   children: [
             SizedBox(
-              height: 20,
+              height: 10,
             ),
-            Row(
-              children: [
-                mandibox(
-                    "प्याज  ", "assets/gif/garlic.jpeg", "(आवक - 300  टन)  "),
-              ],
-            ),
+            //   ],
+            // ),
+            // Row(
+            //   children: [
+            //     Column(
+            //       children: [
+            mandibox("लहसुन ", "assets/gif/garlic.jpeg", "(आवक - 250  टन) "),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Row(
+            //   children: [
+            mandibox("प्याज  ", "assets/gif/garlic.jpeg", "(आवक - 300  टन)  "),
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Row(
+            //   children: [
+            mandibox("गेहू   ", "assets/gif/garlic.jpeg", "(आवक - 150  टन)  "),
+            //   ],
+            // ),
             SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                mandibox(
-                    "गेहू   ", "assets/gif/garlic.jpeg", "(आवक - 150  टन)  "),
-              ],
+              height: 10,
             ),
           ],
         ),

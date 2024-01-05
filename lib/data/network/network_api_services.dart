@@ -31,7 +31,7 @@ class NetworkApiServices extends BaseApiServices {
       //response of the api will be stored & converting string url to uri using uri.parse
       final response = await http
           .get(Uri.parse(url), headers: requestHeaders)
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 20));
       //store the valuse
       responseJson = returnResponse(response);
     } on SocketException {

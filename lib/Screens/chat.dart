@@ -31,8 +31,9 @@ class _ChatPageState extends State<ChatPage> {
         return Future.value(true);
       },
       child: Scaffold(
-          appBar: AppBar(title: Text("Chats")),
-          body: Obx(() {
+        appBar: AppBar(title: Text("Chats")),
+        body: Obx(
+          () {
             switch (_chatController.rxRequestStatus.value) {
               case Status.LOADING:
                 return Center(child: CircularProgressIndicator());
@@ -69,7 +70,9 @@ class _ChatPageState extends State<ChatPage> {
                   ),
                 );
             }
-          })),
+          },
+        ),
+      ),
     );
   }
 }

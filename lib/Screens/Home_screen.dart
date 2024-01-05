@@ -5,6 +5,7 @@ import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/Screens/tractor_screen.dart';
 import 'package:farmkal/app_localizations.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
+import 'package:farmkal/data/response/status.dart';
 
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/utils/utils.dart';
@@ -157,42 +158,59 @@ class _Home_ScreenState extends State<Home_Screen> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _mandiController.getCommidityData();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize:
-            Size.fromHeight(MediaQuery.of(context).size.height * 0.20),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Appcolor.browncolor,
-          ),
-          child: Column(
-            children: [
-              AppBar(
-                backgroundColor: Appcolor.browncolor,
-                leading: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: CircleAvatar(
-                    backgroundImage:
-                        NetworkImage('https://via.placeholder.com/150'),
-                    radius: 20,
+          preferredSize:
+              Size.fromHeight(MediaQuery.of(context).size.height * 0.20),
+          child: Obx(() {
+            switch (_mandiController.rxRequestStatus.value) {
+              case Status.LOADING:
+                return Center(child: CircularProgressIndicator());
+              case Status.ERROR:
+                return Utils.SnackBar('No Internet', 'No Internet');
+              case Status.COMPLETED:
+                return Container(
+                  decoration: BoxDecoration(
+                    color: Appcolor.browncolor,
                   ),
-                ),
-                title: Text("RAM KUMAR"),
-                actions: [
-                  // Row(
-                  //   children: [
-                  IconButton(
-                    icon: Icon(Icons.search), // This is the search icon
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.menu), // This is the menu icon
-                    onPressed: () {},
-                    //   )
-                    // ],
-                  ),
-                  /*IconButton(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      AppBar(
+                        backgroundColor: Appcolor.browncolor,
+                        leading: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage('https://via.placeholder.com/150'),
+                            radius: 20,
+                          ),
+                        ),
+                        title: Text("RAM KUMAR"),
+                        actions: [
+                          // Row(
+                          //   children: [
+                          IconButton(
+                            icon: Icon(Icons.search), // This is the search icon
+                            onPressed: () {},
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.menu), // This is the menu icon
+                            onPressed: () {},
+                            //   )
+                            // ],
+                          ),
+                          /*IconButton(
                     icon: Icon(Icons.menu), // This is the menu icon
                     onPressed: () {},
                   ),
@@ -201,34 +219,36 @@ class _Home_ScreenState extends State<Home_Screen> {
                       mandi("गेहू "),
                     ],
                   )*/
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(child: mandiUp("गेहू ")),
-                  Expanded(
-                    child: mandidown("गेहू"),
-                  ),
-                  Expanded(child: mandiUp("गेहू ")),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(8),
-                      height: 45,
-                      decoration: BoxDecoration(color: Appcolor.darkbrowncolor),
-                      child: Center(
-                        child: Text(
-                          "और देखे",
-                          style: TextStyle(color: Appcolor.whitecolor),
-                        ),
+                        ],
                       ),
-                    ),
+                      Row(
+                        children: [
+                          Expanded(child: mandiUp("गेहू ")),
+                          Expanded(
+                            child: mandidown("गेहू"),
+                          ),
+                          Expanded(child: mandiUp("गेहू ")),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.all(8),
+                              height: 45,
+                              decoration:
+                                  BoxDecoration(color: Appcolor.darkbrowncolor),
+                              child: Center(
+                                child: Text(
+                                  "और देखे",
+                                  style: TextStyle(color: Appcolor.whitecolor),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
+                );
+            }
+          })),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -384,9 +404,9 @@ class _Home_ScreenState extends State<Home_Screen> {
                   icon: Icon(Icons.add, color: Colors.white, size: 35)),
               GestureDetector(
                   onTap: () {
-                    // _mandiController.getCityData();
-                    // _mandiController.getMarketDatamethod();
-                    // _mandiController.getCommidityData();
+                    _mandiController.getCityData();
+                    _mandiController.getMarketDatamethod();
+                    _mandiController.getCommidityData();
                   },
                   child: Icon(Icons.favorite, color: Colors.white, size: 35)),
               IconButton(
