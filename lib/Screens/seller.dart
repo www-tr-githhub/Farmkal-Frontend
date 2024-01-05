@@ -51,7 +51,7 @@ class _SellerviewState extends State<Sellerview> {
         child: Column(
           children: [
             Container(
-              child: Image.asset('assets/gif/bluetractor.jpeg'),
+              child: Center(child: Image.asset('assets/gif/bluetractor.jpeg')),
             ),
           ],
         ),
