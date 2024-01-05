@@ -27,7 +27,7 @@ class _Bottomnavigationbar2State extends State<Bottomnavigationbar2> {
                   color: Appcolor.whitecolor, size: 35),
               IconButton(
                 onPressed: () {
-                  _chatController.connect("him1@g.com");
+                  // _chatController.connect("him1@g.com");
                   Get.to(() => ChatPage());
                 },
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),

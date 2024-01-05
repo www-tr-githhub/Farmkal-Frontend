@@ -60,10 +60,10 @@ class _PageControllerAppState extends State<PageControllerApp> {
                   );
                 }).toList(),
               ),
-              ElevatedButton(
-                onPressed: () => loginController.googleSignIn(),
-                child: Text('Sign In with Google'),
-              ),
+              // ElevatedButton(
+              //   onPressed: () => loginController.googleSignIn(),
+              //   child: Text('Sign In with Google'),
+              // ),
               // const SizedBox(height: 28),
               //
               Padding(
@@ -147,8 +147,10 @@ class _PageControllerAppState extends State<PageControllerApp> {
                   }
                 },
                 child: Container(
+                  margin: EdgeInsets.all(10),
                   height: 50,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
                     color: Colors.brown,
                   ),
                   child: Center(
@@ -158,17 +160,18 @@ class _PageControllerAppState extends State<PageControllerApp> {
               ),
               InkWell(
                 onTap: () {
-                     if (loginController.phoneNo.value.isEmpty) {
+                  if (loginController.phoneNo.value.isEmpty) {
                     Get.snackbar(
                         "Enter your phone number", "Phone number is important");
                   } else {
-                        loginController.postloginUser();
+                    loginController.postloginUser();
                   }
-              
                 },
                 child: Container(
+                  margin: EdgeInsets.all(10),
                   height: 50,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
                     color: Colors.brown,
                   ),
                   child: Center(

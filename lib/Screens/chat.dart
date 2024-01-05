@@ -1,5 +1,6 @@
 import 'package:farmkal/Screens/chatscreen.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
+import 'package:farmkal/controllers/login_controller.dart';
 import 'package:farmkal/data/response/status.dart';
 import 'package:farmkal/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   ChatController _chatController = Get.find<ChatController>();
+  LoginController _loginController = Get.put(LoginController());
 
   @override
   void initState() {
@@ -64,7 +66,16 @@ class _ChatPageState extends State<ChatPage> {
                                           "hello",
                                       _chatController
                                               .chatlist.value.users![i].id ??
-                                          "id")))
+                                          "id",
+                                      _chatController
+                                              .chatlist.value.users![i].phone ??
+                                          "1234",
+                                      _loginController
+                                              .userDetails.value.user!.id ??
+                                          "1234",
+                                      _chatController
+                                              .chatlist.value.users![i].id ??
+                                          "1234")))
                           : Container(), // Placeholder widget
                     ]),
                   ),
@@ -77,13 +88,14 @@ class _ChatPageState extends State<ChatPage> {
   }
 }
 
-Widget UserChat(String name, String email) {
+Widget UserChat(String name, String email, String usernumber, String sourceId,
+    String targetId) {
   return ListTile(
     onTap: () {
       print(email);
       Get.to(ChatScreen(
-        targetId: email,
-        sourceId: 'him1@g.com',
+        targetId: targetId,
+        sourceId: sourceId,
         targetname: name,
         roomindex: 0,
         userimage:
@@ -94,7 +106,7 @@ Widget UserChat(String name, String email) {
       backgroundImage: AssetImage('assets/gif/images.jpeg'),
     ),
     title: Text(name),
-    subtitle: Text("Last Message"),
+    subtitle: Text("Last Message $usernumber"),
     trailing: Text("Time"),
   );
 }

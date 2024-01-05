@@ -71,7 +71,7 @@ class _SellerviewState extends State<Sellerview> {
                       color: Appcolor.whitecolor, size: 32)),
               IconButton(
                 onPressed: () {
-                  _chatController.connect("him1@g.com");
+                  // _chatController.connect("him1@g.com");
                   Get.to(() => ChatPage());
                 },
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),

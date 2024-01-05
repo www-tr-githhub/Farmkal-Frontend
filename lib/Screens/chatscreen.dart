@@ -47,6 +47,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return WillPopScope(
       onWillPop: () async {
         _chatController.mes.clear();
+        _chatController.disconnect();
         return Future.value(true);
       },
       child: Scaffold(
@@ -54,9 +55,12 @@ class _ChatScreenState extends State<ChatScreen> {
             backgroundColor: Appcolor.browncolor,
             shadowColor: const Color.fromARGB(255, 144, 59, 28),
             automaticallyImplyLeading: true,
-            leading: CircleAvatar(
-              backgroundImage: AssetImage('assets/gif/images.jpeg'),
-              radius: 15,
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/gif/images.jpeg'),
+                radius: 15,
+              ),
             ),
             title: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -336,7 +340,7 @@ class MessageBubble extends StatelessWidget {
     Color messageColor =
         isMe != "destination" ? Colors.green : Appcolor.blueColor;
     Color textColor =
-        isMe != "destination" ? Colors.white : Appcolor.blackcolor;
+        isMe != "destination" ? Appcolor.darkbrowncolor : Appcolor.blackcolor;
 
     Gradient? messageGradient = isMe != "destination"
         ? null
@@ -372,7 +376,7 @@ class MessageBubble extends StatelessWidget {
             decoration: BoxDecoration(
               // borderRadius: BorderRadius.only(),
               borderRadius: borderRadius,
-              color: isMe == "source" ? Colors.green : Colors.white,
+              color: isMe == "source" ? Colors.green : Colors.brown,
               // : AppColor.greyColor.withOpacity(0.10),
               // gradient: messageGradient,
             ),

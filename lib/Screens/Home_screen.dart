@@ -359,7 +359,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                 onPressed: () async {
                   String? token = await UserPreference().getToken();
                   print(token);
-                  if (token == null) {
+                  if (token == null || token.isEmpty) {
                     print("hello tanisha");
                     showDialog(
                       context: context,

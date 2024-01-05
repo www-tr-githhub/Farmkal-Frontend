@@ -73,8 +73,7 @@ class LoginController extends GetxController {
     } catch (error) {
       setRxRequestStatus(Status.ERROR);
       print(error);
-      Get.snackbar(
-          'Your work has not been completed', "please try after sometime");
+      Get.snackbar('User Already exits', "Login with your number");
       loading.value = false;
     }
   }

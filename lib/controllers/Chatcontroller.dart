@@ -44,14 +44,33 @@ class ChatController extends GetxController {
   ScrollController scrollController = ScrollController();
 
   void connect(String emailId) {
+    print(emailId);
+
     socket.onConnect((data) {
       print("socket connected");
+      socket.emit('signin', {'id': emailId});
 
       print("Connected");
     });
-    socket.emit('signin', {"emailId": emailId});
+
+    socket.onError((data) => print(data));
+
+    socket.on("verify_connection", (data) {
+      print(data);
+    });
+
+    socket.on("invalid_data", (data) {
+      print(data);
+    });
+
+    socket.on("sendMsg", (msg) async {
+      print(msg);
+      setMessage("destination", msg["message"], roomIndex.value);
+      print("message aagya ");
+    });
 
     if (!socket.connected) {
+      print("Already connected");
       socket.connect();
     }
   }
@@ -66,7 +85,7 @@ class ChatController extends GetxController {
     if (messageText.isNotEmpty) {
       setMessage("source", messageText, roomIndex);
       socket.emit("chat", {
-        "receiverEmailId": targetId,
+        "receiverUserId": targetId,
         "message": messageText,
         // "receiver": sourceId,
         // "roomIndex": roomIndex
@@ -83,6 +102,7 @@ class ChatController extends GetxController {
   }
 
   void disconnect() {
+    print("inside000");
     if (socket != null && socket.connected == true) {
       print("disconnected");
       socket.disconnect();
