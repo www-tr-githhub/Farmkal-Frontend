@@ -1,7 +1,10 @@
 import 'package:farmkal/Screens/chat.dart';
 import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
+import 'package:farmkal/controllers/mandiController.dart';
+import 'package:farmkal/data/response/status.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
+import 'package:farmkal/utils/utils.dart';
 import 'package:farmkal/view/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +17,7 @@ class tractor_Screen extends StatefulWidget {
 
 class _tractor_ScreenState extends State<tractor_Screen> {
   ChatController _chatController = Get.find<ChatController>();
+  MandiController _mandiController = Get.put(MandiController());
   Widget rowview(String title) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -42,6 +46,14 @@ class _tractor_ScreenState extends State<tractor_Screen> {
             rowview("Tractor1"),
           ],
         ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _mandiController.getCommidityData();
+    });
   }
 
   @override
@@ -79,15 +91,24 @@ class _tractor_ScreenState extends State<tractor_Screen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            rowview2(),
-            rowview2(),
-          ],
-        ),
-      ),
+      body: Obx(() {
+        switch (_chatController.rxRequestStatus.value) {
+          case Status.LOADING:
+            return Center(child: CircularProgressIndicator());
+          case Status.ERROR:
+            return Utils.SnackBar('No Internet', 'No Internet');
+          case Status.COMPLETED:
+            return SingleChildScrollView(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  rowview2(),
+                  rowview2(),
+                ],
+              ),
+            );
+        }
+      }),
       bottomNavigationBar: Container(
         color: Appcolor.darkbrowncolor,
         child: Padding(
