@@ -78,36 +78,44 @@ class LoginController extends GetxController {
     }
   }
 
-  void postloginUser() async {
+  Future<void> postloginUser() async {
     loading.value = true;
     setRxRequestStatus(Status.LOADING);
-    var data = {
-      "name": "Himanshu",
-      "phone": phoneNo.value.split('+91')[1],
-      "bio": "This is my bio",
-      "state": "Rajasthan",
-      "city": "churu",
-      "latitude": "26.0045",
-      "longitude": "75.5432"
-    };
+    print("hello");
+    String? number = await _userPreference.getNumber();
+    print(number);
 
-    print(data);
+    if (number != null || number!.isEmpty) {
+      var data = {
+        "name": "Himanshu",
+        "phone": number!.split('+91')[1],
+        "bio": "This is my bio",
+        "state": "Rajasthan",
+        "city": "churu",
+        "latitude": "26.0045",
+        "longitude": "75.5432"
+      };
 
-    try {
-      final response = await _api.postLogin(data);
-      setUserdata(response);
-      print(userDetails.value.token!);
-      _userPreference.saveToken(userDetails.value.token!);
-      Get.to(Home_Screen());
-      setRxRequestStatus(Status.COMPLETED);
-      loading.value = false;
-      Get.snackbar("Congratulations", "You are successfully registered");
-    } catch (error) {
-      setRxRequestStatus(Status.ERROR);
-      print(error);
-      Get.snackbar(
-          'Your work has not been completed', "please try after sometime");
-      loading.value = false;
+      print(data);
+
+      try {
+        final response = await _api.postLogin(data);
+        setUserdata(response);
+        print(userDetails.value.token!);
+        _userPreference.saveToken(userDetails.value.token!);
+        Get.to(Home_Screen());
+        setRxRequestStatus(Status.COMPLETED);
+        loading.value = false;
+        Get.snackbar("Congratulations", "You are successfully registered");
+      } catch (error) {
+        setRxRequestStatus(Status.ERROR);
+        print(error);
+        Get.snackbar(
+            'Your work has not been completed', "please try after sometime");
+        loading.value = false;
+      }
+    } else {
+      Get.snackbar("Please Login ", "Login and enjoy the latest features");
     }
   }
 

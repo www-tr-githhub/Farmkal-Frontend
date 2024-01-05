@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:farmkal/Screens/Home_screen.dart';
 import 'package:farmkal/controllers/login_controller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
+import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -33,6 +34,7 @@ class _PageControllerAppState extends State<PageControllerApp> {
     final bool _hasFocus = false;
 
     LoginController loginController = Get.put(LoginController());
+    UserPreference _userPreference = new UserPreference();
     return Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -138,11 +140,14 @@ class _PageControllerAppState extends State<PageControllerApp> {
               ),
 
               InkWell(
-                onTap: () {
+                onTap: () async {
                   if (loginController.phoneNo.value.isEmpty) {
                     Get.snackbar(
                         "Enter your phone number", "Phone number is important");
                   } else {
+                    await _userPreference
+                        .saveNumber(loginController.phoneNo.value);
+
                     loginController.postRegisterUser();
                   }
                 },
@@ -159,11 +164,13 @@ class _PageControllerAppState extends State<PageControllerApp> {
                 ),
               ),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   if (loginController.phoneNo.value.isEmpty) {
                     Get.snackbar(
                         "Enter your phone number", "Phone number is important");
                   } else {
+                    await _userPreference
+                        .saveNumber(loginController.phoneNo.value);
                     loginController.postloginUser();
                   }
                 },
@@ -182,70 +189,70 @@ class _PageControllerAppState extends State<PageControllerApp> {
             ],
           ),
         ),
-        bottomNavigationBar: Obx(() => BottomAppBar(
-              padding: const EdgeInsets.only(bottom: 25, right: 20),
-              color: Color.fromARGB(255, 196, 223, 246),
-              surfaceTintColor: Colors.transparent,
-              child: SizedBox(
-                width: double.maxFinite,
-                height: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: FloatingActionButton(
-                          backgroundColor: Appcolor.greencolor,
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
-                          shape: CircleBorder(),
-                          onPressed: () {
-                            Get.to(Home_Screen());
-                          },
-                        ),
+        bottomNavigationBar: BottomAppBar(
+          padding: const EdgeInsets.only(bottom: 25, right: 20),
+          color: Color.fromARGB(255, 196, 223, 246),
+          surfaceTintColor: Colors.transparent,
+          child: SizedBox(
+            width: double.maxFinite,
+            height: 100,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: FloatingActionButton(
+                      backgroundColor: Appcolor.greencolor,
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
                       ),
+                      shape: CircleBorder(),
+                      onPressed: () {
+                        Get.to(Home_Screen());
+                      },
                     ),
-                    loginController.loading.value == true
-                        ? const Center(child: CircularProgressIndicator())
-                        : Align(
-                            alignment: Alignment.centerRight,
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: FloatingActionButton(
-                                    backgroundColor: Appcolor.greencolor,
-                                    child: Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
-                                    ),
-                                    shape: CircleBorder(),
-                                    onPressed: _isButtonClickable
-                                        ? () {
-                                            if (loginController
-                                                .phoneNo.value.isNotEmpty) {
-                                              loginController
-                                                  .signInWithMobileNumber();
-                                            } else {
-                                              Get.snackbar(
-                                                  "Please Enter your phone number",
-                                                  "Enter your phone number to login");
-                                            }
-                                          }
-                                        : null,
-                                  )),
-                            ),
-                          ),
-                  ],
+                  ),
                 ),
-              ),
-            )));
+                // loginController.loading.value == true
+                //     ? const Center(child: CircularProgressIndicator())
+                //     : Align(
+                //         alignment: Alignment.centerRight,
+                //         child: SizedBox(
+                //           width: 50,
+                //           height: 50,
+                //           child: Padding(
+                //               padding: const EdgeInsets.only(top: 10.0),
+                //               child: FloatingActionButton(
+                //                 backgroundColor: Appcolor.greencolor,
+                //                 child: Icon(
+                //                   Icons.arrow_forward,
+                //                   color: Colors.white,
+                //                 ),
+                //                 shape: CircleBorder(),
+                //                 onPressed: _isButtonClickable
+                //                     ? () {
+                //                         if (loginController
+                //                             .phoneNo.value.isNotEmpty) {
+                //                           loginController
+                //                               .signInWithMobileNumber();
+                //                         } else {
+                //                           Get.snackbar(
+                //                               "Please Enter your phone number",
+                //                               "Enter your phone number to login");
+                //                         }
+                //                       }
+                //                     : null,
+                //               )),
+                //         ),
+                //       ),
+              ],
+            ),
+          ),
+        ));
   }
 }
 

@@ -5,6 +5,7 @@ import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/Screens/tractor_screen.dart';
 import 'package:farmkal/app_localizations.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
+import 'package:farmkal/controllers/login_controller.dart';
 import 'package:farmkal/data/response/status.dart';
 
 import 'package:farmkal/resources/resources/colors/app_color.dart';
@@ -24,6 +25,7 @@ class Home_Screen extends StatefulWidget {
 class _Home_ScreenState extends State<Home_Screen> {
   ChatController _chatController = Get.find<ChatController>();
   MandiController _mandiController = Get.put(MandiController());
+  LoginController _loginController = Get.put(LoginController());
 
   Widget rowview(String title) {
     return Padding(
@@ -162,7 +164,8 @@ class _Home_ScreenState extends State<Home_Screen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _mandiController.getCommidityData();
+      await _mandiController.getCommidityData();
+      await _loginController.postloginUser();
     });
   }
 
@@ -211,14 +214,14 @@ class _Home_ScreenState extends State<Home_Screen> {
                             // ],
                           ),
                           /*IconButton(
-                    icon: Icon(Icons.menu), // This is the menu icon
-                    onPressed: () {},
-                  ),
-                  Row(
-                    children: [
-                      mandi("गेहू "),
-                    ],
-                  )*/
+                      icon: Icon(Icons.menu), // This is the menu icon
+                      onPressed: () {},
+                    ),
+                    Row(
+                      children: [
+                        mandi("गेहू "),
+                      ],
+                    )*/
                         ],
                       ),
                       Row(
@@ -318,8 +321,8 @@ class _Home_ScreenState extends State<Home_Screen> {
                         ),
                         Icon(Icons.filter_alt_outlined)
                         /*IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.filter_alt_outlined)),*/
+                              onPressed: () {},
+                              icon: Icon(Icons.filter_alt_outlined)),*/
                       ],
                     ),
                   ),
@@ -347,7 +350,7 @@ class _Home_ScreenState extends State<Home_Screen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               /*Icon(Icons.account_circle_sharp,
-                  color: Appcolor.whitecolor, size: 35),*/
+                    color: Appcolor.whitecolor, size: 35),*/
 
               IconButton(
                   onPressed: () {
@@ -359,7 +362,9 @@ class _Home_ScreenState extends State<Home_Screen> {
                 onPressed: () async {
                   String? token = await UserPreference().getToken();
                   print(token);
-                  if (token == null || token.isEmpty) {
+                  if (token == null ||
+                      token.isEmpty ||
+                      _loginController.userDetails.value.user == null) {
                     print("hello tanisha");
                     showDialog(
                       context: context,
@@ -404,9 +409,9 @@ class _Home_ScreenState extends State<Home_Screen> {
                   icon: Icon(Icons.add, color: Colors.white, size: 35)),
               GestureDetector(
                   onTap: () {
-                    _mandiController.getCityData();
-                    _mandiController.getMarketDatamethod();
-                    _mandiController.getCommidityData();
+                    // _mandiController.getCityData();
+                    // _mandiController.getMarketDatamethod();
+                    // _mandiController.getCommidityData();
                   },
                   child: Icon(Icons.favorite, color: Colors.white, size: 35)),
               IconButton(
@@ -420,5 +425,8 @@ class _Home_ScreenState extends State<Home_Screen> {
         ),
       ),
     );
+    // }
+    // }),
+    // );
   }
 }
