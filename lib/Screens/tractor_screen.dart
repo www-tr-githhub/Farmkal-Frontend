@@ -52,7 +52,7 @@ class _tractor_ScreenState extends State<tractor_Screen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _mandiController.getCommidityData();
+      await _mandiController.getCommidityData();
     });
   }
 
@@ -92,7 +92,7 @@ class _tractor_ScreenState extends State<tractor_Screen> {
         ],
       ),
       body: Obx(() {
-        switch (_chatController.rxRequestStatus.value) {
+        switch (_mandiController.rxRequestStatus.value) {
           case Status.LOADING:
             return Center(child: CircularProgressIndicator());
           case Status.ERROR:

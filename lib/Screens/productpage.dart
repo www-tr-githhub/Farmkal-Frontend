@@ -154,6 +154,7 @@ class _ProductpageState extends State<Productpage> {
                   ])
                 ],
               ),
+              
             )
             /*Obx(
                 () => DataTable(

@@ -63,9 +63,34 @@ class _Home_ScreenState extends State<Home_Screen> {
               style: TextStyle(fontSize: 14),
             ),
             Text(
-              "1500 / Kg",
+              "${_mandiController.commidtyData.value.commodity?["Amla(Nelli Kai)"]}",
+              style: TextStyle(fontSize: 14),
+            )
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget mandiUp2(String title) {
+    return Row(
+      children: [
+        Icon(
+          Icons.arrow_upward,
+          color: Colors.green,
+          size: 30,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
               style: TextStyle(fontSize: 14),
             ),
+            Text(
+              "${_mandiController.mandiData.value.data?[0]}",
+              style: TextStyle(fontSize: 14),
+            )
           ],
         ),
       ],
@@ -88,9 +113,9 @@ class _Home_ScreenState extends State<Home_Screen> {
               style: TextStyle(fontSize: 14),
             ),
             Text(
-              "1500 / Kg",
+              "${_mandiController.commidtyData.value.commodity?["Ajwan"]}",
               style: TextStyle(fontSize: 14),
-            ),
+            )
           ],
         ),
       ],
@@ -164,8 +189,9 @@ class _Home_ScreenState extends State<Home_Screen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _mandiController.getCommidityData();
-      await _loginController.postloginUser();
+      await _mandiController.getMandiData();
+     await _mandiController. getCommidityData() 
+      //await _loginController.postloginUser();
     });
   }
 
@@ -226,11 +252,11 @@ class _Home_ScreenState extends State<Home_Screen> {
                       ),
                       Row(
                         children: [
-                          Expanded(child: mandiUp("गेहू ")),
+                          Expanded(child: mandiUp("Nelli Kai")),
                           Expanded(
-                            child: mandidown("गेहू"),
+                            child: mandidown("अजवाइन"),
                           ),
-                          Expanded(child: mandiUp("गेहू ")),
+                          Expanded(child: mandiUp2("सेब ")),
                           Expanded(
                             child: Container(
                               margin: EdgeInsets.all(8),
