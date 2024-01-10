@@ -8,7 +8,7 @@ class ImagePickerController extends GetxController {
 
   Future pickImage() async {
     // ignore: deprecated_member_use
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
       pickedImage.value = File(pickedFile.path);

@@ -1,5 +1,6 @@
 import 'package:farmkal/Screens/chat.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
+import 'package:farmkal/controllers/imagecontroller.dart';
 import 'package:farmkal/controllers/textcontroller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/view/onboarding.dart';
@@ -14,6 +15,7 @@ class Sellerview extends StatefulWidget {
 
 class _SellerviewState extends State<Sellerview> {
   ChatController _chatController = Get.find<ChatController>();
+  ImagePickerController _pickerController = Get.put(ImagePickerController());
   final T_Controller controller = Get.put(T_Controller());
 
   Widget build(BuildContext context) {
@@ -51,134 +53,152 @@ class _SellerviewState extends State<Sellerview> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  child: Center(
-                child: Image.asset('assets/gif/bluetractor.jpeg'),
-              )),
-            ),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.camera_alt_outlined,
-                  size: 30,
-                )),
-            Table(
-              defaultColumnWidth: FixedColumnWidth(180),
-              border: TableBorder.all(width: 2.0, style: BorderStyle.solid),
-              children: [
-                TableRow(children: [
-                  Column(
-                    children: [Text("MODEL", style: TextStyle(fontSize: 20))],
-                  ),
-                  Column(
-                    children: [
-                      TextField(
-                        controller: controller.textEditingController,
-                        decoration: InputDecoration(labelText: 'Enter Text'),
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ],
-                  )
-                ]),
-                TableRow(children: [
-                  Column(
-                    children: [Text("BRAND", style: TextStyle(fontSize: 20))],
-                  ),
-                  Column(
-                    children: [
-                      TextField(
-                        controller: controller.textEditingController,
-                        decoration: InputDecoration(labelText: 'Enter Text'),
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ],
-                  )
-                ]),
-                TableRow(children: [
-                  Column(
-                    children: [Text("TYRE", style: TextStyle(fontSize: 20))],
-                  ),
-                  Column(
-                    children: [
-                      TextField(
-                        controller: controller.textEditingController,
-                        decoration: InputDecoration(labelText: 'Enter Text'),
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ],
-                  )
-                ]),
-                TableRow(children: [
-                  Column(
-                    children: [
-                      Text("RATE/ DEMAND", style: TextStyle(fontSize: 20))
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      TextField(
-                        controller: controller.textEditingController,
-                        decoration: InputDecoration(labelText: 'Enter Text'),
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ],
-                  )
-                ]),
-                TableRow(children: [
-                  Column(
-                    children: [Text("HOURS", style: TextStyle(fontSize: 20))],
-                  ),
-                  Column(
-                    children: [
-                      TextField(
-                        controller: controller.textEditingController,
-                        decoration: InputDecoration(labelText: 'Enter Text'),
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ],
-                  )
-                ]),
-                TableRow(children: [
-                  Column(
-                    children: [
-                      Text("OTHER DETAILS", style: TextStyle(fontSize: 20))
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      TextField(
-                        controller: controller.textEditingController,
-                        decoration: InputDecoration(labelText: 'Enter Text'),
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ],
-                  )
-                ]),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  height: 50,
-                  width: 150,
-                  color: Colors.brown,
-                  child: Center(
-                    child: Text(
-                      "UPLOAD NOW",
-                      style:
-                          TextStyle(fontSize: 15, color: Appcolor.whitecolor),
-                    ),
+        child: Obx(
+          () => Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    width: MediaQuery.of(context).size.width * 2.0,
+                    child: Center(
+                        child: _pickerController.pickedImage.value.path.isEmpty
+                            ? Image.asset('assets/gif/bluetractor.jpeg')
+                            : Image.file(_pickerController.pickedImage.value))),
+              ),
+              IconButton(
+                  onPressed: () {
+                    _pickerController.pickImage();
+                  },
+                  icon: Icon(
+                    Icons.camera_alt_outlined,
+                    size: 30,
                   )),
-            ),
-            SizedBox(
-              height: 20,
-            )
-          ],
+              Center(
+                child: Table(
+                  defaultColumnWidth: FixedColumnWidth(180),
+                  border: TableBorder.all(width: 2.0, style: BorderStyle.solid),
+                  children: [
+                    TableRow(children: [
+                      Column(
+                        children: [
+                          Text("MODEL", style: TextStyle(fontSize: 20))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          TextFormField(
+                            controller: controller.model.value,
+                            decoration: InputDecoration(hintText: 'Enter Text'),
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      )
+                    ]),
+                    TableRow(children: [
+                      Column(
+                        children: [
+                          Text("BRAND", style: TextStyle(fontSize: 20))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          TextFormField(
+                            controller: controller.brand.value,
+                            decoration: InputDecoration(hintText: 'Enter Text'),
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      )
+                    ]),
+                    TableRow(children: [
+                      Column(
+                        children: [
+                          Text("TYRE", style: TextStyle(fontSize: 20))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          TextFormField(
+                            controller: controller.tyre.value,
+                            decoration: InputDecoration(hintText: 'Enter Text'),
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      )
+                    ]),
+                    TableRow(children: [
+                      Column(
+                        children: [
+                          Text("RATE/ DEMAND", style: TextStyle(fontSize: 20))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          TextFormField(
+                            controller: controller.rate.value,
+                            decoration: InputDecoration(hintText: 'Enter Text'),
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      )
+                    ]),
+                    TableRow(children: [
+                      Column(
+                        children: [
+                          Text("HOURS", style: TextStyle(fontSize: 20))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          TextFormField(
+                            controller: controller.hour.value,
+                            decoration: InputDecoration(hintText: 'Enter Text'),
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      )
+                    ]),
+                    TableRow(children: [
+                      Column(
+                        children: [
+                          Text("OTHER DETAILS", style: TextStyle(fontSize: 20))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          TextField(
+                            controller: controller.otherdetail.value,
+                            decoration:
+                                InputDecoration(labelText: 'Enter Text'),
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      )
+                    ]),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    height: 50,
+                    width: 150,
+                    color: Colors.brown,
+                    child: Center(
+                      child: Text(
+                        "UPLOAD NOW",
+                        style:
+                            TextStyle(fontSize: 15, color: Appcolor.whitecolor),
+                      ),
+                    )),
+              ),
+              SizedBox(
+                height: 20,
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(
