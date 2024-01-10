@@ -9,5 +9,6 @@ class AppUrl {
   static var city = 'https://cr5pww-4000.csb.app/api/v1/city/Rajasthan';
   static var market =
       'https://cr5pww-4000.csb.app/api/v1/market/Rajasthan/Kota';
- static var mandidata = 'https://cr5pww-4000.csb.app/api/v1/mandidata?state=Rajasthan&city=Kota&commodity=Garlic';     
+  static var mandidata =
+      'https://cr5pww-4000.csb.app/api/v1/mandidata?state=Rajasthan&city=Kota&commodity=Garlic';
 }

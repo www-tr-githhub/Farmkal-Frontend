@@ -63,8 +63,8 @@ class _Home_ScreenState extends State<Home_Screen> {
               style: TextStyle(fontSize: 14),
             ),
             Text(
-              "${_mandiController.commidtyData.value.commodity?["Amla(Nelli Kai)"]}",
-              style: TextStyle(fontSize: 14),
+              "₹14250/Quital",
+              style: TextStyle(fontSize: 10),
             )
           ],
         ),
@@ -84,7 +84,7 @@ class _Home_ScreenState extends State<Home_Screen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title,
+              "",
               style: TextStyle(fontSize: 14),
             ),
             Text(
@@ -190,7 +190,7 @@ class _Home_ScreenState extends State<Home_Screen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _mandiController.getMandiData();
-     await _mandiController. getCommidityData() 
+      await _mandiController.getCommidityData();
       //await _loginController.postloginUser();
     });
   }
@@ -252,11 +252,13 @@ class _Home_ScreenState extends State<Home_Screen> {
                       ),
                       Row(
                         children: [
-                          Expanded(child: mandiUp("Nelli Kai")),
-                          Expanded(
-                            child: mandidown("अजवाइन"),
-                          ),
-                          Expanded(child: mandiUp2("सेब ")),
+                          Expanded(child: mandiUp("Garlic")),
+                          Expanded(child: mandiUp("Garlic")),
+                          Expanded(child: mandiUp("Garlic")),
+                          // Expanded(
+                          //   child: mandidown("अजवाइन"),
+                          // ),
+                          // Expanded(child: mandiUp2("सेब ")),
                           Expanded(
                             child: Container(
                               margin: EdgeInsets.all(8),

@@ -14,7 +14,13 @@ class mandipage extends StatefulWidget {
 
 class _mandipageState extends State<mandipage> {
   ChatController _chatController = Get.find<ChatController>();
-  Widget mandibox(String title, String imagePath, String title2) {
+  List<String> type = [];
+  List<List<String>> arr = [
+    ["5000", "14250", "23500"],
+    ["400", "700", "1000"],
+    []
+  ];
+  Widget mandibox(String title, String imagePath, String title2, int j) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       color: Appcolor.browncolor,
@@ -96,9 +102,10 @@ class _mandipageState extends State<mandipage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                rowline("अधिकतम", "18000/Q"),
-                rowline("अधिकतम", "18000/Q"),
-                rowline("अधिकतम", "18000/Q"),
+                for (int i = 0; i < arr[j].length; i++)
+                  rowline("अधिकतम", "${arr[j][i]}/Q"),
+                // rowline("अधिकतम", "14250/Q"),
+                // rowline("अधिकतम", "23500/Q"),
               ],
             ),
           ),
@@ -175,7 +182,8 @@ class _mandipageState extends State<mandipage> {
             //   children: [
             //     Column(
             //       children: [
-            mandibox("लहसुन ", "assets/gif/garlic.jpeg", "(आवक - 250  टन) "),
+            mandibox(
+                "Garlic ", "assets/gif/garlic.jpeg", "(आवक - 250  टन) ", 0),
             //       ],
             //     ),
             //   ],
@@ -185,7 +193,8 @@ class _mandipageState extends State<mandipage> {
             // ),
             // Row(
             //   children: [
-            mandibox("प्याज  ", "assets/gif/garlic.jpeg", "(आवक - 300  टन)  "),
+            mandibox(
+                "Potato ", "assets/gif/garlic.jpeg", "(आवक - 300  टन)  ", 1),
             //   ],
             // ),
             // SizedBox(
@@ -193,7 +202,8 @@ class _mandipageState extends State<mandipage> {
             // ),
             // Row(
             //   children: [
-            mandibox("गेहू   ", "assets/gif/garlic.jpeg", "(आवक - 150  टन)  "),
+            mandibox(
+                "गेहू   ", "assets/gif/garlic.jpeg", "(आवक - 150  टन)  ", 0),
             //   ],
             // ),
             SizedBox(
