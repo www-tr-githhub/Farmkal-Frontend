@@ -100,6 +100,32 @@ class NetworkApiServices extends BaseApiServices {
     return responseJson;
   }
 
+  @override
+  Future<dynamic> postApiWithfiles(
+      var data, String url, List<File> files, String token) async {
+    if (kDebugMode) {
+      print(data);
+      print(url);
+      print(files);
+    }
+    Map<String, String> requestHeaders = {
+      'Authorization': 'Bearer $token',
+      'content-Type': 'application/json',
+    };
+    dynamic responseJson;
+    try {
+      final response = await http
+          .post(Uri.parse(url), body: jsonEncode(data), headers: requestHeaders)
+          .timeout(const Duration(seconds: 10));
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOut {
+      throw RequestTimeOut('');
+    }
+    return responseJson;
+  }
+
   Future<dynamic> postDatawithtoken(data, String token, String url) async {
     if (kDebugMode) {
       print(data);

@@ -381,8 +381,45 @@ class _Home_ScreenState extends State<Home_Screen> {
                     color: Appcolor.whitecolor, size: 35),*/
 
               IconButton(
-                  onPressed: () {
-                    Get.to(() => PageControllerApp());
+                  onPressed: () async {
+                    String? token = await UserPreference().getToken();
+                    print(token);
+                    if (token == null ||
+                        token.isEmpty ||
+                        _loginController.userDetails.value.user == null) {
+                      print("hello tanisha");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Login'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text(
+                                    "You have to login or Register first to start chatting")
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('Cancel'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Login'),
+                                onPressed: () {
+                                  Get.to(() => PageControllerApp());
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      Get.to(() => PageControllerApp());
+                    }
                   },
                   icon: Icon(Icons.account_circle_sharp,
                       color: Appcolor.whitecolor, size: 32)),
@@ -431,8 +468,45 @@ class _Home_ScreenState extends State<Home_Screen> {
                 icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
               ),
               IconButton(
-                  onPressed: () {
-                    Get.to(Sellerview());
+                  onPressed: () async {
+                    String? token = await UserPreference().getToken();
+                    print(token);
+                    if (token == null ||
+                        token.isEmpty ||
+                        _loginController.userDetails.value.user == null) {
+                      print("hello tanisha");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Login'),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text(
+                                    "You have to login or Register first to start chatting")
+                              ],
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('Cancel'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Login'),
+                                onPressed: () {
+                                  Get.to(() => PageControllerApp());
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      Get.to(Sellerview());
+                    }
                   },
                   icon: Icon(Icons.add, color: Colors.white, size: 35)),
               GestureDetector(

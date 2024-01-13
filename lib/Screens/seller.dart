@@ -1,7 +1,8 @@
 import 'package:farmkal/Screens/chat.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/controllers/imagecontroller.dart';
-import 'package:farmkal/controllers/textcontroller.dart';
+import 'package:farmkal/controllers/sellProductcontroller.dart';
+import 'package:farmkal/models/sellproduct.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/view/onboarding.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class Sellerview extends StatefulWidget {
 class _SellerviewState extends State<Sellerview> {
   ChatController _chatController = Get.find<ChatController>();
   ImagePickerController _pickerController = Get.put(ImagePickerController());
-  final T_Controller controller = Get.put(T_Controller());
+  final SellProductController controller = Get.put(SellProductController());
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +109,6 @@ class _SellerviewState extends State<Sellerview> {
                             controller: controller.brand.value,
                             decoration: InputDecoration(hintText: 'Enter Text'),
                             style: TextStyle(fontSize: 15),
-                            
                           ),
                         ],
                       )
@@ -181,19 +181,26 @@ class _SellerviewState extends State<Sellerview> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                    height: 50,
-                    width: 150,
-                    color: Colors.brown,
-                    child: Center(
-                      child: Text(
-                        "UPLOAD NOW",
-                        style:
-                            TextStyle(fontSize: 15, color: Appcolor.whitecolor),
-                      ),
-                    )),
+              InkWell(
+                onTap: () async {
+                  await controller.sellProduct();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: (controller.loading.value == true)
+                      ? CircularProgressIndicator()
+                      : Container(
+                          height: 50,
+                          width: 150,
+                          color: Colors.brown,
+                          child: Center(
+                            child: Text(
+                              "UPLOAD NOW",
+                              style: TextStyle(
+                                  fontSize: 15, color: Appcolor.whitecolor),
+                            ),
+                          )),
+                ),
               ),
               SizedBox(
                 height: 20,
