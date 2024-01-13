@@ -108,6 +108,7 @@ class _SellerviewState extends State<Sellerview> {
                             controller: controller.brand.value,
                             decoration: InputDecoration(hintText: 'Enter Text'),
                             style: TextStyle(fontSize: 15),
+                            
                           ),
                         ],
                       )
