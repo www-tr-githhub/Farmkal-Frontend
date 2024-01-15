@@ -4,6 +4,7 @@ import 'package:farmkal/Screens/Home_screen.dart';
 import 'package:farmkal/data/app_exceptions.dart';
 import 'package:farmkal/utils/utils.dart';
 import 'package:farmkal/view/onboarding.dart';
+import 'package:farmkal/view_models/bottomnavigationbar2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> getFirebaseMessagingToken() async {
     print("Tanisha");
     Future.delayed(const Duration(milliseconds: 3350), () {
-      Get.to(() => Home_Screen());
+      Get.to(() => Bottomnavigationbar2());
     });
   }
 

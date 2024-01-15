@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:farmkal/data/network/network_api_services.dart';
+import 'package:farmkal/models/productList.dart';
 import 'package:farmkal/models/sellproduct.dart';
 
 import 'package:farmkal/resources/resources/app_url.dart';
@@ -16,5 +17,12 @@ class SellProductServices {
 
     print(response);
     return SellProduct.fromJson(response);
+  }
+
+  Future<ProductList> getProductList() async {
+    dynamic response = await _apiservices.getApi(AppUrl.getproducts);
+
+    print(response);
+    return ProductList.fromJson(response);
   }
 }

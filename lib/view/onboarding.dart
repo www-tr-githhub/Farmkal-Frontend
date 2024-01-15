@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:farmkal/Screens/Home_screen.dart';
 import 'package:farmkal/controllers/login_controller.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
+import 'package:farmkal/view_models/bottomnavigationbar2.dart';
 import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -203,7 +203,7 @@ class _PageControllerAppState extends State<PageControllerApp> {
                   width: 50,
                   height: 50,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
+                    padding: const EdgeInsets.only(left: 10.0),
                     child: FloatingActionButton(
                       backgroundColor: Appcolor.greencolor,
                       child: Icon(
@@ -212,7 +212,7 @@ class _PageControllerAppState extends State<PageControllerApp> {
                       ),
                       shape: CircleBorder(),
                       onPressed: () {
-                        Get.to(Home_Screen());
+                        Get.to(Bottomnavigationbar2());
                       },
                     ),
                   ),

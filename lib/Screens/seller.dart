@@ -209,40 +209,41 @@ class _SellerviewState extends State<Sellerview> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        color: Appcolor.darkbrowncolor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Get.to(() => PageControllerApp());
-                  },
-                  icon: Icon(Icons.account_circle_sharp,
-                      color: Appcolor.whitecolor, size: 32)),
-              IconButton(
-                onPressed: () {
-                  // _chatController.connect("him1@g.com");
-                  Get.to(() => ChatPage());
-                },
-                icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
-              ),
-              IconButton(
-                  onPressed: () {
-                    Get.to(Sellerview());
-                  },
-                  icon: Icon(Icons.add, color: Colors.white, size: 35)),
-              Icon(Icons.favorite, color: Colors.white, size: 35),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.bar_chart,
-                      color: Appcolor.greencolor, size: 35)),
-            ],
-          ),
-        ),
-      ),
+
+      // bottomNavigationBar: Container(
+      //   color: Appcolor.darkbrowncolor,
+      //   child: Padding(
+      //     padding: const EdgeInsets.symmetric(vertical: 10),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //       children: [
+      //         IconButton(
+      //             onPressed: () {
+      //               Get.to(() => PageControllerApp());
+      //             },
+      //             icon: Icon(Icons.account_circle_sharp,
+      //                 color: Appcolor.whitecolor, size: 32)),
+      //         IconButton(
+      //           onPressed: () {
+      //             // _chatController.connect("him1@g.com");
+      //             Get.to(() => ChatPage());
+      //           },
+      //           icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
+      //         ),
+      //         IconButton(
+      //             onPressed: () {
+      //               Get.to(Sellerview());
+      //             },
+      //             icon: Icon(Icons.add, color: Colors.white, size: 35)),
+      //         Icon(Icons.favorite, color: Colors.white, size: 35),
+      //         IconButton(
+      //             onPressed: () {},
+      //             icon: Icon(Icons.bar_chart,
+      //                 color: Appcolor.greencolor, size: 35)),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

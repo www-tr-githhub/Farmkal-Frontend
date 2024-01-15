@@ -1,8 +1,8 @@
-import 'package:farmkal/Screens/Home_screen.dart';
 import 'package:farmkal/data/response/status.dart';
 import 'package:farmkal/models/userdata-model.dart';
 import 'package:farmkal/services/login_services.dart';
 import 'package:farmkal/view/auth/otp_screen.dart';
+import 'package:farmkal/view_models/bottomnavigationbar2.dart';
 import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class LoginController extends GetxController {
   RxString phoneNo = ''.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
-
+  RxInt selectedIndex = 0.obs;
   RxBool loading = false.obs;
   final phoneNoController = TextEditingController().obs;
   RxString otpController = "".obs;
@@ -66,7 +66,7 @@ class LoginController extends GetxController {
       final response = await _api.postRegister(data);
       setUserdata(response);
       _userPreference.saveToken(userDetails.value.token!);
-      Get.to(Home_Screen());
+      Get.to(Bottomnavigationbar2());
       setRxRequestStatus(Status.COMPLETED);
       loading.value = false;
       Get.snackbar("Congratulations", "You are successfully registered");
@@ -103,7 +103,7 @@ class LoginController extends GetxController {
         setUserdata(response);
         print(userDetails.value.token!);
         _userPreference.saveToken(userDetails.value.token!);
-        Get.to(Home_Screen());
+        Get.to(Bottomnavigationbar2());
         setRxRequestStatus(Status.COMPLETED);
         loading.value = false;
         Get.snackbar("Congratulations", "You are successfully registered");
@@ -129,7 +129,7 @@ class LoginController extends GetxController {
         verificationId: verificationId, smsCode: smscode);
     auth.signInWithCredential(_credential).then((result) {
       if (result != null) {
-        Get.to(Home_Screen());
+        Get.to(Bottomnavigationbar2());
         loading.value = false;
         setRxRequestStatus(Status.COMPLETED);
       }
@@ -193,7 +193,7 @@ class LoginController extends GetxController {
     try {
       await _auth.signInWithCredential(credential);
       print('Signed in with Google');
-      Get.offAll(Home_Screen());
+      Get.offAll(Bottomnavigationbar2());
     } catch (e) {
       print('Error signing in with Google: $e');
       Get.snackbar("Error signing in with Google", e.toString(),

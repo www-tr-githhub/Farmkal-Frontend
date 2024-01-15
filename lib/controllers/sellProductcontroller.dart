@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:farmkal/data/response/status.dart';
+import 'package:farmkal/models/productList.dart';
 import 'package:farmkal/models/sellproduct.dart';
 import 'package:farmkal/services/sellproductServicers.dart';
 import 'package:farmkal/view_models/userPrefrence.dart';
@@ -25,6 +26,9 @@ class SellProductController extends GetxController {
 
   Rx<SellProduct> sellProductData = SellProduct().obs;
   void setsellProductData(SellProduct value) => sellProductData.value = value;
+
+  Rx<ProductList> productListData = ProductList().obs;
+  void setProductListData(ProductList value) => productListData.value = value;
 
   Future<void> sellProduct() async {
     rxRequestStatus.value = Status.LOADING;
@@ -55,6 +59,27 @@ class SellProductController extends GetxController {
     } catch (e) {
       print("Error: " + e.toString());
       rxRequestStatus.value = Status.COMPLETED;
+      loading.value = false;
+    }
+  }
+
+  Future<void> getproductListData() async {
+    rxRequestStatus.value = Status.LOADING;
+    loading.value = true;
+    try {
+      final response = await _sellProductServices.getProductList();
+
+      print("data set");
+      setProductListData(response);
+
+      rxRequestStatus.value = Status.COMPLETED;
+      loading.value = false;
+    } catch (error) {
+      rxRequestStatus.value = Status.COMPLETED;
+
+      print(error);
+      Get.snackbar(
+          'Your work has not been completed', "please try after sometime");
       loading.value = false;
     }
   }

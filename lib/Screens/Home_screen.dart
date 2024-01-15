@@ -190,8 +190,8 @@ class _Home_ScreenState extends State<Home_Screen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _mandiController.getMandiData();
-      await _mandiController.getCommidityData();
-      //await _loginController.postloginUser();
+      // await _mandiController.getCommidityData();
+      await _loginController.postloginUser();
     });
   }
 
@@ -217,12 +217,17 @@ class _Home_ScreenState extends State<Home_Screen> {
                     children: [
                       AppBar(
                         backgroundColor: Appcolor.browncolor,
-                        leading: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage('https://via.placeholder.com/150'),
-                            radius: 20,
+                        leading: InkWell(
+                          onTap: () {
+                            Get.to(PageControllerApp());
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  'https://via.placeholder.com/150'),
+                              radius: 20,
+                            ),
                           ),
                         ),
                         title: Text("RAM KUMAR"),
@@ -370,162 +375,162 @@ class _Home_ScreenState extends State<Home_Screen> {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        color: Appcolor.darkbrowncolor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              /*Icon(Icons.account_circle_sharp,
-                    color: Appcolor.whitecolor, size: 35),*/
+      // bottomNavigationBar: Container(
+      //   color: Appcolor.darkbrowncolor,
+      //   child: Padding(
+      //     padding: const EdgeInsets.symmetric(vertical: 10),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //       children: [
+      //         /*Icon(Icons.account_circle_sharp,
+      //               color: Appcolor.whitecolor, size: 35),*/
 
-              IconButton(
-                  onPressed: () async {
-                    String? token = await UserPreference().getToken();
-                    print(token);
-                    if (token == null ||
-                        token.isEmpty ||
-                        _loginController.userDetails.value.user == null) {
-                      print("hello tanisha");
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Login'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(
-                                    "You have to login or Register first to start chatting")
-                              ],
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('Cancel'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: Text('Login'),
-                                onPressed: () {
-                                  Get.to(() => PageControllerApp());
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else {
-                      Get.to(() => PageControllerApp());
-                    }
-                  },
-                  icon: Icon(Icons.account_circle_sharp,
-                      color: Appcolor.whitecolor, size: 32)),
-              IconButton(
-                onPressed: () async {
-                  String? token = await UserPreference().getToken();
-                  print(token);
-                  if (token == null ||
-                      token.isEmpty ||
-                      _loginController.userDetails.value.user == null) {
-                    print("hello tanisha");
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Login'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Text(
-                                  "You have to login or Register first to start chatting")
-                            ],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text('Cancel'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            TextButton(
-                              child: Text('Login'),
-                              onPressed: () {
-                                Get.to(() => PageControllerApp());
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    // _chatController.connect("him1@g.com");
-                    Get.to(() => ChatPage());
-                  }
-                },
-                icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
-              ),
-              IconButton(
-                  onPressed: () async {
-                    String? token = await UserPreference().getToken();
-                    print(token);
-                    if (token == null ||
-                        token.isEmpty ||
-                        _loginController.userDetails.value.user == null) {
-                      print("hello tanisha");
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('Login'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(
-                                    "You have to login or Register first to start chatting")
-                              ],
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('Cancel'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: Text('Login'),
-                                onPressed: () {
-                                  Get.to(() => PageControllerApp());
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else {
-                      Get.to(Sellerview());
-                    }
-                  },
-                  icon: Icon(Icons.add, color: Colors.white, size: 35)),
-              GestureDetector(
-                  onTap: () {
-                    // _mandiController.getCityData();
-                    // _mandiController.getMarketDatamethod();
-                    // _mandiController.getCommidityData();
-                  },
-                  child: Icon(Icons.favorite, color: Colors.white, size: 35)),
-              IconButton(
-                  onPressed: () {
-                    Get.to(mandipage());
-                  },
-                  icon: Icon(Icons.bar_chart,
-                      color: Appcolor.greencolor, size: 35)),
-            ],
-          ),
-        ),
-      ),
+      //         IconButton(
+      //             onPressed: () async {
+      //               String? token = await UserPreference().getToken();
+      //               print(token);
+      //               if (token == null ||
+      //                   token.isEmpty ||
+      //                   _loginController.userDetails.value.user == null) {
+      //                 print("hello tanisha");
+      //                 showDialog(
+      //                   context: context,
+      //                   builder: (BuildContext context) {
+      //                     return AlertDialog(
+      //                       title: Text('Login'),
+      //                       content: Column(
+      //                         mainAxisSize: MainAxisSize.min,
+      //                         children: <Widget>[
+      //                           Text(
+      //                               "You have to login or Register first to start chatting")
+      //                         ],
+      //                       ),
+      //                       actions: <Widget>[
+      //                         TextButton(
+      //                           child: Text('Cancel'),
+      //                           onPressed: () {
+      //                             Navigator.of(context).pop();
+      //                           },
+      //                         ),
+      //                         TextButton(
+      //                           child: Text('Login'),
+      //                           onPressed: () {
+      //                             Get.to(() => PageControllerApp());
+      //                           },
+      //                         ),
+      //                       ],
+      //                     );
+      //                   },
+      //                 );
+      //               } else {
+      //                 Get.to(() => PageControllerApp());
+      //               }
+      //             },
+      //             icon: Icon(Icons.account_circle_sharp,
+      //                 color: Appcolor.whitecolor, size: 32)),
+      //         IconButton(
+      //           onPressed: () async {
+      //             String? token = await UserPreference().getToken();
+      //             print(token);
+      //             if (token == null ||
+      //                 token.isEmpty ||
+      //                 _loginController.userDetails.value.user == null) {
+      //               print("hello tanisha");
+      //               showDialog(
+      //                 context: context,
+      //                 builder: (BuildContext context) {
+      //                   return AlertDialog(
+      //                     title: Text('Login'),
+      //                     content: Column(
+      //                       mainAxisSize: MainAxisSize.min,
+      //                       children: <Widget>[
+      //                         Text(
+      //                             "You have to login or Register first to start chatting")
+      //                       ],
+      //                     ),
+      //                     actions: <Widget>[
+      //                       TextButton(
+      //                         child: Text('Cancel'),
+      //                         onPressed: () {
+      //                           Navigator.of(context).pop();
+      //                         },
+      //                       ),
+      //                       TextButton(
+      //                         child: Text('Login'),
+      //                         onPressed: () {
+      //                           Get.to(() => PageControllerApp());
+      //                         },
+      //                       ),
+      //                     ],
+      //                   );
+      //                 },
+      //               );
+      //             } else {
+      //               // _chatController.connect("him1@g.com");
+      //               Get.to(() => ChatPage());
+      //             }
+      //           },
+      //           icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
+      //         ),
+      //         IconButton(
+      //             onPressed: () async {
+      //               String? token = await UserPreference().getToken();
+      //               print(token);
+      //               if (token == null ||
+      //                   token.isEmpty ||
+      //                   _loginController.userDetails.value.user == null) {
+      //                 print("hello tanisha");
+      //                 showDialog(
+      //                   context: context,
+      //                   builder: (BuildContext context) {
+      //                     return AlertDialog(
+      //                       title: Text('Login'),
+      //                       content: Column(
+      //                         mainAxisSize: MainAxisSize.min,
+      //                         children: <Widget>[
+      //                           Text(
+      //                               "You have to login or Register first to start chatting")
+      //                         ],
+      //                       ),
+      //                       actions: <Widget>[
+      //                         TextButton(
+      //                           child: Text('Cancel'),
+      //                           onPressed: () {
+      //                             Navigator.of(context).pop();
+      //                           },
+      //                         ),
+      //                         TextButton(
+      //                           child: Text('Login'),
+      //                           onPressed: () {
+      //                             Get.to(() => PageControllerApp());
+      //                           },
+      //                         ),
+      //                       ],
+      //                     );
+      //                   },
+      //                 );
+      //               } else {
+      //                 Get.to(Sellerview());
+      //               }
+      //             },
+      //             icon: Icon(Icons.add, color: Colors.white, size: 35)),
+      //         GestureDetector(
+      //             onTap: () {
+      //               // _mandiController.getCityData();
+      //               // _mandiController.getMarketDatamethod();
+      //               // _mandiController.getCommidityData();
+      //             },
+      //             child: Icon(Icons.favorite, color: Colors.white, size: 35)),
+      //         IconButton(
+      //             onPressed: () {
+      //               Get.to(mandipage());
+      //             },
+      //             icon: Icon(Icons.bar_chart,
+      //                 color: Appcolor.greencolor, size: 35)),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
     // }
     // }),

@@ -2,6 +2,7 @@ import 'package:farmkal/Screens/chat.dart';
 import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/controllers/mandiController.dart';
+import 'package:farmkal/controllers/sellProductcontroller.dart';
 import 'package:farmkal/data/response/status.dart';
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/utils/utils.dart';
@@ -17,7 +18,8 @@ class tractor_Screen extends StatefulWidget {
 
 class _tractor_ScreenState extends State<tractor_Screen> {
   ChatController _chatController = Get.find<ChatController>();
-  MandiController _mandiController = Get.put(MandiController());
+  SellProductController _sellProductController =
+      Get.put(SellProductController());
   Widget rowview(String title) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -52,7 +54,7 @@ class _tractor_ScreenState extends State<tractor_Screen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await _mandiController.getCommidityData();
+      await _sellProductController.getproductListData();
     });
   }
 
@@ -92,57 +94,91 @@ class _tractor_ScreenState extends State<tractor_Screen> {
         ],
       ),
       body: Obx(() {
-        switch (_mandiController.rxRequestStatus.value) {
+        switch (_sellProductController.rxRequestStatus.value) {
           case Status.LOADING:
             return Center(child: CircularProgressIndicator());
           case Status.ERROR:
             return Utils.SnackBar('No Internet', 'No Internet');
           case Status.COMPLETED:
-            return SingleChildScrollView(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  rowview2(),
-                  rowview2(),
-                ],
+            return GridView.builder(
+              itemCount:
+                  _sellProductController.productListData.value.products!.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 1,
               ),
+              itemBuilder: (context, index) {
+                // return Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     rowview2(),
+                return Column(
+                  children: [
+                    (_sellProductController.productListData.value
+                                .products![index].images!.isNotEmpty &&
+                            _sellProductController.productListData.value
+                                .products![index].images![0]
+                                .toString()
+                                .isNotEmpty)
+                        ? Image.network(
+                            "${_sellProductController.productListData.value.products![index].images![0].toString()}")
+                        : Image.asset(
+                            'assets/gif/Tractor.jpeg',
+                            width: 150,
+                            height: 120,
+                          ),
+                    Text(
+                        "${_sellProductController.productListData.value.products![index].name}",
+                        style: TextStyle(color: Colors.black)),
+                    Text(
+                        "${_sellProductController.productListData.value.products![index].price}",
+                        style: TextStyle(color: Colors.black, fontSize: 14)),
+                    Text(
+                        "${_sellProductController.productListData.value.products![index].city}",
+                        style: TextStyle(color: Colors.black, fontSize: 14))
+                  ],
+                );
+                ;
+                //   ],
+                // );
+              },
             );
         }
       }),
-      bottomNavigationBar: Container(
-        color: Appcolor.darkbrowncolor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                  onPressed: () {
-                    Get.to(() => PageControllerApp());
-                  },
-                  icon: Icon(Icons.account_circle_sharp,
-                      color: Appcolor.whitecolor, size: 32)),
-              IconButton(
-                onPressed: () {
-                  // _chatController.connect("him1@g.com");
-                  Get.to(() => ChatPage());
-                },
-                icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
-              ),
-              IconButton(
-                  onPressed: () {
-                    Get.to(Sellerview());
-                  },
-                  icon: Icon(Icons.add, color: Colors.white, size: 35)),
-              Icon(Icons.favorite, color: Colors.white, size: 35),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.bar_chart,
-                      color: Appcolor.greencolor, size: 35)),
-            ],
-          ),
-        ),
-      ),
+      // bottomNavigationBar: Container(
+      //   color: Appcolor.darkbrowncolor,
+      //   child: Padding(
+      //     padding: const EdgeInsets.symmetric(vertical: 10),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //       children: [
+      //         IconButton(
+      //             onPressed: () {
+      //               Get.to(() => PageControllerApp());
+      //             },
+      //             icon: Icon(Icons.account_circle_sharp,
+      //                 color: Appcolor.whitecolor, size: 32)),
+      //         IconButton(
+      //           onPressed: () {
+      //             // _chatController.connect("him1@g.com");
+      //             Get.to(() => ChatPage());
+      //           },
+      //           icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
+      //         ),
+      //         IconButton(
+      //             onPressed: () {
+      //               Get.to(Sellerview());
+      //             },
+      //             icon: Icon(Icons.add, color: Colors.white, size: 35)),
+      //         Icon(Icons.favorite, color: Colors.white, size: 35),
+      //         IconButton(
+      //             onPressed: () {},
+      //             icon: Icon(Icons.bar_chart,
+      //                 color: Appcolor.greencolor, size: 35)),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

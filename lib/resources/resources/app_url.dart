@@ -12,4 +12,6 @@ class AppUrl {
   static var mandidata =
       'https://cr5pww-4000.csb.app/api/v1/mandidata?state=Rajasthan&city=Kota&commodity=Garlic';
   static var SellProduct = 'https://cr5pww-4000.csb.app/api/v1/products';
+  static var getproducts =
+      'https://cr5pww-4000.csb.app/api/v1/products?category=vechiel';
 }
