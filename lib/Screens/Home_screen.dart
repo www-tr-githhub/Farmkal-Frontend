@@ -204,53 +204,54 @@ class _Home_ScreenState extends State<Home_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-          preferredSize:
-              Size.fromHeight(MediaQuery.of(context).size.height * 0.20),
-          child: Obx(() {
-            switch (_mandiController.rxRequestStatus.value) {
-              case Status.LOADING:
-                return Center(child: CircularProgressIndicator());
-              case Status.ERROR:
-                return Utils.SnackBar('No Internet', 'No Internet');
-              case Status.COMPLETED:
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Appcolor.browncolor,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      AppBar(
-                        backgroundColor: Appcolor.browncolor,
-                        leading: InkWell(
-                          onTap: () {
-                            Get.to(PageControllerApp());
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://via.placeholder.com/150'),
-                              radius: 20,
+        appBar: PreferredSize(
+            preferredSize:
+                Size.fromHeight(MediaQuery.of(context).size.height * 0.20),
+            child: Obx(() {
+              switch (_mandiController.rxRequestStatus.value) {
+                case Status.LOADING:
+                  return Center(child: CircularProgressIndicator());
+                case Status.ERROR:
+                  return Utils.SnackBar('No Internet', 'No Internet');
+                case Status.COMPLETED:
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Appcolor.browncolor,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        AppBar(
+                          backgroundColor: Appcolor.browncolor,
+                          leading: InkWell(
+                            onTap: () {
+                              Get.to(PageControllerApp());
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    'https://via.placeholder.com/150'),
+                                radius: 20,
+                              ),
                             ),
                           ),
-                        ),
-                        title: Text("RAM KUMAR"),
-                        actions: [
-                          // Row(
-                          //   children: [
-                          IconButton(
-                            icon: Icon(Icons.search), // This is the search icon
-                            onPressed: () {},
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.menu), // This is the menu icon
-                            onPressed: () {},
-                            //   )
-                            // ],
-                          ),
-                          /*IconButton(
+                          title: Text("RAM KUMAR"),
+                          actions: [
+                            // Row(
+                            //   children: [
+                            IconButton(
+                              icon:
+                                  Icon(Icons.search), // This is the search icon
+                              onPressed: () {},
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.menu), // This is the menu icon
+                              onPressed: () {},
+                              //   )
+                              // ],
+                            ),
+                            /*IconButton(
                       icon: Icon(Icons.menu), // This is the menu icon
                       onPressed: () {},
                     ),
@@ -259,128 +260,136 @@ class _Home_ScreenState extends State<Home_Screen> {
                         mandi("गेहू "),
                       ],
                     )*/
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(child: mandiUp("Garlic")),
+                            Expanded(child: mandiUp("Garlic")),
+                            Expanded(child: mandiUp("Garlic")),
+                            // Expanded(
+                            //   child: mandidown("अजवाइन"),
+                            // ),
+                            // Expanded(child: mandiUp2("सेब ")),
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.all(8),
+                                height: 45,
+                                decoration: BoxDecoration(
+                                    color: Appcolor.darkbrowncolor),
+                                child: Center(
+                                  child: Text(
+                                    "और देखे",
+                                    style:
+                                        TextStyle(color: Appcolor.whitecolor),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  );
+              }
+            })),
+        body:
+
+            // SingleChildScrollView(
+            //   child: Column(
+            //     children: [
+            // ListTile(
+            //   leading: CircleAvatar(
+            //     backgroundImage:
+            //         NetworkImage('https://via.placeholder.com/150'),
+            //     radius: 20,
+            //   ),
+            //   title: Text("RAM KUMAR"),
+            //   subtitle: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: Row(
+            //       children: [
+            //         mandi("गेहू "),
+            //       ],
+            //     ),
+            //   ),
+            //   trailing: Row(
+            //     children: [
+            //       IconButton(
+            //         icon: Icon(Icons.search), // This is the search icon
+            //         onPressed: () {},
+            //       ),
+            //       IconButton(
+            //         icon: Icon(Icons.menu), // This is the menu icon
+            //         onPressed: () {},
+            //       )
+            //     ],
+            //   ),
+            // ),
+            Obx(
+          () {
+            switch (_sellProductController.rxRequestStatus.value) {
+              case Status.LOADING:
+                return Center(child: CircularProgressIndicator());
+              case Status.ERROR:
+                return Utils.SnackBar('No Internet', 'No Internet');
+              case Status.COMPLETED:
+                return Container(
+                  child: SingleChildScrollView(
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      Text(
+                        AppLocalizations.of(context)!
+                            .translate('Things available'),
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Row(
+                        children: [
+                          rowview(AppLocalizations.of(context)!
+                              .translate('Tractor')),
+                          rowview(AppLocalizations.of(context)!
+                              .translate('Trolly')),
+                          rowview(AppLocalizations.of(context)!
+                              .translate('Cultivator')),
                         ],
                       ),
                       Row(
                         children: [
-                          Expanded(child: mandiUp("Garlic")),
-                          Expanded(child: mandiUp("Garlic")),
-                          Expanded(child: mandiUp("Garlic")),
-                          // Expanded(
-                          //   child: mandidown("अजवाइन"),
-                          // ),
-                          // Expanded(child: mandiUp2("सेब ")),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.all(8),
-                              height: 45,
-                              decoration:
-                                  BoxDecoration(color: Appcolor.darkbrowncolor),
-                              child: Center(
-                                child: Text(
-                                  "और देखे",
-                                  style: TextStyle(color: Appcolor.whitecolor),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
-            }
-          })),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        // height: 10,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // ListTile(
-              //   leading: CircleAvatar(
-              //     backgroundImage:
-              //         NetworkImage('https://via.placeholder.com/150'),
-              //     radius: 20,
-              //   ),
-              //   title: Text("RAM KUMAR"),
-              //   subtitle: Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: Row(
-              //       children: [
-              //         mandi("गेहू "),
-              //       ],
-              //     ),
-              //   ),
-              //   trailing: Row(
-              //     children: [
-              //       IconButton(
-              //         icon: Icon(Icons.search), // This is the search icon
-              //         onPressed: () {},
-              //       ),
-              //       IconButton(
-              //         icon: Icon(Icons.menu), // This is the menu icon
-              //         onPressed: () {},
-              //       )
-              //     ],
-              //   ),
-              // ),
-
-              Text(
-                AppLocalizations.of(context)!.translate('Things available'),
-                style: TextStyle(fontSize: 18),
-              ),
-              Row(
-                children: [
-                  rowview(AppLocalizations.of(context)!.translate('Tractor')),
-                  rowview(AppLocalizations.of(context)!.translate('Trolly')),
-                  rowview(
-                      AppLocalizations.of(context)!.translate('Cultivator')),
-                ],
-              ),
-              Row(
-                children: [
-                  rowview('सीड ड्रिल '),
-                  rowview('रोटावेटर'),
-                  rowview('सभी देखे '),
-                ],
-              ),
-              Text(
-                AppLocalizations.of(context)!.translate('Recently added items'),
-                style: TextStyle(fontSize: 18),
-              ),
-              Row(
-                children: [
-                  Expanded(child: filter('CHITTORGARH')),
-                  Expanded(child: filter('MODEL 2015-2020')),
-                  Expanded(child: filter('RANGE40-45HP')),
-                  Expanded(
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Text(
-                            "More Filter",
-                            style: TextStyle(fontSize: 12.0),
-                          ),
-                          Icon(Icons.filter_alt_outlined)
-                          /*IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.filter_alt_outlined)),*/
+                          rowview('सीड ड्रिल '),
+                          rowview('रोटावेटर'),
+                          rowview('सभी देखे '),
                         ],
                       ),
-                    ),
-                  )
-                ],
-              ),
-              Obx(
-                () {
-                  switch (_sellProductController.rxRequestStatus.value) {
-                    case Status.LOADING:
-                      return Center(child: CircularProgressIndicator());
-                    case Status.ERROR:
-                      return Utils.SnackBar('No Internet', 'No Internet');
-                    case Status.COMPLETED:
-                      return GridView.builder(
+                      Text(
+                        AppLocalizations.of(context)!
+                            .translate('Recently added items'),
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(child: filter('CHITTORGARH')),
+                          Expanded(child: filter('MODEL 2015-2020')),
+                          Expanded(child: filter('RANGE40-45HP')),
+                          Expanded(
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "More Filter",
+                                    style: TextStyle(fontSize: 12.0),
+                                  ),
+                                  Icon(Icons.filter_alt_outlined)
+                                  /*IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.filter_alt_outlined)),*/
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height,
+                        child: GridView.builder(
                           itemCount: _sellProductController
                               .getRecentproduct.value.product!.length,
                           gridDelegate:
@@ -390,185 +399,192 @@ class _Home_ScreenState extends State<Home_Screen> {
                           ),
                           itemBuilder: (context, index) {
                             /* Row(
-                                children: [
-                                  Expanded(
-                                      child: recentimage('2,50,000/ चित्तोडगढ़ ',
-                                          'MAHINDRA ', '475 2015')),
-                                  Expanded(
-                                      child: recentimage('3,50,000/उदयपुर ',
-                                          'SONALIKA ', '735DI 2019')),
-                                ],
-                              ),*/
-                            Product _product = _sellProductController
-                                .getRecentproduct.value.product![index];
+                                    children: [
+                                      Expanded(
+                                          child: recentimage('2,50,000/ चित्तोडगढ़ ',
+                                              'MAHINDRA ', '475 2015')),
+                                      Expanded(
+                                          child: recentimage('3,50,000/उदयपुर ',
+                                              'SONALIKA ', '735DI 2019')),
+                                    ],
+                                  ),*/
+                            // Product _product = _sellProductController
+                            //     .getRecentproduct.value.product![index];
 
                             return recentimage(
-                                '2,50,000/ चित्तोडगढ़ ', _product, '475 2015');
-                          });
-                  }
-                },
-              )
-            ],
-          ),
-        ),
-      ),
-      // bottomNavigationBar: Container(
-      //   color: Appcolor.darkbrowncolor,
-      //   child: Padding(
-      //     padding: const EdgeInsets.symmetric(vertical: 10),
-      //     child: Row(
-      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //       children: [
-      //         /*Icon(Icons.account_circle_sharp,
-      //               color: Appcolor.whitecolor, size: 35),*/
+                                '2,50,000/ चित्तोडगढ़ ',
+                                _sellProductController.getRecentproduct.value
+                                    .product![index].name,
+                                '475 2015');
+                          },
+                        ),
+                      ),
+                    ]),
+                  ),
+                );
+            }
+          },
+        )
+        //   ],
+        // ),
+        // ),
+        // bottomNavigationBar: Container(
+        //   color: Appcolor.darkbrowncolor,
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(vertical: 10),
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //       children: [
+        //         /*Icon(Icons.account_circle_sharp,
+        //               color: Appcolor.whitecolor, size: 35),*/
 
-      //         IconButton(
-      //             onPressed: () async {
-      //               String? token = await UserPreference().getToken();
-      //               print(token);
-      //               if (token == null ||
-      //                   token.isEmpty ||
-      //                   _loginController.userDetails.value.user == null) {
-      //                 print("hello tanisha");
-      //                 showDialog(
-      //                   context: context,
-      //                   builder: (BuildContext context) {
-      //                     return AlertDialog(
-      //                       title: Text('Login'),
-      //                       content: Column(
-      //                         mainAxisSize: MainAxisSize.min,
-      //                         children: <Widget>[
-      //                           Text(
-      //                               "You have to login or Register first to start chatting")
-      //                         ],
-      //                       ),
-      //                       actions: <Widget>[
-      //                         TextButton(
-      //                           child: Text('Cancel'),
-      //                           onPressed: () {
-      //                             Navigator.of(context).pop();
-      //                           },
-      //                         ),
-      //                         TextButton(
-      //                           child: Text('Login'),
-      //                           onPressed: () {
-      //                             Get.to(() => PageControllerApp());
-      //                           },
-      //                         ),
-      //                       ],
-      //                     );
-      //                   },
-      //                 );
-      //               } else {
-      //                 Get.to(() => PageControllerApp());
-      //               }
-      //             },
-      //             icon: Icon(Icons.account_circle_sharp,
-      //                 color: Appcolor.whitecolor, size: 32)),
-      //         IconButton(
-      //           onPressed: () async {
-      //             String? token = await UserPreference().getToken();
-      //             print(token);
-      //             if (token == null ||
-      //                 token.isEmpty ||
-      //                 _loginController.userDetails.value.user == null) {
-      //               print("hello tanisha");
-      //               showDialog(
-      //                 context: context,
-      //                 builder: (BuildContext context) {
-      //                   return AlertDialog(
-      //                     title: Text('Login'),
-      //                     content: Column(
-      //                       mainAxisSize: MainAxisSize.min,
-      //                       children: <Widget>[
-      //                         Text(
-      //                             "You have to login or Register first to start chatting")
-      //                       ],
-      //                     ),
-      //                     actions: <Widget>[
-      //                       TextButton(
-      //                         child: Text('Cancel'),
-      //                         onPressed: () {
-      //                           Navigator.of(context).pop();
-      //                         },
-      //                       ),
-      //                       TextButton(
-      //                         child: Text('Login'),
-      //                         onPressed: () {
-      //                           Get.to(() => PageControllerApp());
-      //                         },
-      //                       ),
-      //                     ],
-      //                   );
-      //                 },
-      //               );
-      //             } else {
-      //               // _chatController.connect("him1@g.com");
-      //               Get.to(() => ChatPage());
-      //             }
-      //           },
-      //           icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
-      //         ),
-      //         IconButton(
-      //             onPressed: () async {
-      //               String? token = await UserPreference().getToken();
-      //               print(token);
-      //               if (token == null ||
-      //                   token.isEmpty ||
-      //                   _loginController.userDetails.value.user == null) {
-      //                 print("hello tanisha");
-      //                 showDialog(
-      //                   context: context,
-      //                   builder: (BuildContext context) {
-      //                     return AlertDialog(
-      //                       title: Text('Login'),
-      //                       content: Column(
-      //                         mainAxisSize: MainAxisSize.min,
-      //                         children: <Widget>[
-      //                           Text(
-      //                               "You have to login or Register first to start chatting")
-      //                         ],
-      //                       ),
-      //                       actions: <Widget>[
-      //                         TextButton(
-      //                           child: Text('Cancel'),
-      //                           onPressed: () {
-      //                             Navigator.of(context).pop();
-      //                           },
-      //                         ),
-      //                         TextButton(
-      //                           child: Text('Login'),
-      //                           onPressed: () {
-      //                             Get.to(() => PageControllerApp());
-      //                           },
-      //                         ),
-      //                       ],
-      //                     );
-      //                   },
-      //                 );
-      //               } else {
-      //                 Get.to(Sellerview());
-      //               }
-      //             },
-      //             icon: Icon(Icons.add, color: Colors.white, size: 35)),
-      //         GestureDetector(
-      //             onTap: () {
-      //               // _mandiController.getCityData();
-      //               // _mandiController.getMarketDatamethod();
-      //               // _mandiController.getCommidityData();
-      //             },
-      //             child: Icon(Icons.favorite, color: Colors.white, size: 35)),
-      //         IconButton(
-      //             onPressed: () {
-      //               Get.to(mandipage());
-      //             },
-      //             icon: Icon(Icons.bar_chart,
-      //                 color: Appcolor.greencolor, size: 35)),
-      //       ],
-      //     ),
-      //   ),
-      // ),
-    );
+        //         IconButton(
+        //             onPressed: () async {
+        //               String? token = await UserPreference().getToken();
+        //               print(token);
+        //               if (token == null ||
+        //                   token.isEmpty ||
+        //                   _loginController.userDetails.value.user == null) {
+        //                 print("hello tanisha");
+        //                 showDialog(
+        //                   context: context,
+        //                   builder: (BuildContext context) {
+        //                     return AlertDialog(
+        //                       title: Text('Login'),
+        //                       content: Column(
+        //                         mainAxisSize: MainAxisSize.min,
+        //                         children: <Widget>[
+        //                           Text(
+        //                               "You have to login or Register first to start chatting")
+        //                         ],
+        //                       ),
+        //                       actions: <Widget>[
+        //                         TextButton(
+        //                           child: Text('Cancel'),
+        //                           onPressed: () {
+        //                             Navigator.of(context).pop();
+        //                           },
+        //                         ),
+        //                         TextButton(
+        //                           child: Text('Login'),
+        //                           onPressed: () {
+        //                             Get.to(() => PageControllerApp());
+        //                           },
+        //                         ),
+        //                       ],
+        //                     );
+        //                   },
+        //                 );
+        //               } else {
+        //                 Get.to(() => PageControllerApp());
+        //               }
+        //             },
+        //             icon: Icon(Icons.account_circle_sharp,
+        //                 color: Appcolor.whitecolor, size: 32)),
+        //         IconButton(
+        //           onPressed: () async {
+        //             String? token = await UserPreference().getToken();
+        //             print(token);
+        //             if (token == null ||
+        //                 token.isEmpty ||
+        //                 _loginController.userDetails.value.user == null) {
+        //               print("hello tanisha");
+        //               showDialog(
+        //                 context: context,
+        //                 builder: (BuildContext context) {
+        //                   return AlertDialog(
+        //                     title: Text('Login'),
+        //                     content: Column(
+        //                       mainAxisSize: MainAxisSize.min,
+        //                       children: <Widget>[
+        //                         Text(
+        //                             "You have to login or Register first to start chatting")
+        //                       ],
+        //                     ),
+        //                     actions: <Widget>[
+        //                       TextButton(
+        //                         child: Text('Cancel'),
+        //                         onPressed: () {
+        //                           Navigator.of(context).pop();
+        //                         },
+        //                       ),
+        //                       TextButton(
+        //                         child: Text('Login'),
+        //                         onPressed: () {
+        //                           Get.to(() => PageControllerApp());
+        //                         },
+        //                       ),
+        //                     ],
+        //                   );
+        //                 },
+        //               );
+        //             } else {
+        //               // _chatController.connect("him1@g.com");
+        //               Get.to(() => ChatPage());
+        //             }
+        //           },
+        //           icon: Icon(Icons.chat_bubble, color: Colors.white, size: 35),
+        //         ),
+        //         IconButton(
+        //             onPressed: () async {
+        //               String? token = await UserPreference().getToken();
+        //               print(token);
+        //               if (token == null ||
+        //                   token.isEmpty ||
+        //                   _loginController.userDetails.value.user == null) {
+        //                 print("hello tanisha");
+        //                 showDialog(
+        //                   context: context,
+        //                   builder: (BuildContext context) {
+        //                     return AlertDialog(
+        //                       title: Text('Login'),
+        //                       content: Column(
+        //                         mainAxisSize: MainAxisSize.min,
+        //                         children: <Widget>[
+        //                           Text(
+        //                               "You have to login or Register first to start chatting")
+        //                         ],
+        //                       ),
+        //                       actions: <Widget>[
+        //                         TextButton(
+        //                           child: Text('Cancel'),
+        //                           onPressed: () {
+        //                             Navigator.of(context).pop();
+        //                           },
+        //                         ),
+        //                         TextButton(
+        //                           child: Text('Login'),
+        //                           onPressed: () {
+        //                             Get.to(() => PageControllerApp());
+        //                           },
+        //                         ),
+        //                       ],
+        //                     );
+        //                   },
+        //                 );
+        //               } else {
+        //                 Get.to(Sellerview());
+        //               }
+        //             },
+        //             icon: Icon(Icons.add, color: Colors.white, size: 35)),
+        //         GestureDetector(
+        //             onTap: () {
+        //               // _mandiController.getCityData();
+        //               // _mandiController.getMarketDatamethod();
+        //               // _mandiController.getCommidityData();
+        //             },
+        //             child: Icon(Icons.favorite, color: Colors.white, size: 35)),
+        //         IconButton(
+        //             onPressed: () {
+        //               Get.to(mandipage());
+        //             },
+        //             icon: Icon(Icons.bar_chart,
+        //                 color: Appcolor.greencolor, size: 35)),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        );
     // }
     // }),
     // );
