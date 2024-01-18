@@ -14,4 +14,6 @@ class AppUrl {
   static var SellProduct = 'https://cr5pww-4000.csb.app/api/v1/products';
   static var getproducts =
       'https://cr5pww-4000.csb.app/api/v1/products?category=vechiel';
+      static var getrecent ='https://cr5pww-4000.csb.app/api/v1/latestproduct'
+      ;
 }

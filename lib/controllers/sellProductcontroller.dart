@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:farmkal/data/response/status.dart';
 import 'package:farmkal/models/productList.dart';
+import 'package:farmkal/models/recentmodel.dart';
 import 'package:farmkal/models/sellproduct.dart';
+import 'package:farmkal/services/recentproductservices.dart';
 import 'package:farmkal/services/sellproductServicers.dart';
 import 'package:farmkal/view_models/userPrefrence.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:get/get.dart';
 
 class SellProductController extends GetxController {
   final SellProductServices _sellProductServices = SellProductServices();
+  final RecentProductServices _recentProductServices = RecentProductServices();
   RxBool loading = false.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
   UserPreference _userPreference = new UserPreference();
@@ -28,6 +31,10 @@ class SellProductController extends GetxController {
   Rx<SellProduct> sellProductData = SellProduct().obs;
   void setsellProductData(SellProduct value) => sellProductData.value = value;
 
+  Rx<Recentproduct> getRecentproduct = Recentproduct().obs;
+  void setgetRecentproduct(Recentproduct value) =>
+      getRecentproduct.value = value;
+
   Rx<ProductList> productListData = ProductList().obs;
   void setProductListData(ProductList value) => productListData.value = value;
 
@@ -37,7 +44,7 @@ class SellProductController extends GetxController {
 
     var data = {
       "name": model.value.text,
-      // "image": files.value,
+      "image": base64Encode(files[0].readAsBytesSync()),
       "brand": brand.value.text,
       "tyre": tyre.value.text,
       "rate": rate.value.text,
@@ -73,6 +80,27 @@ class SellProductController extends GetxController {
 
       print("data set");
       setProductListData(response);
+
+      rxRequestStatus.value = Status.COMPLETED;
+      loading.value = false;
+    } catch (error) {
+      rxRequestStatus.value = Status.COMPLETED;
+
+      print(error);
+      Get.snackbar(
+          'Your work has not been completed', "please try after sometime");
+      loading.value = false;
+    }
+  }
+
+  Future<void> getrecentproduct() async {
+    rxRequestStatus.value = Status.LOADING;
+    loading.value = true;
+    try {
+      final response = await _recentProductServices.getrecent();
+
+      print("data set");
+      setgetRecentproduct(response);
 
       rxRequestStatus.value = Status.COMPLETED;
       loading.value = false;

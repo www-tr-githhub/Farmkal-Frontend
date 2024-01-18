@@ -9,6 +9,7 @@ import 'package:farmkal/view/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Productpage extends StatefulWidget {
   @override
@@ -110,7 +111,18 @@ class _ProductpageState extends State<Productpage> {
             Row(
               children: [
                 SizedBox(width: 100),
-                buttonbox("कॉल करे"),
+                InkWell(
+                  child: buttonbox("कॉल करे"),
+                  onTap: () async {
+                    const url =
+                        'tel:8016405862'; 
+                    if (await canLaunch(url)) {
+                      await launch(url);
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  },
+                ),
                 InkWell(
                   child: buttonbox(" चैट करे "),
                   onTap: () {

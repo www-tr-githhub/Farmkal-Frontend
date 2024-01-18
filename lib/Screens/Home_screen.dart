@@ -1,4 +1,3 @@
-import 'package:farmkal/Screens/chat.dart';
 import 'package:farmkal/Screens/mandi.dart';
 import 'package:farmkal/Screens/productpage.dart';
 import 'package:farmkal/Screens/seller.dart';
@@ -6,14 +5,17 @@ import 'package:farmkal/Screens/tractor_screen.dart';
 import 'package:farmkal/app_localizations.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
 import 'package:farmkal/controllers/login_controller.dart';
+import 'package:farmkal/controllers/sellProductcontroller.dart';
 import 'package:farmkal/data/response/status.dart';
+import 'package:farmkal/models/recentmodel.dart';
 
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/utils/utils.dart';
 import 'package:farmkal/view/onboarding.dart';
-import 'package:farmkal/view_models/userPrefrence.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 import '../controllers/mandiController.dart';
 
@@ -26,6 +28,8 @@ class _Home_ScreenState extends State<Home_Screen> {
   ChatController _chatController = Get.find<ChatController>();
   MandiController _mandiController = Get.put(MandiController());
   LoginController _loginController = Get.put(LoginController());
+  SellProductController _sellProductController =
+      Get.put(SellProductController());
 
   Widget rowview(String title) {
     return Padding(
@@ -192,6 +196,8 @@ class _Home_ScreenState extends State<Home_Screen> {
       await _mandiController.getMandiData();
       // await _mandiController.getCommidityData();
       await _loginController.postloginUser();
+      await _sellProductController.getproductListData();
+      await _sellProductController.getrecentproduct();
     });
   }
 
@@ -285,94 +291,125 @@ class _Home_ScreenState extends State<Home_Screen> {
                 );
             }
           })),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // ListTile(
-            //   leading: CircleAvatar(
-            //     backgroundImage:
-            //         NetworkImage('https://via.placeholder.com/150'),
-            //     radius: 20,
-            //   ),
-            //   title: Text("RAM KUMAR"),
-            //   subtitle: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Row(
-            //       children: [
-            //         mandi("गेहू "),
-            //       ],
-            //     ),
-            //   ),
-            //   trailing: Row(
-            //     children: [
-            //       IconButton(
-            //         icon: Icon(Icons.search), // This is the search icon
-            //         onPressed: () {},
-            //       ),
-            //       IconButton(
-            //         icon: Icon(Icons.menu), // This is the menu icon
-            //         onPressed: () {},
-            //       )
-            //     ],
-            //   ),
-            // ),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        // height: 10,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // ListTile(
+              //   leading: CircleAvatar(
+              //     backgroundImage:
+              //         NetworkImage('https://via.placeholder.com/150'),
+              //     radius: 20,
+              //   ),
+              //   title: Text("RAM KUMAR"),
+              //   subtitle: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Row(
+              //       children: [
+              //         mandi("गेहू "),
+              //       ],
+              //     ),
+              //   ),
+              //   trailing: Row(
+              //     children: [
+              //       IconButton(
+              //         icon: Icon(Icons.search), // This is the search icon
+              //         onPressed: () {},
+              //       ),
+              //       IconButton(
+              //         icon: Icon(Icons.menu), // This is the menu icon
+              //         onPressed: () {},
+              //       )
+              //     ],
+              //   ),
+              // ),
 
-            Text(
-              AppLocalizations.of(context)!.translate('Things available'),
-              style: TextStyle(fontSize: 18),
-            ),
-            Row(
-              children: [
-                rowview(AppLocalizations.of(context)!.translate('Tractor')),
-                rowview(AppLocalizations.of(context)!.translate('Trolly')),
-                rowview(AppLocalizations.of(context)!.translate('Cultivator')),
-              ],
-            ),
-            Row(
-              children: [
-                rowview('सीड ड्रिल '),
-                rowview('रोटावेटर'),
-                rowview('सभी देखे '),
-              ],
-            ),
-            Text(
-              AppLocalizations.of(context)!.translate('Recently added items'),
-              style: TextStyle(fontSize: 18),
-            ),
-            Row(
-              children: [
-                Expanded(child: filter('CHITTORGARH')),
-                Expanded(child: filter('MODEL 2015-2020')),
-                Expanded(child: filter('RANGE40-45HP')),
-                Expanded(
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Text(
-                          "More Filter",
-                          style: TextStyle(fontSize: 12.0),
-                        ),
-                        Icon(Icons.filter_alt_outlined)
-                        /*IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.filter_alt_outlined)),*/
-                      ],
+              Text(
+                AppLocalizations.of(context)!.translate('Things available'),
+                style: TextStyle(fontSize: 18),
+              ),
+              Row(
+                children: [
+                  rowview(AppLocalizations.of(context)!.translate('Tractor')),
+                  rowview(AppLocalizations.of(context)!.translate('Trolly')),
+                  rowview(
+                      AppLocalizations.of(context)!.translate('Cultivator')),
+                ],
+              ),
+              Row(
+                children: [
+                  rowview('सीड ड्रिल '),
+                  rowview('रोटावेटर'),
+                  rowview('सभी देखे '),
+                ],
+              ),
+              Text(
+                AppLocalizations.of(context)!.translate('Recently added items'),
+                style: TextStyle(fontSize: 18),
+              ),
+              Row(
+                children: [
+                  Expanded(child: filter('CHITTORGARH')),
+                  Expanded(child: filter('MODEL 2015-2020')),
+                  Expanded(child: filter('RANGE40-45HP')),
+                  Expanded(
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Text(
+                            "More Filter",
+                            style: TextStyle(fontSize: 12.0),
+                          ),
+                          Icon(Icons.filter_alt_outlined)
+                          /*IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.filter_alt_outlined)),*/
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                    child: recentimage(
-                        '2,50,000/ चित्तोडगढ़ ', 'MAHINDRA ', '475 2015')),
-                Expanded(
-                    child: recentimage(
-                        '3,50,000/उदयपुर ', 'SONALIKA ', '735DI 2019')),
-              ],
-            ),
-          ],
+                  )
+                ],
+              ),
+              Obx(
+                () {
+                  switch (_sellProductController.rxRequestStatus.value) {
+                    case Status.LOADING:
+                      return Center(child: CircularProgressIndicator());
+                    case Status.ERROR:
+                      return Utils.SnackBar('No Internet', 'No Internet');
+                    case Status.COMPLETED:
+                      return GridView.builder(
+                          itemCount: _sellProductController
+                              .getRecentproduct.value.product!.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1,
+                          ),
+                          itemBuilder: (context, index) {
+                            /* Row(
+                                children: [
+                                  Expanded(
+                                      child: recentimage('2,50,000/ चित्तोडगढ़ ',
+                                          'MAHINDRA ', '475 2015')),
+                                  Expanded(
+                                      child: recentimage('3,50,000/उदयपुर ',
+                                          'SONALIKA ', '735DI 2019')),
+                                ],
+                              ),*/
+                            Product _product = _sellProductController
+                                .getRecentproduct.value.product![index];
+
+                            return recentimage(
+                                '2,50,000/ चित्तोडगढ़ ', _product, '475 2015');
+                          });
+                  }
+                },
+              )
+            ],
+          ),
         ),
       ),
       // bottomNavigationBar: Container(
