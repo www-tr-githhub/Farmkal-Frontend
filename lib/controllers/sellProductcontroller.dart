@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:farmkal/data/response/status.dart';
@@ -36,6 +37,7 @@ class SellProductController extends GetxController {
 
     var data = {
       "name": model.value.text,
+      // "image": files.value,
       "brand": brand.value.text,
       "tyre": tyre.value.text,
       "rate": rate.value.text,

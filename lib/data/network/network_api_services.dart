@@ -114,10 +114,35 @@ class NetworkApiServices extends BaseApiServices {
     };
     dynamic responseJson;
     try {
-      final response = await http
-          .post(Uri.parse(url), body: jsonEncode(data), headers: requestHeaders)
-          .timeout(const Duration(seconds: 10));
-      responseJson = returnResponse(response);
+      // Create a multipart request
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      print("hello00");
+      // Add text fields
+      data.forEach((key, value) {
+        request.fields[key] = value.toString();
+      });
+      print("hello00");
+
+      // Add files
+      for (var file in files) {
+        request.files.add(await http.MultipartFile.fromPath(
+          'file',
+          file.path,
+        ));
+      }
+      print("hello00");
+
+      // Add headers
+      request.headers.addAll(requestHeaders);
+      print("hello00");
+
+      // Send the request
+      var response = await request.send().timeout(const Duration(seconds: 50));
+      print("hello00");
+
+      // Get the response
+      final respStr = await response.stream.bytesToString();
+      responseJson = jsonDecode(respStr);
     } on SocketException {
       throw InternetException('');
     } on RequestTimeOut {
