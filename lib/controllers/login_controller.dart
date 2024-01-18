@@ -85,10 +85,12 @@ class LoginController extends GetxController {
     String? number = await _userPreference.getNumber();
     print(number);
 
-    if (number != null || number!.isEmpty) {
+    if (number != null && number.isNotEmpty) {
+      print(number);
+
       var data = {
         "name": "Himanshu",
-        "phone": number!.split('+91')[1],
+        "phone": number.split('+91')[1],
         "bio": "This is my bio",
         "state": "Rajasthan",
         "city": "churu",

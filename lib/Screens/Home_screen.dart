@@ -205,7 +205,7 @@ class _Home_ScreenState extends State<Home_Screen> {
       await _mandiController.getMandiData();
       // await _mandiController.getCommidityData();
       await _loginController.postloginUser();
-      await _sellProductController.getproductListData();
+      // await _sellProductController.getproductListData();
       await _sellProductController.getrecentproduct();
     });
   }
