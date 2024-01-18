@@ -168,18 +168,27 @@ class _Home_ScreenState extends State<Home_Screen> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Image.asset(
-                  'assets/gif/bluetractor.jpeg',
-                  // width: 180,
-                  // height: 120,
+                Expanded(
+                  flex: 2,
+                  child: Image.asset(
+                    'assets/gif/bluetractor.jpeg',
+                    // width: 180,
+                    // height: 120,
+                  ),
                 ),
-                Text(title, style: TextStyle(fontSize: 10)),
-                Text(name),
-                Row(
-                  children: [
-                    Text(info),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.phone))
-                  ],
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(title, style: TextStyle(fontSize: 10)),
+                      Text(name),
+                      Row(
+                        children: [
+                          Text(info, style: TextStyle(fontSize: 10)),
+                          Icon(Icons.phone, size: 10)
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -334,93 +343,90 @@ class _Home_ScreenState extends State<Home_Screen> {
               case Status.ERROR:
                 return Utils.SnackBar('No Internet', 'No Internet');
               case Status.COMPLETED:
-                return Container(
-                  child: SingleChildScrollView(
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Text(
-                        AppLocalizations.of(context)!
-                            .translate('Things available'),
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      Row(
-                        children: [
-                          rowview(AppLocalizations.of(context)!
-                              .translate('Tractor')),
-                          rowview(AppLocalizations.of(context)!
-                              .translate('Trolly')),
-                          rowview(AppLocalizations.of(context)!
-                              .translate('Cultivator')),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          rowview('सीड ड्रिल '),
-                          rowview('रोटावेटर'),
-                          rowview('सभी देखे '),
-                        ],
-                      ),
-                      Text(
-                        AppLocalizations.of(context)!
-                            .translate('Recently added items'),
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      Row(
-                        children: [
-                          Expanded(child: filter('CHITTORGARH')),
-                          Expanded(child: filter('MODEL 2015-2020')),
-                          Expanded(child: filter('RANGE40-45HP')),
-                          Expanded(
-                            child: Container(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "More Filter",
-                                    style: TextStyle(fontSize: 12.0),
-                                  ),
-                                  Icon(Icons.filter_alt_outlined)
-                                  /*IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.filter_alt_outlined)),*/
-                                ],
-                              ),
+                return SingleChildScrollView(
+                  child: Column(mainAxisSize: MainAxisSize.min, children: [
+                    Text(
+                      AppLocalizations.of(context)!
+                          .translate('Things available'),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Row(
+                      children: [
+                        rowview(
+                            AppLocalizations.of(context)!.translate('Tractor')),
+                        rowview(
+                            AppLocalizations.of(context)!.translate('Trolly')),
+                        rowview(AppLocalizations.of(context)!
+                            .translate('Cultivator')),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        rowview('सीड ड्रिल '),
+                        rowview('रोटावेटर'),
+                        rowview('सभी देखे '),
+                      ],
+                    ),
+                    Text(
+                      AppLocalizations.of(context)!
+                          .translate('Recently added items'),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(child: filter('CHITTORGARH')),
+                        Expanded(child: filter('MODEL 2015-2020')),
+                        Expanded(child: filter('RANGE40-45HP')),
+                        Expanded(
+                          child: Container(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "More Filter",
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
+                                Icon(Icons.filter_alt_outlined)
+                                /*IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.filter_alt_outlined)),*/
+                              ],
                             ),
-                          )
-                        ],
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height,
-                        child: GridView.builder(
-                          itemCount: _sellProductController
-                              .getRecentproduct.value.product!.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 1,
                           ),
-                          itemBuilder: (context, index) {
-                            /* Row(
-                                    children: [
-                                      Expanded(
-                                          child: recentimage('2,50,000/ चित्तोडगढ़ ',
-                                              'MAHINDRA ', '475 2015')),
-                                      Expanded(
-                                          child: recentimage('3,50,000/उदयपुर ',
-                                              'SONALIKA ', '735DI 2019')),
-                                    ],
-                                  ),*/
-                            // Product _product = _sellProductController
-                            //     .getRecentproduct.value.product![index];
-
-                            return recentimage(
-                                '2,50,000/ चित्तोडगढ़ ',
-                                _sellProductController.getRecentproduct.value
-                                    .product![index].name,
-                                '475 2015');
-                          },
+                        )
+                      ],
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: GridView.builder(
+                        itemCount: _sellProductController
+                            .getRecentproduct.value.product!.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1,
                         ),
+                        itemBuilder: (context, index) {
+                          /* Row(
+                                  children: [
+                                    Expanded(
+                                        child: recentimage('2,50,000/ चित्तोडगढ़ ',
+                                            'MAHINDRA ', '475 2015')),
+                                    Expanded(
+                                        child: recentimage('3,50,000/उदयपुर ',
+                                            'SONALIKA ', '735DI 2019')),
+                                  ],
+                                ),*/
+                          // Product _product = _sellProductController
+                          //     .getRecentproduct.value.product![index];
+
+                          return recentimage(
+                              '2,50,000/ चित्तोडगढ़ ',
+                              _sellProductController
+                                  .getRecentproduct.value.product![index].name,
+                              '475 2015');
+                        },
                       ),
-                    ]),
-                  ),
+                    ),
+                  ]),
                 );
             }
           },
