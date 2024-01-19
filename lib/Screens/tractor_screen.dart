@@ -102,7 +102,7 @@ class _tractor_ScreenState extends State<tractor_Screen> {
           case Status.COMPLETED:
             return GridView.builder(
               itemCount:
-                  _sellProductController.productListData.value.products!.length,
+                  _sellProductController.productListData.value.product!.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 1,
@@ -115,26 +115,24 @@ class _tractor_ScreenState extends State<tractor_Screen> {
                 return Column(
                   children: [
                     (_sellProductController.productListData.value
-                                .products![index].images!.isNotEmpty &&
+                                .product![index].images!.isNotEmpty &&
                             _sellProductController.productListData.value
-                                .products![index].images![0]
-                                .toString()
-                                .isNotEmpty)
-                        ? Image.network(
-                            "${_sellProductController.productListData.value.products![index].images![0].toString()}")
+                                .product![index].images![0].url!.isNotEmpty)
+                        ? Image.network(_sellProductController.productListData
+                            .value.product![index].images![0].url!)
                         : Image.asset(
                             'assets/gif/Tractor.jpeg',
                             width: 150,
                             height: 120,
                           ),
                     Text(
-                        "${_sellProductController.productListData.value.products![index].name}",
+                        "${_sellProductController.productListData.value.product![index].name}",
                         style: TextStyle(color: Colors.black)),
                     Text(
-                        "${_sellProductController.productListData.value.products![index].price}",
+                        "${_sellProductController.productListData.value.product![index].seller}",
                         style: TextStyle(color: Colors.black, fontSize: 14)),
                     Text(
-                        "${_sellProductController.productListData.value.products![index].city}",
+                        "${_sellProductController.productListData.value.product![index].rating}",
                         style: TextStyle(color: Colors.black, fontSize: 14))
                   ],
                 );
@@ -143,7 +141,6 @@ class _tractor_ScreenState extends State<tractor_Screen> {
                 // );
               },
             );
-            
         }
       }),
       // bottomNavigationBar: Container(

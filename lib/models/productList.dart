@@ -11,41 +11,37 @@ String productListToJson(ProductList data) => json.encode(data.toJson());
 
 class ProductList {
   bool? success;
-  List<Product>? products;
+  List<Product>? product;
 
   ProductList({
     this.success,
-    this.products,
+    this.product,
   });
 
   factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
         success: json["success"],
-        products: json["products"] == null
+        product: json["product"] == null
             ? []
             : List<Product>.from(
-                json["products"]!.map((x) => Product.fromJson(x))),
+                json["product"]!.map((x) => Product.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
-        "products": products == null
+        "product": product == null
             ? []
-            : List<dynamic>.from(products!.map((x) => x.toJson())),
+            : List<dynamic>.from(product!.map((x) => x.toJson())),
       };
 }
 
 class Product {
   String? id;
-  Name? name;
-  Description? description;
-  Price? price;
-  Category? category;
+  String? name;
   int? numOfRevies;
-  String? city;
   Seller? seller;
   int? rating;
   DateTime? createdAt;
-  List<dynamic>? images;
+  List<Image>? images;
   List<dynamic>? reviews;
   int? score;
   int? v;
@@ -53,11 +49,7 @@ class Product {
   Product({
     this.id,
     this.name,
-    this.description,
-    this.price,
-    this.category,
     this.numOfRevies,
-    this.city,
     this.seller,
     this.rating,
     this.createdAt,
@@ -69,12 +61,8 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["_id"],
-        name: nameValues.map[json["name"]]!,
-        description: descriptionValues.map[json["description"]]!,
-        price: priceValues.map[json["price"]]!,
-        category: categoryValues.map[json["category"]]!,
+        name: json["name"],
         numOfRevies: json["numOfRevies"],
-        city: json["city"],
         seller: sellerValues.map[json["seller"]]!,
         rating: json["rating"],
         createdAt: json["createdAt"] == null
@@ -82,7 +70,7 @@ class Product {
             : DateTime.parse(json["createdAt"]),
         images: json["images"] == null
             ? []
-            : List<dynamic>.from(json["images"]!.map((x) => x)),
+            : List<Image>.from(json["images"]!.map((x) => Image.fromJson(x))),
         reviews: json["reviews"] == null
             ? []
             : List<dynamic>.from(json["reviews"]!.map((x) => x)),
@@ -92,17 +80,14 @@ class Product {
 
   Map<String, dynamic> toJson() => {
         "_id": id,
-        "name": nameValues.reverse[name],
-        "description": descriptionValues.reverse[description],
-        "price": priceValues.reverse[price],
-        "category": categoryValues.reverse[category],
+        "name": name,
         "numOfRevies": numOfRevies,
-        "city": city,
         "seller": sellerValues.reverse[seller],
         "rating": rating,
         "createdAt": createdAt?.toIso8601String(),
-        "images":
-            images == null ? [] : List<dynamic>.from(images!.map((x) => x)),
+        "images": images == null
+            ? []
+            : List<dynamic>.from(images!.map((x) => x.toJson())),
         "reviews":
             reviews == null ? [] : List<dynamic>.from(reviews!.map((x) => x)),
         "score": score,
@@ -110,35 +95,41 @@ class Product {
       };
 }
 
-enum Category { VECHIEL }
+class Image {
+  String? publicId;
+  String? url;
+  String? id;
 
-final categoryValues = EnumValues({"vechiel": Category.VECHIEL});
+  Image({
+    this.publicId,
+    this.url,
+    this.id,
+  });
 
-enum Description {
-  A_BRAND_NEW_TRACTOR_AT_BEST_PRICE,
-  TRACTOR_CAN_BE_USED_FOR_VARIOUS_PURPOSE
+  factory Image.fromJson(Map<String, dynamic> json) => Image(
+        publicId: json["public_id"],
+        url: json["url"],
+        id: json["_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "public_id": publicId,
+        "url": url,
+        "_id": id,
+      };
 }
 
-final descriptionValues = EnumValues({
-  "A brand new tractor at best price":
-      Description.A_BRAND_NEW_TRACTOR_AT_BEST_PRICE,
-  "Tractor can be used for various purpose":
-      Description.TRACTOR_CAN_BE_USED_FOR_VARIOUS_PURPOSE
+enum Seller {
+  THE_657412_E6_F57_AFB297312_F702,
+  THE_658845_EB319_C4_F90_FF5_C282_D,
+  THE_6589928_CF48931_D01672_F980
+}
+
+final sellerValues = EnumValues({
+  "657412e6f57afb297312f702": Seller.THE_657412_E6_F57_AFB297312_F702,
+  "658845eb319c4f90ff5c282d": Seller.THE_658845_EB319_C4_F90_FF5_C282_D,
+  "6589928cf48931d01672f980": Seller.THE_6589928_CF48931_D01672_F980
 });
-
-enum Name { TRACTOR }
-
-final nameValues = EnumValues({"Tractor": Name.TRACTOR});
-
-enum Price { THE_100000, THE_150000 }
-
-final priceValues =
-    EnumValues({"1,00,000": Price.THE_100000, "1,50,000": Price.THE_150000});
-
-enum Seller { THE_657412_E6_F57_AFB297312_F702 }
-
-final sellerValues = EnumValues(
-    {"657412e6f57afb297312f702": Seller.THE_657412_E6_F57_AFB297312_F702});
 
 class EnumValues<T> {
   Map<String, T> map;
