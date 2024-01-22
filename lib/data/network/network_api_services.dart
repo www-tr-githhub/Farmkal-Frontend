@@ -31,7 +31,7 @@ class NetworkApiServices extends BaseApiServices {
       //response of the api will be stored & converting string url to uri using uri.parse
       final response = await http
           .get(Uri.parse(url), headers: requestHeaders)
-          .timeout(const Duration(seconds: 20));
+          .timeout(const Duration(seconds: 50));
       //store the valuse
       responseJson = returnResponse(response);
     } on SocketException {
@@ -64,7 +64,7 @@ class NetworkApiServices extends BaseApiServices {
       final response = await http
           .get(Uri.parse(roomId.isEmpty ? url : url + '/' + roomId),
               headers: requestHeaders)
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 50));
       //store the valuse
       responseJson = returnResponse(response);
     } on SocketException {
@@ -90,7 +90,7 @@ class NetworkApiServices extends BaseApiServices {
     try {
       final response = await http
           .post(Uri.parse(url), body: jsonEncode(data), headers: requestHeaders)
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 50));
       responseJson = returnResponse(response);
     } on SocketException {
       throw InternetException('');
@@ -164,7 +164,7 @@ class NetworkApiServices extends BaseApiServices {
     try {
       final response = await http
           .post(Uri.parse(url), headers: requestHeaders, body: jsonEncode(data))
-          .timeout(const Duration(seconds: 10));
+          .timeout(const Duration(seconds: 50));
 
       responseData = returnResponse(response);
     } catch (e) {

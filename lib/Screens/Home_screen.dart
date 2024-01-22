@@ -8,6 +8,7 @@ import 'package:farmkal/controllers/login_controller.dart';
 import 'package:farmkal/controllers/sellProductcontroller.dart';
 import 'package:farmkal/data/response/status.dart';
 import 'package:farmkal/models/recentmodel.dart';
+import 'package:farmkal/models/sellproduct.dart';
 
 import 'package:farmkal/resources/resources/colors/app_color.dart';
 import 'package:farmkal/utils/utils.dart';
@@ -147,7 +148,7 @@ class _Home_ScreenState extends State<Home_Screen> {
     );
   }
 
-  Widget recentimage(String title, name, info) {
+  Widget recentimage(String title, name, info, imageItem, flag) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkResponse(
@@ -170,11 +171,13 @@ class _Home_ScreenState extends State<Home_Screen> {
               children: [
                 Expanded(
                   flex: 2,
-                  child: Image.asset(
-                    'assets/gif/bluetractor.jpeg',
-                    // width: 180,
-                    // height: 120,
-                  ),
+                  child: flag
+                      ? Image.network(imageItem)
+                      : Image.asset(
+                          imageItem,
+                          // width: 180,
+                          // height: 120,
+                        ),
                 ),
                 Expanded(
                   child: Column(
@@ -415,14 +418,19 @@ class _Home_ScreenState extends State<Home_Screen> {
                                             'SONALIKA ', '735DI 2019')),
                                   ],
                                 ),*/
-                          // Product _product = _sellProductController
-                          //     .getRecentproduct.value.product![index];
+                          Product _product = _sellProductController
+                              .getRecentproduct.value.product![index];
 
+                          bool flag = _product.images!.isNotEmpty;
                           return recentimage(
                               '2,50,000/ चित्तोडगढ़ ',
                               _sellProductController
                                   .getRecentproduct.value.product![index].name,
-                              '475 2015');
+                              '475 2015',
+                              _product.images!.isNotEmpty
+                                  ? _product.images![0].url
+                                  : 'assets/gif/bluetractor.jpeg',
+                              flag);
                         },
                       ),
                     ),

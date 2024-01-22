@@ -31,9 +31,8 @@ class SellProductController extends GetxController {
   Rx<SellProduct> sellProductData = SellProduct().obs;
   void setsellProductData(SellProduct value) => sellProductData.value = value;
 
-  Rx<Recentproduct> getRecentproduct = Recentproduct().obs;
-  void setgetRecentproduct(Recentproduct value) =>
-      getRecentproduct.value = value;
+  Rx<SellProduct> getRecentproduct = SellProduct().obs;
+  void setgetRecentproduct(SellProduct value) => getRecentproduct.value = value;
 
   Rx<ProductList> productListData = ProductList().obs;
   void setProductListData(ProductList value) => productListData.value = value;
@@ -44,7 +43,7 @@ class SellProductController extends GetxController {
 
     var data = {
       "name": model.value.text,
-      "image": base64Encode(files[0].readAsBytesSync()),
+      // "image": base64Encode(files[0].readAsBytesSync()),
       "brand": brand.value.text,
       "tyre": tyre.value.text,
       "rate": rate.value.text,

@@ -100,9 +100,11 @@ class _tractor_ScreenState extends State<tractor_Screen> {
           case Status.ERROR:
             return Utils.SnackBar('No Internet', 'No Internet');
           case Status.COMPLETED:
+            print(
+                "sorry tanisha ${_sellProductController.productListData.value.products!.length}");
             return GridView.builder(
               itemCount:
-                  _sellProductController.productListData.value.product!.length,
+                  _sellProductController.productListData.value.products!.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 1,
@@ -115,24 +117,24 @@ class _tractor_ScreenState extends State<tractor_Screen> {
                 return Column(
                   children: [
                     (_sellProductController.productListData.value
-                                .product![index].images!.isNotEmpty &&
+                                .products![index].images!.isNotEmpty &&
                             _sellProductController.productListData.value
-                                .product![index].images![0].url!.isNotEmpty)
+                                .products![index].images![0].url!.isNotEmpty)
                         ? Image.network(_sellProductController.productListData
-                            .value.product![index].images![0].url!)
+                            .value.products![index].images![0].url!)
                         : Image.asset(
                             'assets/gif/Tractor.jpeg',
                             width: 150,
                             height: 120,
                           ),
                     Text(
-                        "${_sellProductController.productListData.value.product![index].name}",
+                        "${_sellProductController.productListData.value.products![index].name}",
                         style: TextStyle(color: Colors.black)),
                     Text(
-                        "${_sellProductController.productListData.value.product![index].seller}",
+                        "${_sellProductController.productListData.value.products![index].city}",
                         style: TextStyle(color: Colors.black, fontSize: 14)),
                     Text(
-                        "${_sellProductController.productListData.value.product![index].rating}",
+                        "${_sellProductController.productListData.value.products![index].price}",
                         style: TextStyle(color: Colors.black, fontSize: 14))
                   ],
                 );

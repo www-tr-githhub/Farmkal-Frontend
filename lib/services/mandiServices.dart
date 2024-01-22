@@ -15,6 +15,8 @@ class MandiServices {
   }
 
   Future<MandiData> getMandi() async {
+    print(
+        "https://cr5pww-4000.csb.app/api/v1/mandidata?state=Rajasthan&city=Kota&commodity=Garlic");
     final response = await _api.getApi(AppUrl.mandidata);
     print(response);
     return MandiData.fromJson(response);
