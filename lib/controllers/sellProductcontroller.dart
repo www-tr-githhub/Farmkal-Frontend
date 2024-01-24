@@ -16,7 +16,7 @@ class SellProductController extends GetxController {
   final SellProductServices _sellProductServices = SellProductServices();
   final RecentProductServices _recentProductServices = RecentProductServices();
   //var selectedItem = ''.obs;
-   //RxString selectedValue = 'One'.obs;
+  //RxString selectedValue = 'One'.obs;
 
   RxBool loading = false.obs;
   Rx<Status> rxRequestStatus = Status.LOADING.obs;
@@ -44,17 +44,17 @@ class SellProductController extends GetxController {
   Rx<ProductList> productListData = ProductList().obs;
   void setProductListData(ProductList value) => productListData.value = value;
 
- // void changeSelectedValue(String newValue) {
-   // selectedValue.value = newValue;
+  // void changeSelectedValue(String newValue) {
+  // selectedValue.value = newValue;
   //}
-   
+
   Future<void> sellProduct() async {
     rxRequestStatus.value = Status.LOADING;
     loading.value = true;
 
     var data = {
       "name": model.value.text,
-      "catagory":selectedOptionList.value,
+      "catagory": selectedOptionList.value,
       // "image": base64Encode(files[0].readAsBytesSync()),
       "brand": brand.value.text,
       "tyre": tyre.value.text,
@@ -88,10 +88,9 @@ class SellProductController extends GetxController {
     loading.value = true;
     try {
       final response = await _sellProductServices.getProductList();
-  
+
       print("data set");
       setProductListData(response);
-       
 
       rxRequestStatus.value = Status.COMPLETED;
       loading.value = false;
@@ -113,7 +112,7 @@ class SellProductController extends GetxController {
 
       print("data set");
       setgetRecentproduct(response);
-       print("tanisha");
+      print("tanisha");
       rxRequestStatus.value = Status.COMPLETED;
       loading.value = false;
     } catch (error) {

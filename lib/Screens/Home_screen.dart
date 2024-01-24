@@ -346,6 +346,8 @@ class _Home_ScreenState extends State<Home_Screen> {
               case Status.ERROR:
                 return Utils.SnackBar('No Internet', 'No Internet');
               case Status.COMPLETED:
+                print(
+                    "${_sellProductController.getRecentproduct.value.product?.length} + ${_sellProductController.getRecentproduct.value.product?[2]}");
                 return SingleChildScrollView(
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     Text(

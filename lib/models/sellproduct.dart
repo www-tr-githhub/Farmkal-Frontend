@@ -44,7 +44,7 @@ class Product {
   Seller? seller;
   int? rating;
   DateTime? createdAt;
-  List<RealImage>? images;
+  List<RImage>? images;
   List<dynamic>? reviews;
   int? score;
   int? v;
@@ -79,8 +79,7 @@ class Product {
             : DateTime.parse(json["createdAt"]),
         images: json["images"] == null
             ? []
-            : List<RealImage>.from(
-                json["images"]!.map((x) => RealImage.fromJson(x))),
+            : List<RImage>.from(json["images"]!.map((x) => RImage.fromJson(x))),
         reviews: json["reviews"] == null
             ? []
             : List<dynamic>.from(json["reviews"]!.map((x) => x)),
@@ -120,18 +119,18 @@ enum Description { UNDEFINED }
 
 final descriptionValues = EnumValues({"undefined": Description.UNDEFINED});
 
-class RealImage {
+class RImage {
   String? publicId;
   String? url;
   String? id;
 
-  RealImage({
+  RImage({
     this.publicId,
     this.url,
     this.id,
   });
 
-  factory RealImage.fromJson(Map<String, dynamic> json) => RealImage(
+  factory RImage.fromJson(Map<String, dynamic> json) => RImage(
         publicId: json["public_id"],
         url: json["url"],
         id: json["_id"],
@@ -144,10 +143,15 @@ class RealImage {
       };
 }
 
-enum Seller { THE_65945_C74_F5_EF966_F359_A3_F2_C }
+enum Seller {
+  THE_65945_C74_F5_EF966_F359_A3_F2_C,
+  THE_65_ABF7_ACDDB2044_DC0626_CC8
+}
 
-final sellerValues = EnumValues(
-    {"65945c74f5ef966f359a3f2c": Seller.THE_65945_C74_F5_EF966_F359_A3_F2_C});
+final sellerValues = EnumValues({
+  "65945c74f5ef966f359a3f2c": Seller.THE_65945_C74_F5_EF966_F359_A3_F2_C,
+  "65abf7acddb2044dc0626cc8": Seller.THE_65_ABF7_ACDDB2044_DC0626_CC8
+});
 
 class EnumValues<T> {
   Map<String, T> map;
