@@ -8,6 +8,7 @@ import 'package:farmkal/view/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:multiselect/multiselect.dart';
 
 class Sellerview extends StatefulWidget {
   @override
@@ -97,6 +98,63 @@ class _SellerviewState extends State<Sellerview> {
                         ],
                       )
                     ]),
+                    TableRow(children: [
+                      Column(
+                        children: [
+                          DropDownMultiSelect(
+                            options: controller.options,
+                            whenEmpty: 'Select State Managemanagement Library',
+                            onChanged: (value) {
+                              controller.selectedOptionList.value = value;
+                              controller.selectedOption.value = "";
+                              controller.selectedOptionList.value
+                                  .forEach((element) {
+                                controller.selectedOption.value =
+                                    controller.selectedOption.value +
+                                        " " +
+                                        element;
+                              });
+                            },
+                            selectedValues: controller.selectedOptionList.value,
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Obx(() => Text(controller.selectedOption.value))
+                        ],
+                      )
+                    ]),
+                    /*
+                    TableRow(children: [
+                      Column(
+                        children: [
+                          Text("Category", style: TextStyle(fontSize: 20))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Obx(() => DropdownButton<String>(
+                                value: controller.selectedValue.value,
+                                icon: Icon(Icons.arrow_downward),
+                                onChanged: ( newValue) {
+                                  controller.changeSelectedValue(newValue);
+                                },
+                                items: <String>[
+                                  'One',
+                                  'Two',
+                                  'Three',
+                                  'Four'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                              )),
+                        ],
+                      )
+                    ]),
+*/
                     TableRow(children: [
                       Column(
                         children: [
