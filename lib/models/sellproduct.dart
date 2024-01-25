@@ -37,24 +37,21 @@ class SellProduct {
 class Product {
   String? id;
   String? name;
-  Description? description;
-  String? price;
-  Category? category;
   int? numOfRevies;
-  Seller? seller;
+  String? seller;
   int? rating;
   DateTime? createdAt;
   List<RImage>? images;
   List<dynamic>? reviews;
   int? score;
   int? v;
+  String? description;
+  String? price;
+  String? category;
 
   Product({
     this.id,
     this.name,
-    this.description,
-    this.price,
-    this.category,
     this.numOfRevies,
     this.seller,
     this.rating,
@@ -63,16 +60,16 @@ class Product {
     this.reviews,
     this.score,
     this.v,
+    this.description,
+    this.price,
+    this.category,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["_id"],
         name: json["name"],
-        description: descriptionValues.map[json["description"]]!,
-        price: json["price"],
-        category: categoryValues.map[json["category"]]!,
         numOfRevies: json["numOfRevies"],
-        seller: sellerValues.map[json["seller"]]!,
+        seller: json["seller"],
         rating: json["rating"],
         createdAt: json["createdAt"] == null
             ? null
@@ -85,16 +82,16 @@ class Product {
             : List<dynamic>.from(json["reviews"]!.map((x) => x)),
         score: json["score"],
         v: json["__v"],
+        description: json["description"],
+        price: json["price"],
+        category: json["category"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
-        "description": descriptionValues.reverse[description],
-        "price": price,
-        "category": categoryValues.reverse[category],
         "numOfRevies": numOfRevies,
-        "seller": sellerValues.reverse[seller],
+        "seller": seller,
         "rating": rating,
         "createdAt": createdAt?.toIso8601String(),
         "images": images == null
@@ -104,20 +101,11 @@ class Product {
             reviews == null ? [] : List<dynamic>.from(reviews!.map((x) => x)),
         "score": score,
         "__v": v,
+        "description": description,
+        "price": price,
+        "category": category,
       };
 }
-
-enum Category { NONE, TRACTOR, VECHIEL }
-
-final categoryValues = EnumValues({
-  "none": Category.NONE,
-  "tractor": Category.TRACTOR,
-  "Vechiel": Category.VECHIEL
-});
-
-enum Description { UNDEFINED }
-
-final descriptionValues = EnumValues({"undefined": Description.UNDEFINED});
 
 class RImage {
   String? publicId;
@@ -141,26 +129,4 @@ class RImage {
         "url": url,
         "_id": id,
       };
-}
-
-enum Seller {
-  THE_65945_C74_F5_EF966_F359_A3_F2_C,
-  THE_65_ABF7_ACDDB2044_DC0626_CC8
-}
-
-final sellerValues = EnumValues({
-  "65945c74f5ef966f359a3f2c": Seller.THE_65945_C74_F5_EF966_F359_A3_F2_C,
-  "65abf7acddb2044dc0626cc8": Seller.THE_65_ABF7_ACDDB2044_DC0626_CC8
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }
