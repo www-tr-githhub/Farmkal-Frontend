@@ -1,6 +1,7 @@
 import 'package:farmkal/Screens/Home_screen.dart';
 import 'package:farmkal/Screens/chat.dart';
 import 'package:farmkal/Screens/mandi.dart';
+import 'package:farmkal/Screens/profile.dart';
 import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/app_localizations.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
@@ -110,7 +111,7 @@ class _Bottomnavigationbar2State extends State<Bottomnavigationbar2> {
                       );
                     } else {
                       _loginController.selectedIndex.value = 0;
-                      // Get.to(() => PageControllerApp());
+                      Get.to(() => ProfilePage());
                     }
                   },
                   icon: Icon(Icons.account_circle_sharp,

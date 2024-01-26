@@ -16,7 +16,6 @@ import 'package:farmkal/view/onboarding.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
 import '../controllers/mandiController.dart';
 
@@ -148,12 +147,18 @@ class _Home_ScreenState extends State<Home_Screen> {
     );
   }
 
-  Widget recentimage(String title, name, info, imageItem, flag) {
+  Widget recentimage(String title, name, info, imageItem, flag, targetId,
+      sourceId, targetname, userimage, roomindex) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkResponse(
         onTap: () {
-          Get.to(() => Productpage());
+          Get.to(() => Productpage(
+              targetId: targetId,
+              sourceId: sourceId,
+              targetname: targetname,
+              userimage: userimage,
+              roomindex: roomindex));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -162,6 +167,7 @@ class _Home_ScreenState extends State<Home_Screen> {
               width: 4.0, // Set border width
             ),
             borderRadius: BorderRadius.all(
+                //apply border
                 Radius.circular(10.0) // Set rounded corner radius
                 ),
           ),
@@ -432,7 +438,12 @@ class _Home_ScreenState extends State<Home_Screen> {
                               _product.images!.isNotEmpty
                                   ? _product.images![0].url
                                   : 'assets/gif/bluetractor.jpeg',
-                              flag);
+                              flag,
+                              _product.seller.toString(),
+                              _product.id.toString(),
+                              _product.name.toString(),
+                              "0",
+                              0);
                         },
                       ),
                     ),

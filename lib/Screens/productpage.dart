@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:farmkal/Screens/chat.dart';
+import 'package:farmkal/Screens/chatscreen.dart';
 import 'package:farmkal/Screens/mandi.dart';
 import 'package:farmkal/Screens/seller.dart';
 import 'package:farmkal/controllers/Chatcontroller.dart';
@@ -12,6 +13,17 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Productpage extends StatefulWidget {
+  final String targetId, sourceId, targetname, userimage;
+  final int roomindex;
+
+  Productpage(
+      {super.key,
+      required this.targetId,
+      required this.sourceId,
+      required this.targetname,
+      required this.userimage,
+      required this.roomindex});
+
   @override
   _ProductpageState createState() => _ProductpageState();
 }
@@ -114,8 +126,7 @@ class _ProductpageState extends State<Productpage> {
                 InkWell(
                   child: buttonbox("कॉल करे"),
                   onTap: () async {
-                    const url =
-                        'tel:8016405862'; 
+                    const url = 'tel:8016405862';
                     if (await canLaunch(url)) {
                       await launch(url);
                     } else {
@@ -126,7 +137,15 @@ class _ProductpageState extends State<Productpage> {
                 InkWell(
                   child: buttonbox(" चैट करे "),
                   onTap: () {
-                    Get.to(ChatPage());
+                    Get.to(
+                      ChatScreen(
+                        targetId: widget.targetId.toString(),
+                        sourceId: widget.sourceId.toString(),
+                        targetname: widget.targetname.toString(),
+                        userimage: widget.userimage.toString(),
+                        roomindex: widget.roomindex,
+                      ),
+                    );
                   },
                 ),
               ],

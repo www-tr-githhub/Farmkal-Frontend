@@ -30,9 +30,9 @@ class SellProductController extends GetxController {
   final otherdetail = TextEditingController().obs;
   RxList<File> files = <File>[].obs;
 
-  List<String> options = ["Tractor", "Seeddrill", "Trolly"];
+  /*List<String> options = ["Tractor", "Seeddrill", "Trolly"];
   Rx<List<String>> selectedOptionList = Rx<List<String>>([]);
-  var selectedOption = ''.obs;
+  var selectedOption = ''.obs;*/
   // Rx<SellProduct> sellProductData = <SellProduct>.obs;
 
   Rx<SellProduct> sellProductData = SellProduct().obs;
@@ -54,7 +54,7 @@ class SellProductController extends GetxController {
 
     var data = {
       "name": model.value.text,
-      "catagory": selectedOptionList.value,
+      //"catagory": selectedOptionList.value,
       // "image": base64Encode(files[0].readAsBytesSync()),
       "brand": brand.value.text,
       "tyre": tyre.value.text,
@@ -93,6 +93,7 @@ class SellProductController extends GetxController {
       setProductListData(response);
 
       rxRequestStatus.value = Status.COMPLETED;
+
       loading.value = false;
     } catch (error) {
       rxRequestStatus.value = Status.COMPLETED;
@@ -114,6 +115,7 @@ class SellProductController extends GetxController {
       setgetRecentproduct(response);
       print("tanisha");
       rxRequestStatus.value = Status.COMPLETED;
+
       loading.value = false;
     } catch (error) {
       rxRequestStatus.value = Status.COMPLETED;

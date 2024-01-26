@@ -34,7 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _chatController.mes.clear();
-
+      print("hi");
       _chatController.connect(widget.sourceId);
       _chatController.getchatdata(widget.targetId);
     });

@@ -62,12 +62,11 @@ class _PageControllerAppState extends State<PageControllerApp> {
                   );
                 }).toList(),
               ),
-              // ElevatedButton(
-              //   onPressed: () => loginController.googleSignIn(),
-              //   child: Text('Sign In with Google'),
-              // ),
-              // const SizedBox(height: 28),
-              //
+              ElevatedButton(
+                onPressed: () => loginController.googleSignIn(),
+                child: Text('Sign In with Google'),
+              ),
+              const SizedBox(height: 28),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: IntlPhoneField(
@@ -138,7 +137,6 @@ class _PageControllerAppState extends State<PageControllerApp> {
                   },
                 ),
               ),
-
               InkWell(
                 onTap: () async {
                   if (loginController.phoneNo.value.isEmpty) {

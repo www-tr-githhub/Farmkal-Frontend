@@ -98,7 +98,7 @@ class _SellerviewState extends State<Sellerview> {
                         ],
                       )
                     ]),
-                    TableRow(children: [
+                    /*  TableRow(children: [
                       Column(
                         children: [
                           DropDownMultiSelect(
@@ -123,7 +123,7 @@ class _SellerviewState extends State<Sellerview> {
                           Obx(() => Text(controller.selectedOption.value))
                         ],
                       )
-                    ]),
+                    ]),*/
                     /*
                     TableRow(children: [
                       Column(

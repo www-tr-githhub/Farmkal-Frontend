@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatPage extends StatefulWidget {
+ 
   @override
   _ChatPageState createState() => _ChatPageState();
 }
